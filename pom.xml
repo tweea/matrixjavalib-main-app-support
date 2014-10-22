@@ -44,12 +44,12 @@
 
 	<!-- 构建环境 -->
 	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/matrixjavalib/issues/list</url>
+		<system>GitHub</system>
+		<url>https://github.com/tweea/matrixjavalib-main-app-support/issues</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://matrixjavalib.googlecode.com/svn/main/trunk/lib-app-support</connection>
-		<developerConnection>scm:svn:https://matrixjavalib.googlecode.com/svn/main/trunk/lib-app-support</developerConnection>
-		<url>http://code.google.com/p/matrixjavalib/source/browse/main/trunk/lib-app-support</url>
+		<connection>scm:git:https://github.com/tweea/matrixjavalib-main-app-support.git</connection>
+		<developerConnection>scm:git:https://github.com/tweea/matrixjavalib-main-app-support.git</developerConnection>
+		<url>https://github.com/tweea/matrixjavalib-main-app-support</url>
 	</scm>
 </project>
