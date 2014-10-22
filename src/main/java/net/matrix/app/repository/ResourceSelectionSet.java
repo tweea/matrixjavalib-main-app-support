@@ -1,5 +1,4 @@
 /*
- * $Id: ResourceSelectionSet.java 889 2014-01-22 09:26:05Z tweea@263.net $
  * Copyright(C) 2009 matrix
  * All right reserved.
  */

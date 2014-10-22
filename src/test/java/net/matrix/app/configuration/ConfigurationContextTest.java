@@ -1,5 +1,4 @@
 /*
- * $Id: ConfigurationContextTest.java 710 2013-09-05 03:30:36Z tweea@263.net $
  * Copyright(C) 2008 Matrix
  * All right reserved.
  */

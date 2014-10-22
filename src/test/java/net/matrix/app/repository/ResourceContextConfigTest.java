@@ -1,5 +1,4 @@
 /*
- * $Id: ResourceContextConfigTest.java 710 2013-09-05 03:30:36Z tweea@263.net $
  * Copyright(C) 2009 matrix
  * All right reserved.
  */

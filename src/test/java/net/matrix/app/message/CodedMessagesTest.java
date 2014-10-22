@@ -1,5 +1,4 @@
 /*
- * $Id: CodedMessagesTest.java 823 2013-12-27 08:57:00Z tweea@263.net $
  * Copyright(C) 2009 matrix
  * All right reserved.
  */

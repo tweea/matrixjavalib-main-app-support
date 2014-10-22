@@ -1,5 +1,4 @@
 /*
- * $Id: ResourceRepository.java 891 2014-01-22 09:32:31Z tweea@263.net $
  * Copyright(C) 2010 matrix
  * All right reserved.
  */

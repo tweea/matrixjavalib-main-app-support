@@ -1,5 +1,4 @@
 /*
- * $Id: CodedMessageException.java 887 2014-01-22 09:08:47Z tweea@263.net $
  * Copyright(C) 2009 matrix
  * All right reserved.
  */

@@ -1,5 +1,4 @@
 /*
- * $Id: SystemRuntimeException.java 824 2013-12-27 09:16:02Z tweea@263.net $
  * Copyright(C) 2008 Matrix
  * All right reserved.
  */

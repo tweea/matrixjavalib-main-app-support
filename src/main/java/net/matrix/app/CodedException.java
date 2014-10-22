@@ -1,5 +1,4 @@
 /*
- * $Id: CodedException.java 819 2013-12-27 06:08:13Z tweea@263.net $
  * 版权所有 2012 Matrix。
  * 保留所有权利。
  */

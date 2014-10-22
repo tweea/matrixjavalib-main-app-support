@@ -1,5 +1,4 @@
 /*
- * $Id: ConfigurationContext.java 889 2014-01-22 09:26:05Z tweea@263.net $
  * Copyright(C) 2008 Matrix
  * All right reserved.
  */
