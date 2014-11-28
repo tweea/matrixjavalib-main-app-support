@@ -10,6 +10,8 @@ import java.util.Set;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.collect.Iterables;
+
 import net.matrix.configuration.XMLConfigurationContainer;
 
 /**
@@ -80,10 +82,7 @@ public class ResourceContextConfig
 	public ResourceSelection getSelection(final String catalog) {
 		checkReload();
 		Set<ResourceSelection> result = set.getSelections(catalog);
-		for (ResourceSelection selection : result) {
-			return selection;
-		}
-		return null;
+		return Iterables.getFirst(result, null);
 	}
 
 	/**
@@ -98,10 +97,7 @@ public class ResourceContextConfig
 	public ResourceSelection getSelection(final String catalog, final String name) {
 		checkReload();
 		Set<ResourceSelection> result = set.getSelections(catalog, name);
-		for (ResourceSelection selection : result) {
-			return selection;
-		}
-		return null;
+		return Iterables.getFirst(result, null);
 	}
 
 	/**

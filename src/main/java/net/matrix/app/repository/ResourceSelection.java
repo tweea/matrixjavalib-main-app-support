@@ -4,6 +4,8 @@
  */
 package net.matrix.app.repository;
 
+import java.util.Objects;
+
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -89,12 +91,7 @@ public class ResourceSelection {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((catalog == null) ? 0 : catalog.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((version == null) ? 0 : version.hashCode());
-		return result;
+		return Objects.hash(catalog, name, version);
 	}
 
 	@Override

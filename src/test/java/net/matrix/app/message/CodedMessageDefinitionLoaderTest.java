@@ -15,7 +15,7 @@ import net.matrix.text.Locales;
 
 public class CodedMessageDefinitionLoaderTest {
 	@BeforeClass
-	public static void setUp() {
+	public static void beforeClass() {
 		CodedMessageDefinitionLoader.loadDefinitions(GlobalSystemContext.get().getResourcePatternResolver());
 	}
 

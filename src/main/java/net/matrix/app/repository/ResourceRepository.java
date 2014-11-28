@@ -42,7 +42,7 @@ public class ResourceRepository {
 	 */
 	public Resource getResource(final ResourceSelection selection) {
 		if (LOG.isTraceEnabled()) {
-			LOG.trace("定位资源：" + selection);
+			LOG.trace("定位资源：{}", selection);
 		}
 		String catalog = selection.getCatalog();
 		String version = selection.getVersion();
@@ -57,7 +57,7 @@ public class ResourceRepository {
 				Resource resource = root.createRelative(path + '/' + name);
 				if (resource.exists()) {
 					if (LOG.isTraceEnabled()) {
-						LOG.trace("定位资源到：" + resource);
+						LOG.trace("定位资源到：{}", resource);
 					}
 					return resource;
 				}
@@ -71,7 +71,7 @@ public class ResourceRepository {
 			path = path.substring(0, path.lastIndexOf('/'));
 		}
 		if (LOG.isDebugEnabled()) {
-			LOG.debug("未找到资源：" + selection);
+			LOG.debug("未找到资源：{}", selection);
 		}
 		return null;
 	}

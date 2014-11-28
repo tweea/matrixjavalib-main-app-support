@@ -7,6 +7,7 @@ package net.matrix.app.message;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import net.matrix.text.Locales;
 
@@ -111,11 +112,7 @@ public class CodedMessageDefinition {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
-		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
-		return result;
+		return Objects.hash(code, locale);
 	}
 
 	@Override
