@@ -4,7 +4,7 @@
  */
 package net.matrix.app.repository;
 
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -13,43 +13,43 @@ public class ResourceRepositoryTest {
 	public void getResource0() {
 		ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 		// 默认资源名
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test", "1", null)).exists());
-		Assert.assertNull(repo.getResource(new ResourceSelection("test/orz", "1", null)));
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1", null)).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test/orz", "1", null))).isNull();
 	}
 
 	@Test
 	public void getResource1() {
 		ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 		// 分类
-		Assert.assertTrue(repo.getResource(new ResourceSelection("naming", "1", "paths.xml")).exists());
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test", "1", "middle.xml")).exists());
-		Assert.assertNull(repo.getResource(new ResourceSelection("test1", "1", "middle.xml")));
+		Assertions.assertThat(repo.getResource(new ResourceSelection("naming", "1", "paths.xml")).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1", "middle.xml")).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test1", "1", "middle.xml"))).isNull();
 		// 版本
-		Assert.assertNull(repo.getResource(new ResourceSelection("test", "2", "middle.xml")));
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "2", "middle.xml"))).isNull();
 		// 资源名
-		Assert.assertNull(repo.getResource(new ResourceSelection("test", "1", "middle1.xml")));
-		Assert.assertNull(repo.getResource(new ResourceSelection("test", "1", "big.xml")));
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1", "middle1.xml"))).isNull();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1", "big.xml"))).isNull();
 	}
 
 	@Test
 	public void getResource2() {
 		ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 		// 默认版本
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test", null, "small.xml")).exists());
-		Assert.assertNull(repo.getResource(new ResourceSelection("test", null, "big.xml")));
-		Assert.assertNull(repo.getResource(new ResourceSelection("test/orz", null, "small.xml")));
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", null, "small.xml")).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", null, "big.xml"))).isNull();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test/orz", null, "small.xml"))).isNull();
 	}
 
 	@Test
 	public void getResource3() {
 		ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 		// 多级
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test/orz", "1", "bar.xml")).exists());
-		Assert.assertNull(repo.getResource(new ResourceSelection("test/orz", "2", "big.xml")));
-		Assert.assertNull(repo.getResource(new ResourceSelection("test/ora", "1", "big.xml")));
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test", "1/mouse", "big.xml")).exists());
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test", "1/mouse", "middle.xml")).exists());
-		Assert.assertNull(repo.getResource(new ResourceSelection("test", "2/rat", "big.xml")));
-		Assert.assertTrue(repo.getResource(new ResourceSelection("test", "1/rat", "small.xml")).exists());
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test/orz", "1", "bar.xml")).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test/orz", "2", "big.xml"))).isNull();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test/ora", "1", "big.xml"))).isNull();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1/mouse", "big.xml")).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1/mouse", "middle.xml")).exists()).isTrue();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "2/rat", "big.xml"))).isNull();
+		Assertions.assertThat(repo.getResource(new ResourceSelection("test", "1/rat", "small.xml")).exists()).isTrue();
 	}
 }

@@ -4,19 +4,19 @@
  */
 package net.matrix.app.message;
 
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 public class CodedMessageLevelTest {
 	@Test
 	public void testForCode() {
-		Assert.assertEquals(CodedMessageLevel.TRACE, CodedMessageLevel.forCode(1));
-		Assert.assertNull(CodedMessageLevel.forCode(null));
-		Assert.assertNull(CodedMessageLevel.forCode(19));
+		Assertions.assertThat(CodedMessageLevel.forCode(1)).isEqualTo(CodedMessageLevel.TRACE);
+		Assertions.assertThat(CodedMessageLevel.forCode(null)).isNull();
+		Assertions.assertThat(CodedMessageLevel.forCode(19)).isNull();
 	}
 
 	@Test
 	public void testGetCode() {
-		Assert.assertEquals(Integer.valueOf(1), CodedMessageLevel.TRACE.getCode());
+		Assertions.assertThat(CodedMessageLevel.TRACE.getCode()).isEqualTo(1);
 	}
 }

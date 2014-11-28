@@ -4,7 +4,7 @@
  */
 package net.matrix.app;
 
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 public class DefaultSystemContextTest {
@@ -13,6 +13,6 @@ public class DefaultSystemContextTest {
 		DefaultSystemContext context = new DefaultSystemContext();
 		Object obj = new Object();
 		context.registerObject(Object.class, obj);
-		Assert.assertSame(obj, context.lookupObject(Object.class));
+		Assertions.assertThat(context.lookupObject(Object.class)).isSameAs(obj);
 	}
 }

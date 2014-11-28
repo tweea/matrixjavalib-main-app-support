@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -28,7 +28,7 @@ public class ConfigurationContextTest {
 		ResourceSelection selection = new ResourceSelection("configset", "set2", "configset.xml");
 		ConfigurationContext context = ConfigurationContext.load(repository, selection);
 
-		Assert.assertEquals(5, context.getContextConfig().catalogNames().size());
+		Assertions.assertThat(context.getContextConfig().catalogNames()).hasSize(5);
 	}
 
 	public ConfigurationContext loadContext()
@@ -46,13 +46,13 @@ public class ConfigurationContextTest {
 		register.registerRoot("test", new ClassPathResource("repo1/"));
 
 		Resource resource = context.getConfigurationResource(new ResourceSelection("test", null, "small.xml"));
-		Assert.assertEquals(register.getResource(new RelativeResource("test", "test/small.xml")), resource);
+		Assertions.assertThat(register.getResource(new RelativeResource("test", "test/small.xml"))).isEqualTo(resource);
 		resource = context.getConfigurationResource(new ResourceSelection("test", "1", "middle.xml"));
-		Assert.assertEquals(register.getResource(new RelativeResource("test", "test/1/middle.xml")), resource);
+		Assertions.assertThat(register.getResource(new RelativeResource("test", "test/1/middle.xml"))).isEqualTo(resource);
 		resource = context.getConfigurationResource(new ResourceSelection("test", "1/mouse", "big.xml"));
-		Assert.assertEquals(register.getResource(new RelativeResource("test", "test/1/mouse/big.xml")), resource);
+		Assertions.assertThat(register.getResource(new RelativeResource("test", "test/1/mouse/big.xml"))).isEqualTo(resource);
 		resource = context.getConfigurationResource(new ResourceSelection("test", "1/rat", "middle.xml"));
-		Assert.assertEquals(register.getResource(new RelativeResource("test", "test/1/middle.xml")), resource);
+		Assertions.assertThat(register.getResource(new RelativeResource("test", "test/1/middle.xml"))).isEqualTo(resource);
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class ConfigurationContextTest {
 		ConfigurationContext context = loadContext();
 		ResourceSelection selection = new ResourceSelection("test", null, "small.xml");
 		ReloadableConfigurationContainer<XMLConfiguration> container = context.getConfiguration(XMLConfigurationContainer.class, selection);
-		Assert.assertEquals(50, container.getConfig().getInt("[@length]"));
+		Assertions.assertThat(container.getConfig().getInt("[@length]")).isEqualTo(50);
 	}
 
 	@Test(expected = ConfigurationException.class)

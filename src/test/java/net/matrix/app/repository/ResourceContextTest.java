@@ -5,7 +5,7 @@
 package net.matrix.app.repository;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -17,6 +17,6 @@ public class ResourceContextTest {
 		ResourceContextConfig selectionSet = new ResourceContextConfig();
 		selectionSet.load(repo.getResource(new ResourceSelection("configset", "set1", "configset.xml")));
 		ResourceContext context = new ResourceContext(repo, selectionSet);
-		Assert.assertTrue(context.getResource("test/orz", "foo.xml").exists());
+		Assertions.assertThat(context.getResource("test/orz", "foo.xml").exists()).isTrue();
 	}
 }

@@ -7,7 +7,7 @@ package net.matrix.app.repository;
 import java.util.Set;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -24,7 +24,7 @@ public class ResourceContextConfigTest {
 	private static ResourceContextConfig set2;
 
 	@BeforeClass
-	public static void setUp()
+	public static void beforeClass()
 		throws ConfigurationException {
 		set1 = new ResourceContextConfig();
 		set1.load(repo.getResource(selection1));
@@ -34,27 +34,27 @@ public class ResourceContextConfigTest {
 
 	@Test
 	public void new1() {
-		Assert.assertEquals(5, set1.catalogNames().size());
-		Assert.assertTrue(set1.catalogNames().contains("naming"));
-		Assert.assertTrue(set1.catalogNames().contains("test/orz"));
-		Assert.assertEquals(2, set1.resourceNames("test").size());
-		Assert.assertTrue(set1.resourceNames("test").contains("big.xml"));
-		Assert.assertNotNull(set1.getSelection("configset", "configset.xml"));
+		Assertions.assertThat(set1.catalogNames()).hasSize(5);
+		Assertions.assertThat(set1.catalogNames()).contains("naming");
+		Assertions.assertThat(set1.catalogNames()).contains("test/orz");
+		Assertions.assertThat(set1.resourceNames("test")).hasSize(2);
+		Assertions.assertThat(set1.resourceNames("test")).contains("big.xml");
+		Assertions.assertThat(set1.getSelection("configset", "configset.xml")).isNotNull();
 	}
 
 	@Test
 	public void new2() {
-		Assert.assertEquals(5, set2.catalogNames().size());
-		Assert.assertTrue(set2.catalogNames().contains("naming"));
-		Assert.assertTrue(set2.catalogNames().contains("test/orz"));
-		Assert.assertEquals(2, set2.resourceNames("test").size());
-		Assert.assertTrue(set2.resourceNames("test").contains("big.xml"));
-		Assert.assertNotNull(set2.getSelection("configset", "configset.xml"));
+		Assertions.assertThat(set2.catalogNames()).hasSize(5);
+		Assertions.assertThat(set2.catalogNames()).contains("naming");
+		Assertions.assertThat(set2.catalogNames()).contains("test/orz");
+		Assertions.assertThat(set2.resourceNames("test")).hasSize(2);
+		Assertions.assertThat(set2.resourceNames("test")).contains("big.xml");
+		Assertions.assertThat(set2.getSelection("configset", "configset.xml")).isNotNull();
 	}
 
 	@Test
 	public void checkDiff() {
 		Set<ResourceSelection> updateInfoList = set1.checkDiff(set2);
-		Assert.assertEquals(5, updateInfoList.size());
+		Assertions.assertThat(updateInfoList).hasSize(5);
 	}
 }

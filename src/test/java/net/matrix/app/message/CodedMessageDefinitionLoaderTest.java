@@ -6,7 +6,7 @@ package net.matrix.app.message;
 
 import java.util.Locale;
 
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -23,12 +23,12 @@ public class CodedMessageDefinitionLoaderTest {
 	public void getDefinition() {
 		Locales.current(Locale.CHINA);
 		CodedMessageDefinition part = CodedMessageDefinition.getDefinition("System.Error");
-		Assert.assertEquals("System.Error", part.getCode());
-		Assert.assertEquals("系统错误", part.getTemplate());
+		Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
+		Assertions.assertThat(part.getTemplate()).isEqualTo("系统错误");
 
 		Locales.current(Locale.US);
 		part = CodedMessageDefinition.getDefinition("System.Error");
-		Assert.assertEquals("System.Error", part.getCode());
-		Assert.assertEquals("System error", part.getTemplate());
+		Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
+		Assertions.assertThat(part.getTemplate()).isEqualTo("System error");
 	}
 }
