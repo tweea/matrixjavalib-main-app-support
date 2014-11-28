@@ -168,7 +168,7 @@ public final class CodedMessages {
 	}
 
 	private static List<CodedMessage> load0(final Node node) {
-		List<CodedMessage> messageList = new ArrayList<CodedMessage>();
+		List<CodedMessage> messageList = new ArrayList<>();
 		NodeList messageNodeList = node.getChildNodes();
 		for (int i = 0; i < messageNodeList.getLength(); i++) {
 			Node messageNode = messageNodeList.item(i);

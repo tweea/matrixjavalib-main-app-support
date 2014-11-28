@@ -52,7 +52,7 @@ public enum CodedMessageLevel {
 	private final Integer code;
 
 	static {
-		CODE_MAP = new HashMap<Integer, CodedMessageLevel>();
+		CODE_MAP = new HashMap<>();
 		for (CodedMessageLevel level : values()) {
 			CODE_MAP.put(level.code, level);
 		}

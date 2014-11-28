@@ -17,7 +17,7 @@ public class CodedMessageDefinition {
 	/**
 	 * 加载的编码消息定义。
 	 */
-	private static final Map<String, Map<Locale, CodedMessageDefinition>> DEFINITIONS = new HashMap<String, Map<Locale, CodedMessageDefinition>>();
+	private static final Map<String, Map<Locale, CodedMessageDefinition>> DEFINITIONS = new HashMap<>();
 
 	/**
 	 * 编码。
@@ -66,7 +66,7 @@ public class CodedMessageDefinition {
 
 		Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.get(code);
 		if (definitions == null) {
-			definitions = new HashMap<Locale, CodedMessageDefinition>();
+			definitions = new HashMap<>();
 			DEFINITIONS.put(code, definitions);
 		}
 		definitions.put(locale, definition);

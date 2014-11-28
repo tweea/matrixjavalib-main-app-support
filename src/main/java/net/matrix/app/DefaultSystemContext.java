@@ -44,7 +44,7 @@ public class DefaultSystemContext
 	 * 默认构造器。
 	 */
 	public DefaultSystemContext() {
-		objects = new HashMap<String, Object>();
+		objects = new HashMap<>();
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class ResourceSelectionSet {
 	 * 构造一个空的集合。
 	 */
 	public ResourceSelectionSet() {
-		this.selections = new HashSet<ResourceSelection>();
+		this.selections = new HashSet<>();
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class ResourceSelectionSet {
 	 * @return 类别名称集合
 	 */
 	public Set<String> catalogNames() {
-		Set<String> catalogs = new HashSet<String>();
+		Set<String> catalogs = new HashSet<>();
 		for (ResourceSelection selection : selections) {
 			catalogs.add(selection.getCatalog());
 		}
@@ -84,7 +84,7 @@ public class ResourceSelectionSet {
 	 * @return 资源名称集合
 	 */
 	public Set<String> resourceNames(final String catalog) {
-		Set<String> resources = new HashSet<String>();
+		Set<String> resources = new HashSet<>();
 		for (ResourceSelection selection : selections) {
 			if (selection.getCatalog().equals(catalog)) {
 				resources.add(selection.getName());
@@ -114,7 +114,7 @@ public class ResourceSelectionSet {
 	 * @return 资源选择
 	 */
 	public Set<ResourceSelection> getSelections(final String catalog, final String name) {
-		Set<ResourceSelection> result = new HashSet<ResourceSelection>();
+		Set<ResourceSelection> result = new HashSet<>();
 		for (ResourceSelection selection : selections) {
 			if (selection.getCatalog().equals(catalog) && selection.getName().equals(name)) {
 				result.add(selection);
@@ -132,7 +132,7 @@ public class ResourceSelectionSet {
 	 */
 	public Set<ResourceSelection> checkDiff(final ResourceSelectionSet target) {
 		// 更新信息列表
-		Set<ResourceSelection> diffs = new HashSet<ResourceSelection>();
+		Set<ResourceSelection> diffs = new HashSet<>();
 
 		// 读取源版本
 		Set<ResourceSelection> sourceEntrys = selections;

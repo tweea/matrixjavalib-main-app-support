@@ -80,12 +80,12 @@ public class CodedMessage
 		this.code = code;
 		this.time = time;
 		this.level = level;
-		this.arguments = new ArrayList<String>();
+		this.arguments = new ArrayList<>();
 		for (String argument : arguments) {
 			this.arguments.add(argument);
 		}
-		this.unformattedArguments = new ArrayList<String>();
-		this.messages = new ArrayList<CodedMessage>();
+		this.unformattedArguments = new ArrayList<>();
+		this.messages = new ArrayList<>();
 	}
 
 	/**

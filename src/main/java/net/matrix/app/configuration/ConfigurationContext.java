@@ -66,7 +66,7 @@ public final class ConfigurationContext
 	 */
 	public ConfigurationContext(final ResourceRepository repository, final ResourceContextConfig contextConfig) {
 		super(repository, contextConfig);
-		this.containerCache = new ConcurrentHashMap<Resource, ReloadableConfigurationContainer>();
+		this.containerCache = new ConcurrentHashMap<>();
 	}
 
 	/**
@@ -75,7 +75,7 @@ public final class ConfigurationContext
 	@Override
 	public void reload() {
 		super.reload();
-		containerCache = new ConcurrentHashMap<Resource, ReloadableConfigurationContainer>();
+		containerCache = new ConcurrentHashMap<>();
 		LOG.info("重新加载配置，清空缓存。");
 	}
 
