@@ -129,9 +129,7 @@ public final class ConfigurationContext
 			}
 			try {
 				container = type.newInstance();
-			} catch (InstantiationException e) {
-				throw new ConfigurationException("配置类 " + type.getName() + " 实例化失败", e);
-			} catch (IllegalAccessException e) {
+			} catch (ReflectiveOperationException e) {
 				throw new ConfigurationException("配置类 " + type.getName() + " 实例化失败", e);
 			}
 			// 加载配置
