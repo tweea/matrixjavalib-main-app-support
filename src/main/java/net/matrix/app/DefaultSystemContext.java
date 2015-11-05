@@ -83,6 +83,7 @@ public class DefaultSystemContext
 		if (config == null) {
 			LOG.info("加载默认配置");
 			Resource resource = getResourceLoader().getResource("classpath:sysconfig.cfg");
+			// TODO sysconfig.dev.cfg
 			try {
 				config = new PropertiesConfiguration(resource.getURL());
 			} catch (IOException e) {
