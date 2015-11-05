@@ -6,4 +6,3 @@
  * 应用消息，将应用中涉及的信息进行编码。
  */
 package net.matrix.app.message;
-
