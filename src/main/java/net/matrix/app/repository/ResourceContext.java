@@ -31,10 +31,16 @@ public class ResourceContext {
 		this.contextConfig = contextConfig;
 	}
 
+	/**
+	 * 资源仓库。
+	 */
 	public ResourceRepository getRepository() {
 		return repository;
 	}
 
+	/**
+	 * 加载环境配置。
+	 */
 	public ResourceContextConfig getContextConfig() {
 		return contextConfig;
 	}

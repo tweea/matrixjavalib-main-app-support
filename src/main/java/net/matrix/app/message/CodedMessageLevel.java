@@ -73,6 +73,9 @@ public enum CodedMessageLevel {
 		return CODE_MAP.get(code);
 	}
 
+	/**
+	 * 编码。
+	 */
 	public Integer getCode() {
 		return code;
 	}
