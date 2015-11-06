@@ -50,7 +50,7 @@ public class ResourceRepository {
 
 		String path = catalog;
 		if (StringUtils.isNotBlank(version)) {
-			path += '/' + version;
+			path = path + '/' + version;
 		}
 		while (true) {
 			try {

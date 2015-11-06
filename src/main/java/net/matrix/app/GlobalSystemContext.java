@@ -4,20 +4,18 @@
  */
 package net.matrix.app;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 // TODO 支持多个系统环境
 /**
  * 全局系统环境，保存系统环境的全局实例。
  */
 public final class GlobalSystemContext {
 	/**
-	 * 同步锁。
-	 */
-	private static final Object LOCK = new Object();
-
-	/**
 	 * 系统环境的全局实例。
 	 */
-	private static SystemContext global;
+	private static final ConcurrentMap<String, SystemContext> GLOBAL_CONTEXTS = new ConcurrentHashMap<>();
 
 	/**
 	 * 阻止实例化。
@@ -31,15 +29,10 @@ public final class GlobalSystemContext {
 	 * @return 系统环境的全局实例
 	 */
 	public static SystemContext get() {
-		if (global != null) {
-			return global;
+		if (!GLOBAL_CONTEXTS.containsKey("")) {
+			GLOBAL_CONTEXTS.putIfAbsent("", new DefaultSystemContext());
 		}
-		synchronized (LOCK) {
-			if (global == null) {
-				global = new DefaultSystemContext();
-			}
-			return global;
-		}
+		return GLOBAL_CONTEXTS.get("");
 	}
 
 	/**
@@ -49,6 +42,10 @@ public final class GlobalSystemContext {
 	 *            系统环境
 	 */
 	public static void set(final SystemContext context) {
-		global = context;
+		if (context == null) {
+			GLOBAL_CONTEXTS.remove("");
+		} else {
+			GLOBAL_CONTEXTS.put("", context);
+		}
 	}
 }

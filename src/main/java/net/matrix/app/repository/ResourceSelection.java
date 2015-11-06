@@ -86,7 +86,7 @@ public class ResourceSelection {
 
 	@Override
 	public String toString() {
-		return "ResourceSelection[" + catalog + ':' + ObjectUtils.defaultIfNull(version, "") + ":" + name + "]";
+		return "ResourceSelection[" + catalog + ':' + ObjectUtils.defaultIfNull(version, "") + ':' + name + ']';
 	}
 
 	@Override

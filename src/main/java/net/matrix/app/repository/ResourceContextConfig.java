@@ -46,7 +46,7 @@ public class ResourceContextConfig
 						resourceVersion = version;
 					}
 					if (!StringUtils.isEmpty(branch)) {
-						resourceVersion += '/' + branch;
+						resourceVersion = resourceVersion + '/' + branch;
 					}
 					set.add(new ResourceSelection(catalog, resourceVersion, resourceName));
 				}
