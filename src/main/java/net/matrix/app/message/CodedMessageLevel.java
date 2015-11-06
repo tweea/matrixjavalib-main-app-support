@@ -58,7 +58,7 @@ public enum CodedMessageLevel {
 		}
 	}
 
-	private CodedMessageLevel(final Integer code) {
+	CodedMessageLevel(final Integer code) {
 		this.code = code;
 	}
 
