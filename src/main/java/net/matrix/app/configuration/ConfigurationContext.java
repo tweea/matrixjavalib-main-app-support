@@ -34,6 +34,19 @@ public final class ConfigurationContext
 	private Map<Resource, ReloadableConfigurationContainer> containerCache;
 
 	/**
+	 * 根据必要信息构造。
+	 * 
+	 * @param repository
+	 *            资源仓库
+	 * @param contextConfig
+	 *            资源仓库加载环境配置
+	 */
+	public ConfigurationContext(final ResourceRepository repository, final ResourceContextConfig contextConfig) {
+		super(repository, contextConfig);
+		this.containerCache = new ConcurrentHashMap<>();
+	}
+
+	/**
 	 * 从资源仓库的某位置加载。
 	 * 
 	 * @param repository
@@ -54,19 +67,6 @@ public final class ConfigurationContext
 		ResourceContextConfig contextConfig = new ResourceContextConfig();
 		contextConfig.load(resource);
 		return new ConfigurationContext(repository, contextConfig);
-	}
-
-	/**
-	 * 根据必要信息构造。
-	 * 
-	 * @param repository
-	 *            资源仓库
-	 * @param contextConfig
-	 *            资源仓库加载环境配置
-	 */
-	public ConfigurationContext(final ResourceRepository repository, final ResourceContextConfig contextConfig) {
-		super(repository, contextConfig);
-		this.containerCache = new ConcurrentHashMap<>();
 	}
 
 	/**

@@ -42,7 +42,7 @@ public class CodedMessageDefinition {
 	 *            编码
 	 * @return 编码消息定义
 	 */
-	public static CodedMessageDefinition getDefinition(String code) {
+	public static CodedMessageDefinition getDefinition(final String code) {
 		Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.get(code);
 		if (definitions == null) {
 			return null;

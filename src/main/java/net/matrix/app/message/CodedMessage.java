@@ -158,7 +158,7 @@ public class CodedMessage
 	 * @return true 包含
 	 */
 	public boolean hasLevel(final CodedMessageLevel targetLevel) {
-		if (level.equals(targetLevel)) {
+		if (level == targetLevel) {
 			return true;
 		}
 		for (CodedMessage message : messages) {

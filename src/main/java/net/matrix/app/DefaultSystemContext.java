@@ -64,9 +64,9 @@ public class DefaultSystemContext
 	public ResourcePatternResolver getResourcePatternResolver() {
 		if (resourceResolver == null) {
 			if (getResourceLoader() instanceof ResourcePatternResolver) {
-				resourceResolver = (ResourcePatternResolver) getResourceLoader();
+				resourceResolver = (ResourcePatternResolver) resourceLoader;
 			} else {
-				resourceResolver = new PathMatchingResourcePatternResolver(getResourceLoader());
+				resourceResolver = new PathMatchingResourcePatternResolver(resourceLoader);
 			}
 		}
 		return resourceResolver;
