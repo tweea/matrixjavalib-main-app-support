@@ -7,7 +7,6 @@ package net.matrix.app;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-// TODO 支持多个系统环境
 /**
  * 全局系统环境，保存系统环境的全局实例。
  */
@@ -29,10 +28,21 @@ public final class GlobalSystemContext {
 	 * @return 系统环境的全局实例
 	 */
 	public static SystemContext get() {
-		if (!GLOBAL_CONTEXTS.containsKey("")) {
-			GLOBAL_CONTEXTS.putIfAbsent("", new DefaultSystemContext());
+		return get("");
+	}
+
+	/**
+	 * 获取系统环境的全局实例，如果不存在则建立默认的系统环境实例。
+	 *
+	 * @param id
+	 *            系统环境 ID
+	 * @return 系统环境的全局实例
+	 */
+	public static SystemContext get(final String id) {
+		if (!GLOBAL_CONTEXTS.containsKey(id)) {
+			GLOBAL_CONTEXTS.putIfAbsent(id, new DefaultSystemContext());
 		}
-		return GLOBAL_CONTEXTS.get("");
+		return GLOBAL_CONTEXTS.get(id);
 	}
 
 	/**
@@ -42,10 +52,22 @@ public final class GlobalSystemContext {
 	 *            系统环境
 	 */
 	public static void set(final SystemContext context) {
+		set("", context);
+	}
+
+	/**
+	 * 设置系统环境的全局实例。
+	 * 
+	 * @param id
+	 *            系统环境 ID
+	 * @param context
+	 *            系统环境
+	 */
+	public static void set(final String id, final SystemContext context) {
 		if (context == null) {
-			GLOBAL_CONTEXTS.remove("");
+			GLOBAL_CONTEXTS.remove(id);
 		} else {
-			GLOBAL_CONTEXTS.put("", context);
+			GLOBAL_CONTEXTS.put(id, context);
 		}
 	}
 }
