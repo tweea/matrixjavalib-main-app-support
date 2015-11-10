@@ -9,14 +9,14 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import net.matrix.app.GlobalSystemContext;
 import net.matrix.text.Locales;
 
 public class CodedMessageDefinitionLoaderTest {
 	@BeforeClass
 	public static void beforeClass() {
-		CodedMessageDefinitionLoader.loadDefinitions(GlobalSystemContext.get().getResourcePatternResolver());
+		CodedMessageDefinitionLoader.loadDefinitions(new PathMatchingResourcePatternResolver());
 	}
 
 	@Test
