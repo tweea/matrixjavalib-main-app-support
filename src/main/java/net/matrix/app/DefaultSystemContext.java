@@ -5,13 +5,19 @@
 package net.matrix.app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.configuration.AbstractConfiguration;
+import org.apache.commons.configuration.CombinedConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConfigurationRuntimeException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration.tree.OverrideCombiner;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -30,26 +36,26 @@ public class DefaultSystemContext
 	 */
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultSystemContext.class);
 
-	private ResourceLoader resourceLoader;
+	protected ResourceLoader resourceLoader;
 
-	private ResourcePatternResolver resourceResolver;
+	protected ResourcePatternResolver resourceResolver;
 
-	private Configuration config;
+	protected Configuration config;
 
-	private final Map<String, Object> objects;
+	protected final Map<String, Object> objects;
 
-	private SystemController controller;
+	protected SystemController controller;
 
 	/**
 	 * 默认构造器。
 	 */
 	public DefaultSystemContext() {
-		objects = new HashMap<>();
+		this.objects = new HashMap<>();
 	}
 
 	@Override
 	public void setResourceLoader(final ResourceLoader loader) {
-		resourceLoader = loader;
+		this.resourceLoader = loader;
 	}
 
 	@Override
@@ -79,17 +85,42 @@ public class DefaultSystemContext
 
 	@Override
 	public Configuration getConfig() {
-		// 尝试加载默认位置
 		if (config == null) {
-			LOG.info("加载默认配置");
-			Resource resource = getResourceLoader().getResource("classpath:sysconfig.cfg");
-			// TODO sysconfig.dev.cfg
-			try {
-				config = new PropertiesConfiguration(resource.getURL());
-			} catch (IOException e) {
-				throw new ConfigurationRuntimeException("sysconfig.cfg 加载失败", e);
-			} catch (ConfigurationException e) {
-				throw new ConfigurationRuntimeException("sysconfig.cfg 加载失败", e);
+			String configLocationsParam = "classpath:sysconfig.cfg,classpath:sysconfig.dev.cfg";
+
+			String[] configLocations = StringUtils.split(configLocationsParam, ",; \t\n");
+			configLocations = StringUtils.stripAll(configLocations);
+
+			List<AbstractConfiguration> configList = new ArrayList<>();
+			for (String configLocation : configLocations) {
+				if (StringUtils.isBlank(configLocation)) {
+					continue;
+				}
+				Resource configResource = getResourceLoader().getResource(configLocation);
+				if (!configResource.exists()) {
+					LOG.info("系统配置文件 {} 不存在", configResource);
+					continue;
+				}
+				try {
+					configList.add(new PropertiesConfiguration(configResource.getURL()));
+					LOG.info("系统配置文件 {} 加载完成", configResource);
+				} catch (IOException e) {
+					throw new ConfigurationRuntimeException("系统配置文件 " + configResource + " 加载失败", e);
+				} catch (ConfigurationException e) {
+					throw new ConfigurationRuntimeException("系统配置文件 " + configResource + " 加载失败", e);
+				}
+			}
+			if (configList.isEmpty()) {
+				LOG.info("系统配置文件未找到");
+				config = new PropertiesConfiguration();
+			} else if (configList.size() == 1) {
+				config = configList.get(0);
+			} else {
+				CombinedConfiguration combinedConfig = new CombinedConfiguration(new OverrideCombiner());
+				for (int index = configList.size() - 1; index >= 0; index--) {
+					combinedConfig.addConfiguration(configList.get(index));
+				}
+				config = combinedConfig;
 			}
 		}
 		return config;
