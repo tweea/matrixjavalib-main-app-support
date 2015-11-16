@@ -14,6 +14,7 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
@@ -33,13 +34,22 @@ public final class CodedMessageDefinitionLoader {
 
 	/**
 	 * 从类路径中加载所有名为 codedMessageDefinition.xml 的配置文件。
+	 */
+	public static void loadBuiltinDefinitions() {
+		loadDefinitions(new PathMatchingResourcePatternResolver(), "classpath*:codedMessageDefinition*.xml");
+	}
+
+	/**
+	 * 加载所有匹配的配置文件。
 	 * 
 	 * @param resolver
 	 *            资源加载策略
+	 * @param locationPattern
+	 *            匹配模式
 	 */
-	public static void loadDefinitions(final ResourcePatternResolver resolver) {
+	public static void loadDefinitions(final ResourcePatternResolver resolver, final String locationPattern) {
 		try {
-			Resource[] resources = resolver.getResources("classpath*:codedMessageDefinition*.xml");
+			Resource[] resources = resolver.getResources(locationPattern);
 			for (Resource resource : resources) {
 				String filename = resource.getFilename();
 				Locale locale = Locale.ROOT;
