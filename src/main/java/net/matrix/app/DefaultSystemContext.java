@@ -154,6 +154,9 @@ public class DefaultSystemContext
 	@Override
 	public void setController(final SystemController controller) {
 		this.controller = controller;
+		if (this.controller != null) {
+			this.controller.setContext(this);
+		}
 	}
 
 	@Override
