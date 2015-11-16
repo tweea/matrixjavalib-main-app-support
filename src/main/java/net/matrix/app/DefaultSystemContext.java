@@ -17,6 +17,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConfigurationRuntimeException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.tree.OverrideCombiner;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,16 @@ public class DefaultSystemContext
 	 * 日志记录器。
 	 */
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultSystemContext.class);
+
+	/**
+	 * 系统配置位置的系统属性名。
+	 */
+	private static final String CONFIG_LOCATION_PROPERTY = "systemConfigLocation";
+
+	/**
+	 * 系统控制器类名的系统属性名。
+	 */
+	private static final String CONTROLLER_CLASS_PROPERTY = "systemControllerClass";
 
 	protected ResourceLoader resourceLoader;
 
@@ -86,9 +97,12 @@ public class DefaultSystemContext
 	@Override
 	public Configuration getConfig() {
 		if (config == null) {
-			String configLocationsParam = "classpath:sysconfig.cfg,classpath:sysconfig.dev.cfg";
+			String configLocationsProperty = System.getProperty(CONFIG_LOCATION_PROPERTY);
+			if (configLocationsProperty == null) {
+				configLocationsProperty = "classpath:sysconfig.cfg,classpath:sysconfig.dev.cfg";
+			}
 
-			String[] configLocations = StringUtils.split(configLocationsParam, ",; \t\n");
+			String[] configLocations = StringUtils.split(configLocationsProperty, ",; \t\n");
 			configLocations = StringUtils.stripAll(configLocations);
 
 			List<AbstractConfiguration> configList = new ArrayList<>();
@@ -162,7 +176,17 @@ public class DefaultSystemContext
 	@Override
 	public SystemController getController() {
 		if (controller == null) {
-			controller = new DefaultSystemController();
+			String controllerClassProperty = System.getProperty(CONTROLLER_CLASS_PROPERTY);
+			if (controllerClassProperty == null) {
+				controller = new DefaultSystemController();
+			} else {
+				try {
+					Class<?> controllerClass = ClassUtils.getClass(controllerClassProperty);
+					controller = (SystemController) controllerClass.newInstance();
+				} catch (ReflectiveOperationException e) {
+					throw new ConfigurationRuntimeException("控制器类 " + controllerClassProperty + " 实例化失败", e);
+				}
+			}
 			controller.setContext(this);
 		}
 		return controller;
