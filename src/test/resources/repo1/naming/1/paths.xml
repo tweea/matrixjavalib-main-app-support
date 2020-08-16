@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="gbk"?>
 <path>
-	<app>/app</app>
-	<data>/data</data>
-	<log>/log</log>
-	<container>/server</container>
+    <app>/app</app>
+    <data>/data</data>
+    <log>/log</log>
+    <container>/server</container>
 </path>
-

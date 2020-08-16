@@ -21,71 +21,71 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  * 读取编码消息记录定义。
  */
 public final class CodedMessageDefinitionLoader {
-	/**
-	 * 日志记录器。
-	 */
-	private static final Logger LOG = LoggerFactory.getLogger(CodedMessageDefinitionLoader.class);
+    /**
+     * 日志记录器。
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(CodedMessageDefinitionLoader.class);
 
-	/**
-	 * 阻止实例化。
-	 */
-	private CodedMessageDefinitionLoader() {
-	}
+    /**
+     * 阻止实例化。
+     */
+    private CodedMessageDefinitionLoader() {
+    }
 
-	/**
-	 * 从类路径中加载所有名为 codedMessageDefinition.xml 的配置文件。
-	 */
-	public static void loadBuiltinDefinitions() {
-		loadDefinitions(new PathMatchingResourcePatternResolver(), "classpath*:codedMessageDefinition*.xml");
-	}
+    /**
+     * 从类路径中加载所有名为 codedMessageDefinition.xml 的配置文件。
+     */
+    public static void loadBuiltinDefinitions() {
+        loadDefinitions(new PathMatchingResourcePatternResolver(), "classpath*:codedMessageDefinition*.xml");
+    }
 
-	/**
-	 * 加载所有匹配的配置文件。
-	 * 
-	 * @param resolver
-	 *            资源加载策略
-	 * @param locationPattern
-	 *            匹配模式
-	 */
-	public static void loadDefinitions(final ResourcePatternResolver resolver, final String locationPattern) {
-		try {
-			Resource[] resources = resolver.getResources(locationPattern);
-			for (Resource resource : resources) {
-				String filename = resource.getFilename();
-				Locale locale = Locale.ROOT;
-				String filenamePrefix = "codedMessageDefinition_";
-				if (filename.startsWith(filenamePrefix)) {
-					locale = LocaleUtils.toLocale(filename.substring(filenamePrefix.length(), filename.lastIndexOf(".xml")));
-				}
-				loadDefinitions(locale, resource);
-			}
-		} catch (IOException e) {
-			LOG.error("加载失败", e);
-		}
-	}
+    /**
+     * 加载所有匹配的配置文件。
+     * 
+     * @param resolver
+     *     资源加载策略
+     * @param locationPattern
+     *     匹配模式
+     */
+    public static void loadDefinitions(final ResourcePatternResolver resolver, final String locationPattern) {
+        try {
+            Resource[] resources = resolver.getResources(locationPattern);
+            for (Resource resource : resources) {
+                String filename = resource.getFilename();
+                Locale locale = Locale.ROOT;
+                String filenamePrefix = "codedMessageDefinition_";
+                if (filename.startsWith(filenamePrefix)) {
+                    locale = LocaleUtils.toLocale(filename.substring(filenamePrefix.length(), filename.lastIndexOf(".xml")));
+                }
+                loadDefinitions(locale, resource);
+            }
+        } catch (IOException e) {
+            LOG.error("加载失败", e);
+        }
+    }
 
-	/**
-	 * 从特定位置加载配置文件。
-	 * 
-	 * @param locale
-	 *            区域
-	 * @param resource
-	 *            配置文件位置
-	 */
-	public static void loadDefinitions(final Locale locale, final Resource resource) {
-		try {
-			XMLConfiguration config = new XMLConfiguration();
-			config.setDelimiterParsingDisabled(true);
-			config.load(resource.getInputStream());
-			for (HierarchicalConfiguration definitionConfig : config.configurationsAt("definition")) {
-				String code = definitionConfig.getString("[@code]");
-				String template = definitionConfig.getString("[@template]");
-				CodedMessageDefinition.define(new CodedMessageDefinition(code, locale, template));
-			}
-		} catch (IOException e) {
-			LOG.error("加载失败", e);
-		} catch (ConfigurationException e) {
-			LOG.error("加载失败", e);
-		}
-	}
+    /**
+     * 从特定位置加载配置文件。
+     * 
+     * @param locale
+     *     区域
+     * @param resource
+     *     配置文件位置
+     */
+    public static void loadDefinitions(final Locale locale, final Resource resource) {
+        try {
+            XMLConfiguration config = new XMLConfiguration();
+            config.setDelimiterParsingDisabled(true);
+            config.load(resource.getInputStream());
+            for (HierarchicalConfiguration definitionConfig : config.configurationsAt("definition")) {
+                String code = definitionConfig.getString("[@code]");
+                String template = definitionConfig.getString("[@template]");
+                CodedMessageDefinition.define(new CodedMessageDefinition(code, locale, template));
+            }
+        } catch (IOException e) {
+            LOG.error("加载失败", e);
+        } catch (ConfigurationException e) {
+            LOG.error("加载失败", e);
+        }
+    }
 }

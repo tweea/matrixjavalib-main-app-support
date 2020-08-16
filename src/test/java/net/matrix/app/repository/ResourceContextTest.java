@@ -10,13 +10,13 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
 public class ResourceContextTest {
-	@Test
-	public void getResource()
-		throws ConfigurationException {
-		ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
-		ResourceContextConfig selectionSet = new ResourceContextConfig();
-		selectionSet.load(repo.getResource(new ResourceSelection("configset", "set1", "configset.xml")));
-		ResourceContext context = new ResourceContext(repo, selectionSet);
-		Assertions.assertThat(context.getResource("test/orz", "foo.xml").exists()).isTrue();
-	}
+    @Test
+    public void getResource()
+        throws ConfigurationException {
+        ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
+        ResourceContextConfig selectionSet = new ResourceContextConfig();
+        selectionSet.load(repo.getResource(new ResourceSelection("configset", "set1", "configset.xml")));
+        ResourceContext context = new ResourceContext(repo, selectionSet);
+        Assertions.assertThat(context.getResource("test/orz", "foo.xml").exists()).isTrue();
+    }
 }

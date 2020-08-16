@@ -13,21 +13,21 @@ import org.junit.Test;
 import net.matrix.text.Locales;
 
 public class CodedMessageDefinitionLoaderTest {
-	@BeforeClass
-	public static void beforeClass() {
-		CodedMessageDefinitionLoader.loadBuiltinDefinitions();
-	}
+    @BeforeClass
+    public static void beforeClass() {
+        CodedMessageDefinitionLoader.loadBuiltinDefinitions();
+    }
 
-	@Test
-	public void getDefinition() {
-		Locales.current(Locale.CHINA);
-		CodedMessageDefinition part = CodedMessageDefinition.getDefinition("System.Error");
-		Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
-		Assertions.assertThat(part.getTemplate()).isEqualTo("系统错误");
+    @Test
+    public void getDefinition() {
+        Locales.current(Locale.CHINA);
+        CodedMessageDefinition part = CodedMessageDefinition.getDefinition("System.Error");
+        Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
+        Assertions.assertThat(part.getTemplate()).isEqualTo("系统错误");
 
-		Locales.current(Locale.US);
-		part = CodedMessageDefinition.getDefinition("System.Error");
-		Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
-		Assertions.assertThat(part.getTemplate()).isEqualTo("System error");
-	}
+        Locales.current(Locale.US);
+        part = CodedMessageDefinition.getDefinition("System.Error");
+        Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
+        Assertions.assertThat(part.getTemplate()).isEqualTo("System error");
+    }
 }
