@@ -7,9 +7,10 @@ package net.matrix.app.message;
 import java.io.IOException;
 import java.util.Locale;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.HierarchicalConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.io.FileHandler;
 import org.apache.commons.lang3.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +76,8 @@ public final class CodedMessageDefinitionLoader {
     public static void loadDefinitions(final Locale locale, final Resource resource) {
         try {
             XMLConfiguration config = new XMLConfiguration();
-            config.setDelimiterParsingDisabled(true);
-            config.load(resource.getInputStream());
+            FileHandler fileHandler = new FileHandler(config);
+            fileHandler.load(resource.getInputStream());
             for (HierarchicalConfiguration definitionConfig : config.configurationsAt("definition")) {
                 String code = definitionConfig.getString("[@code]");
                 String template = definitionConfig.getString("[@template]");

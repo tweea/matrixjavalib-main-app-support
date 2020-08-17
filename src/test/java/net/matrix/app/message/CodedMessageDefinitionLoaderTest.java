@@ -6,28 +6,29 @@ package net.matrix.app.message;
 
 import java.util.Locale;
 
-import org.assertj.core.api.Assertions;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import net.matrix.text.Locales;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class CodedMessageDefinitionLoaderTest {
-    @BeforeClass
-    public static void beforeClass() {
+    @BeforeAll
+    public static void beforeAll() {
         CodedMessageDefinitionLoader.loadBuiltinDefinitions();
     }
 
     @Test
-    public void getDefinition() {
+    public void testGetDefinition() {
         Locales.current(Locale.CHINA);
         CodedMessageDefinition part = CodedMessageDefinition.getDefinition("System.Error");
-        Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
-        Assertions.assertThat(part.getTemplate()).isEqualTo("系统错误");
+        assertThat(part.getCode()).isEqualTo("System.Error");
+        assertThat(part.getTemplate()).isEqualTo("系统错误");
 
         Locales.current(Locale.US);
         part = CodedMessageDefinition.getDefinition("System.Error");
-        Assertions.assertThat(part.getCode()).isEqualTo("System.Error");
-        Assertions.assertThat(part.getTemplate()).isEqualTo("System error");
+        assertThat(part.getCode()).isEqualTo("System.Error");
+        assertThat(part.getTemplate()).isEqualTo("System error");
     }
 }

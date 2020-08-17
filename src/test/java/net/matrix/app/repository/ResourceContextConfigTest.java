@@ -6,11 +6,12 @@ package net.matrix.app.repository;
 
 import java.util.Set;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.assertj.core.api.Assertions;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ResourceContextConfigTest {
     private static ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
@@ -23,8 +24,8 @@ public class ResourceContextConfigTest {
 
     private static ResourceContextConfig set2;
 
-    @BeforeClass
-    public static void beforeClass()
+    @BeforeAll
+    public static void beforeAll()
         throws ConfigurationException {
         set1 = new ResourceContextConfig();
         set1.load(repo.getResource(selection1));
@@ -33,28 +34,28 @@ public class ResourceContextConfigTest {
     }
 
     @Test
-    public void new1() {
-        Assertions.assertThat(set1.catalogNames()).hasSize(5);
-        Assertions.assertThat(set1.catalogNames()).contains("naming");
-        Assertions.assertThat(set1.catalogNames()).contains("test/orz");
-        Assertions.assertThat(set1.resourceNames("test")).hasSize(2);
-        Assertions.assertThat(set1.resourceNames("test")).contains("big.xml");
-        Assertions.assertThat(set1.getSelection("configset", "configset.xml")).isNotNull();
+    public void testNew1() {
+        assertThat(set1.catalogNames()).hasSize(5);
+        assertThat(set1.catalogNames()).contains("naming");
+        assertThat(set1.catalogNames()).contains("test/orz");
+        assertThat(set1.resourceNames("test")).hasSize(2);
+        assertThat(set1.resourceNames("test")).contains("big.xml");
+        assertThat(set1.getSelection("configset", "configset.xml")).isNotNull();
     }
 
     @Test
-    public void new2() {
-        Assertions.assertThat(set2.catalogNames()).hasSize(5);
-        Assertions.assertThat(set2.catalogNames()).contains("naming");
-        Assertions.assertThat(set2.catalogNames()).contains("test/orz");
-        Assertions.assertThat(set2.resourceNames("test")).hasSize(2);
-        Assertions.assertThat(set2.resourceNames("test")).contains("big.xml");
-        Assertions.assertThat(set2.getSelection("configset", "configset.xml")).isNotNull();
+    public void testNew2() {
+        assertThat(set2.catalogNames()).hasSize(5);
+        assertThat(set2.catalogNames()).contains("naming");
+        assertThat(set2.catalogNames()).contains("test/orz");
+        assertThat(set2.resourceNames("test")).hasSize(2);
+        assertThat(set2.resourceNames("test")).contains("big.xml");
+        assertThat(set2.getSelection("configset", "configset.xml")).isNotNull();
     }
 
     @Test
-    public void checkDiff() {
+    public void testCheckDiff() {
         Set<ResourceSelection> updateInfoList = set1.checkDiff(set2);
-        Assertions.assertThat(updateInfoList).hasSize(5);
+        assertThat(updateInfoList).hasSize(5);
     }
 }

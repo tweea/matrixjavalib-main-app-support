@@ -6,10 +6,9 @@ package net.matrix.app.configuration;
 
 import java.io.IOException;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.XMLConfiguration;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -20,15 +19,18 @@ import net.matrix.configuration.XMLConfigurationContainer;
 import net.matrix.io.RelativeResource;
 import net.matrix.io.RelativeResourceRootRegister;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 public class ConfigurationContextTest {
     @Test
-    public void ConfigContext()
+    public void testLoad()
         throws ConfigurationException {
         ResourceRepository repository = new ResourceRepository(new ClassPathResource("repo1/"));
         ResourceSelection selection = new ResourceSelection("configset", "set2", "configset.xml");
-        ConfigurationContext context = ConfigurationContext.load(repository, selection);
 
-        Assertions.assertThat(context.getContextConfig().catalogNames()).hasSize(5);
+        ConfigurationContext context = ConfigurationContext.load(repository, selection);
+        assertThat(context.getContextConfig().catalogNames()).hasSize(5);
     }
 
     public ConfigurationContext loadContext()
@@ -39,40 +41,47 @@ public class ConfigurationContextTest {
     }
 
     @Test
-    public void getConfigurationResource()
+    public void testGetConfigurationResource()
         throws ConfigurationException, IOException {
         ConfigurationContext context = loadContext();
         RelativeResourceRootRegister register = new RelativeResourceRootRegister();
         register.registerRoot("test", new ClassPathResource("repo1/"));
 
         Resource resource = context.getConfigurationResource(new ResourceSelection("test", null, "small.xml"));
-        Assertions.assertThat(register.getResource(new RelativeResource("test", "test/small.xml"))).isEqualTo(resource);
+        assertThat(register.getResource(new RelativeResource("test", "test/small.xml"))).isEqualTo(resource);
         resource = context.getConfigurationResource(new ResourceSelection("test", "1", "middle.xml"));
-        Assertions.assertThat(register.getResource(new RelativeResource("test", "test/1/middle.xml"))).isEqualTo(resource);
+        assertThat(register.getResource(new RelativeResource("test", "test/1/middle.xml"))).isEqualTo(resource);
         resource = context.getConfigurationResource(new ResourceSelection("test", "1/mouse", "big.xml"));
-        Assertions.assertThat(register.getResource(new RelativeResource("test", "test/1/mouse/big.xml"))).isEqualTo(resource);
+        assertThat(register.getResource(new RelativeResource("test", "test/1/mouse/big.xml"))).isEqualTo(resource);
         resource = context.getConfigurationResource(new ResourceSelection("test", "1/rat", "middle.xml"));
-        Assertions.assertThat(register.getResource(new RelativeResource("test", "test/1/middle.xml"))).isEqualTo(resource);
+        assertThat(register.getResource(new RelativeResource("test", "test/1/middle.xml"))).isEqualTo(resource);
     }
 
     @Test
-    public void getConfiguration()
+    public void testGetConfiguration()
         throws ConfigurationException {
         ConfigurationContext context = loadContext();
         ResourceSelection selection = new ResourceSelection("test", null, "small.xml");
+
         ReloadableConfigurationContainer<XMLConfiguration> container = context.getConfiguration(XMLConfigurationContainer.class, selection);
-        Assertions.assertThat(container.getConfig().getInt("[@length]")).isEqualTo(50);
+        assertThat(container.getConfig().getInt("[@length]")).isEqualTo(50);
     }
 
-    @Test(expected = ConfigurationException.class)
-    public void getConfiguration2()
+    @Test
+    public void testGetConfiguration2()
         throws ConfigurationException {
-        loadContext().getConfiguration(ReloadableConfigurationContainer.class, new ResourceSelection("testxxx", null, "abc.xml")).getConfig();
+        ConfigurationContext context = loadContext();
+
+        assertThatExceptionOfType(ConfigurationException.class)
+            .isThrownBy(() -> context.getConfiguration(ReloadableConfigurationContainer.class, new ResourceSelection("testxxx", null, "abc.xml")));
     }
 
-    @Test(expected = ConfigurationException.class)
-    public void getConfiguration3()
+    @Test
+    public void testGetConfiguration3()
         throws ConfigurationException {
-        loadContext().getConfiguration(ReloadableConfigurationContainer.class, new ResourceSelection("test", null, "abc")).getConfig();
+        ConfigurationContext context = loadContext();
+
+        assertThatExceptionOfType(ConfigurationException.class)
+            .isThrownBy(() -> context.getConfiguration(ReloadableConfigurationContainer.class, new ResourceSelection("test", null, "abc")));
     }
 }

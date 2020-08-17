@@ -11,8 +11,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CodedMessagesTest {
     @Test
@@ -33,15 +34,15 @@ public class CodedMessagesTest {
         try (Reader is = new StringReader(messageString)) {
             messageList2 = CodedMessages.load(is);
         }
-        Assertions.assertThat(messageList2).hasSameSizeAs(messageList);
+        assertThat(messageList2).hasSameSizeAs(messageList);
         for (int index = 0; index < messageList.size(); index++) {
             CodedMessage message1 = messageList.get(index);
             CodedMessage message2 = messageList2.get(index);
-            Assertions.assertThat(message2.getCode()).isEqualTo(message1.getCode());
-            Assertions.assertThat(message2.getTime()).isEqualTo(message1.getTime());
-            Assertions.assertThat(message2.getArguments()).isEqualTo(message1.getArguments());
-            Assertions.assertThat(message2.getUnformattedArguments()).isEqualTo(message1.getUnformattedArguments());
-            Assertions.assertThat(message2.getMessages()).hasSameSizeAs(message1.getMessages());
+            assertThat(message2.getCode()).isEqualTo(message1.getCode());
+            assertThat(message2.getTime()).isEqualTo(message1.getTime());
+            assertThat(message2.getArguments()).isEqualTo(message1.getArguments());
+            assertThat(message2.getUnformattedArguments()).isEqualTo(message1.getUnformattedArguments());
+            assertThat(message2.getMessages()).hasSameSizeAs(message1.getMessages());
         }
     }
 }

@@ -7,7 +7,11 @@ package net.matrix.app.repository;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.ex.ConfigurationRuntimeException;
+import org.apache.commons.configuration2.tree.ImmutableNode;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Iterables;
@@ -28,8 +32,14 @@ public class ResourceContextConfig
     public void reset() {
         super.reset();
         set = new ResourceSelectionSet();
+        XMLConfiguration config;
+        try {
+            config = getConfig();
+        } catch (ConfigurationException e) {
+            throw new ConfigurationRuntimeException(e);
+        }
         // catalog 节点
-        List<HierarchicalConfiguration> catalogsNode = getConfig().configurationsAt("catalog");
+        List<HierarchicalConfiguration<ImmutableNode>> catalogsNode = config.configurationsAt("catalog");
         for (HierarchicalConfiguration catalogNode : catalogsNode) {
             String catalog = catalogNode.getString("[@name]");
             String version = catalogNode.getString("[@version]");
