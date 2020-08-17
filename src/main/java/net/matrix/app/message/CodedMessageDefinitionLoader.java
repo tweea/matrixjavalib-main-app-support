@@ -83,9 +83,7 @@ public final class CodedMessageDefinitionLoader {
                 String template = definitionConfig.getString("[@template]");
                 CodedMessageDefinition.define(new CodedMessageDefinition(code, locale, template));
             }
-        } catch (IOException e) {
-            LOG.error("加载失败", e);
-        } catch (ConfigurationException e) {
+        } catch (IOException | ConfigurationException e) {
             LOG.error("加载失败", e);
         }
     }
