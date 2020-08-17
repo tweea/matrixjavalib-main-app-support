@@ -11,7 +11,7 @@ import net.matrix.app.SystemException;
  */
 public class CodedMessageException
     extends SystemException {
-    private static final long serialVersionUID = 8050980676195083467L;
+    private static final long serialVersionUID = -8389737365341729056L;
 
     /**
      * 使用默认消息构造异常。原因异常没有初始化，可以随后调用 {@link #initCause} 进行初始化。

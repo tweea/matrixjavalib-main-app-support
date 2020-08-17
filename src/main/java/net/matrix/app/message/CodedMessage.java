@@ -15,10 +15,7 @@ import net.matrix.text.MessageFormats;
  */
 public class CodedMessage
     implements Serializable {
-    /**
-     * 序列化。
-     */
-    private static final long serialVersionUID = -646058578027845072L;
+    private static final long serialVersionUID = -4533057179855470413L;
 
     /**
      * 编码。

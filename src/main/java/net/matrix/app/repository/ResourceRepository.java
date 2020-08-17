@@ -62,7 +62,7 @@ public class ResourceRepository {
                     return resource;
                 }
             } catch (IOException e) {
-                LOG.warn(root.toString() + '/' + path + '/' + name + " 解析失败", e);
+                LOG.warn("{}/{}/{} 解析失败", root, path, name, e);
                 return null;
             }
             if (path.length() <= catalog.length()) {

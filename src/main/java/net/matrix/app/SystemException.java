@@ -13,10 +13,7 @@ import net.matrix.app.message.CodedMessages;
 public class SystemException
     extends Exception
     implements CodedException {
-    /**
-     * serialVersionUID。
-     */
-    private static final long serialVersionUID = -6689502787927232992L;
+    private static final long serialVersionUID = -8346375821129803598L;
 
     /**
      * 异常包含的消息。
