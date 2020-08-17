@@ -20,7 +20,7 @@ public class ResourceSelectionSet {
     private static final Logger LOG = LoggerFactory.getLogger(ResourceSelectionSet.class);
 
     /**
-     * 内部集合。
+     * 内部选择集合。
      */
     private final Set<ResourceSelection> selections;
 
@@ -42,11 +42,11 @@ public class ResourceSelectionSet {
     }
 
     /**
-     * 判断是否已包含某资源仓库选择。
+     * 判断是否已包含指定资源仓库选择。
      * 
      * @param selection
      *     资源仓库选择
-     * @return true 已包含
+     * @return 是否已包含
      */
     public boolean contains(final ResourceSelection selection) {
         return selections.contains(selection);
@@ -57,7 +57,7 @@ public class ResourceSelectionSet {
      * 
      * @param selection
      *     资源仓库选择
-     * @return true 集合中存在该资源仓库选择
+     * @return 是否已包含指定资源仓库选择
      */
     public boolean remove(final ResourceSelection selection) {
         return selections.remove(selection);
@@ -94,7 +94,7 @@ public class ResourceSelectionSet {
     }
 
     /**
-     * 选择某类别的默认名称资源。
+     * 选择指定类别的默认名称资源。
      * 
      * @param catalog
      *     类别
@@ -105,7 +105,7 @@ public class ResourceSelectionSet {
     }
 
     /**
-     * 选择某类别的特定名称资源。
+     * 选择指定类别的指定名称资源。
      * 
      * @param catalog
      *     类别

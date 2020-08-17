@@ -36,7 +36,7 @@ public class ResourceSelectionSetTest {
     }
 
     @Test
-    public void testNew1() {
+    public void testAdd1() {
         assertThat(set1.catalogNames()).hasSize(5);
         assertThat(set1.catalogNames()).contains("naming");
         assertThat(set1.catalogNames()).contains("test/orz");
@@ -46,7 +46,7 @@ public class ResourceSelectionSetTest {
     }
 
     @Test
-    public void testNew2() {
+    public void testAdd2() {
         assertThat(set2.catalogNames()).hasSize(5);
         assertThat(set2.catalogNames()).contains("naming");
         assertThat(set2.catalogNames()).contains("test/orz");

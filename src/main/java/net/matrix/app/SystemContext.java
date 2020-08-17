@@ -78,7 +78,7 @@ public interface SystemContext {
      *     名称
      * @return 已注册对象
      */
-    Object lookupObject(String name);
+    <T> T lookupObject(String name);
 
     /**
      * 按名称和类型查询对象。
@@ -109,7 +109,7 @@ public interface SystemContext {
     void setController(SystemController controller);
 
     /**
-     * 返回关联的系统控制器。
+     * 获取关联的系统控制器。
      * 
      * @return 系统控制器
      */

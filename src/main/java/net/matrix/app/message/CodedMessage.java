@@ -86,42 +86,42 @@ public class CodedMessage
     }
 
     /**
-     * @return 编码
+     * 编码。
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * @return 记录时间
+     * 记录时间。
      */
     public long getTime() {
         return time;
     }
 
     /**
-     * @return 消息级别
+     * 消息级别。
      */
     public CodedMessageLevel getLevel() {
         return level;
     }
 
     /**
-     * @return 参数列表
+     * 参数列表。
      */
     public List<String> getArguments() {
         return arguments;
     }
 
     /**
-     * @return 不参与格式化的参数列表。
+     * 不参与格式化的参数列表。
      */
     public List<String> getUnformattedArguments() {
         return unformattedArguments;
     }
 
     /**
-     * @return 依附消息列表
+     * 依附消息列表。
      */
     public List<CodedMessage> getMessages() {
         return messages;
@@ -152,7 +152,7 @@ public class CodedMessage
      * 
      * @param targetLevel
      *     目标级别
-     * @return true 包含
+     * @return 是否包含
      */
     public boolean hasLevel(final CodedMessageLevel targetLevel) {
         if (level == targetLevel) {
@@ -188,7 +188,7 @@ public class CodedMessage
             sb.append(MessageFormats.format(def.getTemplate(), def.getLocale(), arguments.toArray()));
         }
         for (String unformattedArgument : unformattedArguments) {
-            sb.append('，');
+            sb.append('|');
             sb.append(unformattedArgument);
         }
     }

@@ -26,8 +26,7 @@ public class ResourceRepository {
     private final Resource root;
 
     /**
-     * @param root
-     *     资源根位置
+     * 资源根位置。
      */
     public ResourceRepository(final Resource root) {
         this.root = root;

@@ -30,7 +30,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * 编码消息实用工具。
+ * 编码消息工具。
  */
 public final class CodedMessages {
     private static final DocumentBuilderFactory DOM_FACTORY = DocumentBuilderFactory.newInstance();

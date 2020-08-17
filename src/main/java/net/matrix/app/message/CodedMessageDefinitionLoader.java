@@ -19,7 +19,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
- * 读取编码消息记录定义。
+ * 加载编码消息定义。
  */
 public final class CodedMessageDefinitionLoader {
     /**
@@ -66,7 +66,7 @@ public final class CodedMessageDefinitionLoader {
     }
 
     /**
-     * 从特定位置加载配置文件。
+     * 从指定位置加载配置文件。
      * 
      * @param locale
      *     区域

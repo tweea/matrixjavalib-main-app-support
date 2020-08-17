@@ -59,7 +59,7 @@ public class DefaultSystemContext
     protected SystemController controller;
 
     /**
-     * 默认构造器。
+     * 构造空实例。
      */
     public DefaultSystemContext() {
         this.objects = new HashMap<>();
@@ -155,8 +155,8 @@ public class DefaultSystemContext
     }
 
     @Override
-    public Object lookupObject(final String name) {
-        return objects.get(name);
+    public <T> T lookupObject(final String name) {
+        return (T) objects.get(name);
     }
 
     @Override

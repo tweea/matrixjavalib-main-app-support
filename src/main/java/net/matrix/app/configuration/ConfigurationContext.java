@@ -47,7 +47,7 @@ public final class ConfigurationContext
     }
 
     /**
-     * 从资源仓库的某位置加载。
+     * 从资源仓库的指定位置加载。
      * 
      * @param repository
      *     资源仓库
@@ -104,7 +104,7 @@ public final class ConfigurationContext
      * 加载配置资源，返回配置对象。
      * 
      * @param <T>
-     *     配置对象的类型
+     *     配置对象
      * @param type
      *     配置对象的类型
      * @param selection

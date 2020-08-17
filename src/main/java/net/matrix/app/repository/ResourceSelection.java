@@ -32,7 +32,7 @@ public class ResourceSelection {
     private final String name;
 
     /**
-     * 构造一个实例。如果未提供名称，则根据类别生成默认的名称。
+     * 根据必要信息构造。如果未提供名称，则根据类别生成默认的名称。
      * 
      * @param catalog
      *     分类
@@ -64,21 +64,21 @@ public class ResourceSelection {
     }
 
     /**
-     * @return 分类
+     * 分类。
      */
     public String getCatalog() {
         return catalog;
     }
 
     /**
-     * @return 版本
+     * 版本。
      */
     public String getVersion() {
         return version;
     }
 
     /**
-     * @return 名称
+     * 名称。
      */
     public String getName() {
         return name;

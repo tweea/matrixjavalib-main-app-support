@@ -71,17 +71,17 @@ public class ConfigurationContextTest {
     public void testGetConfiguration2()
         throws ConfigurationException {
         ConfigurationContext context = loadContext();
+        ResourceSelection selection = new ResourceSelection("testxxx", null, "abc.xml");
 
-        assertThatExceptionOfType(ConfigurationException.class)
-            .isThrownBy(() -> context.getConfiguration(ReloadableConfigurationContainer.class, new ResourceSelection("testxxx", null, "abc.xml")));
+        assertThatExceptionOfType(ConfigurationException.class).isThrownBy(() -> context.getConfiguration(ReloadableConfigurationContainer.class, selection));
     }
 
     @Test
     public void testGetConfiguration3()
         throws ConfigurationException {
         ConfigurationContext context = loadContext();
+        ResourceSelection selection = new ResourceSelection("test", null, "abc");
 
-        assertThatExceptionOfType(ConfigurationException.class)
-            .isThrownBy(() -> context.getConfiguration(ReloadableConfigurationContainer.class, new ResourceSelection("test", null, "abc")));
+        assertThatExceptionOfType(ConfigurationException.class).isThrownBy(() -> context.getConfiguration(ReloadableConfigurationContainer.class, selection));
     }
 }

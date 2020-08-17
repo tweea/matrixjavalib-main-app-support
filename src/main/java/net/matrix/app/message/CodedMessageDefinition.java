@@ -74,7 +74,7 @@ public class CodedMessageDefinition {
     }
 
     /**
-     * 默认构造器。
+     * 根据必要信息构造。
      * 
      * @param code
      *     编码
@@ -90,21 +90,21 @@ public class CodedMessageDefinition {
     }
 
     /**
-     * @return 编码
+     * 编码。
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * @return 区域
+     * 区域。
      */
     public Locale getLocale() {
         return locale;
     }
 
     /**
-     * @return 消息模板
+     * 消息模板。
      */
     public String getTemplate() {
         return template;

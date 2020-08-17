@@ -21,6 +21,8 @@ public class ResourceContext {
     private final ResourceContextConfig contextConfig;
 
     /**
+     * 根据必要信息构造。
+     * 
      * @param repository
      *     资源仓库
      * @param contextConfig

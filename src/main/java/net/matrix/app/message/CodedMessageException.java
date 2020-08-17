@@ -7,7 +7,7 @@ package net.matrix.app.message;
 import net.matrix.app.SystemException;
 
 /**
- * 编码消息错误。
+ * 编码消息异常。
  */
 public class CodedMessageException
     extends SystemException {

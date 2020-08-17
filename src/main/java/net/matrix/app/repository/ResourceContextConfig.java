@@ -24,20 +24,22 @@ import net.matrix.configuration.XMLConfigurationContainer;
 public class ResourceContextConfig
     extends XMLConfigurationContainer {
     /**
-     * 根据配置内容生成的集合。
+     * 根据配置内容生成的选择集合。
      */
-    private ResourceSelectionSet set;
+    private ResourceSelectionSet selectionSet;
 
     @Override
     public void reset() {
         super.reset();
-        set = new ResourceSelectionSet();
+        selectionSet = new ResourceSelectionSet();
+
         XMLConfiguration config;
         try {
             config = getConfig();
         } catch (ConfigurationException e) {
             throw new ConfigurationRuntimeException(e);
         }
+
         // catalog 节点
         List<HierarchicalConfiguration<ImmutableNode>> catalogsNode = config.configurationsAt("catalog");
         for (HierarchicalConfiguration catalogNode : catalogsNode) {
@@ -46,7 +48,7 @@ public class ResourceContextConfig
             // resource 节点
             List<HierarchicalConfiguration> resourcesNode = catalogNode.configurationsAt("file");
             if (resourcesNode.isEmpty()) {
-                set.add(new ResourceSelection(catalog, version, null));
+                selectionSet.add(new ResourceSelection(catalog, version, null));
             } else {
                 for (HierarchicalConfiguration resourceNode : resourcesNode) {
                     String resourceName = resourceNode.getString("[@name]");
@@ -58,32 +60,34 @@ public class ResourceContextConfig
                     if (!StringUtils.isEmpty(branch)) {
                         resourceVersion = resourceVersion + '/' + branch;
                     }
-                    set.add(new ResourceSelection(catalog, resourceVersion, resourceName));
+                    selectionSet.add(new ResourceSelection(catalog, resourceVersion, resourceName));
                 }
             }
         }
     }
 
     /**
-     * @return 类别名称集合
+     * 类别名称集合。
      */
     public Set<String> catalogNames() {
         checkReload();
-        return set.catalogNames();
+        return selectionSet.catalogNames();
     }
 
     /**
+     * 资源名称集合。
+     * 
      * @param catalog
      *     类别
      * @return 资源名称集合
      */
     public Set<String> resourceNames(final String catalog) {
         checkReload();
-        return set.resourceNames(catalog);
+        return selectionSet.resourceNames(catalog);
     }
 
     /**
-     * 选择某类别的默认名称资源。
+     * 选择指定类别的默认名称资源。
      * 
      * @param catalog
      *     类别
@@ -91,12 +95,12 @@ public class ResourceContextConfig
      */
     public ResourceSelection getSelection(final String catalog) {
         checkReload();
-        Set<ResourceSelection> result = set.getSelections(catalog);
+        Set<ResourceSelection> result = selectionSet.getSelections(catalog);
         return Iterables.getFirst(result, null);
     }
 
     /**
-     * 选择某类别的特定名称资源。
+     * 选择指定类别的指定名称资源。
      * 
      * @param catalog
      *     类别
@@ -106,7 +110,7 @@ public class ResourceContextConfig
      */
     public ResourceSelection getSelection(final String catalog, final String name) {
         checkReload();
-        Set<ResourceSelection> result = set.getSelections(catalog, name);
+        Set<ResourceSelection> result = selectionSet.getSelections(catalog, name);
         return Iterables.getFirst(result, null);
     }
 
@@ -119,6 +123,6 @@ public class ResourceContextConfig
      */
     public Set<ResourceSelection> checkDiff(final ResourceContextConfig target) {
         checkReload();
-        return set.checkDiff(target.set);
+        return selectionSet.checkDiff(target.selectionSet);
     }
 }

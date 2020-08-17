@@ -76,7 +76,7 @@ public class CodedMessageTest {
         message.addUnformattedArgument("12345");
 
         String formatString = message.format();
-        assertThat(formatString).isEqualTo("测试消息 B：Testtest2，12345");
+        assertThat(formatString).isEqualTo("测试消息 B：Testtest2|12345");
     }
 
     @Test
