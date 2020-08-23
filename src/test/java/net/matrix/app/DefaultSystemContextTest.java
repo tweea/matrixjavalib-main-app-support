@@ -63,7 +63,7 @@ public class DefaultSystemContextTest {
         System.clearProperty("systemControllerClass");
     }
 
-    static class TestController
+    public static class TestController
         extends DefaultSystemController {
     }
 }
