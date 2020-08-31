@@ -13,7 +13,7 @@ import net.matrix.app.message.CodedMessages;
 public class SystemRuntimeException
     extends RuntimeException
     implements CodedException {
-    private static final long serialVersionUID = 424825141346987319L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 异常包含的消息。
@@ -65,8 +65,7 @@ public class SystemRuntimeException
     }
 
     /**
-     * 使用指定消息编码和原因异常构造异常。
-     * <p>
+     * 使用指定消息编码和原因异常构造异常。<br>
      * 注意与 <code>cause</code> 关联的详细信息<i>不会</i>自动出现在本异常的详细信息中。
      * 
      * @param cause
@@ -86,8 +85,7 @@ public class SystemRuntimeException
     }
 
     /**
-     * 使用指定消息和原因异常构造异常。
-     * <p>
+     * 使用指定消息和原因异常构造异常。<br>
      * 注意与 <code>cause</code> 关联的详细信息<i>不会</i>自动出现在本异常的详细信息中。
      * 
      * @param cause

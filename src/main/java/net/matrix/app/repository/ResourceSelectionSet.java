@@ -10,6 +10,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Sets;
+
 /**
  * 资源仓库选择集合。
  */
@@ -69,7 +71,7 @@ public class ResourceSelectionSet {
      * @return 类别名称集合
      */
     public Set<String> catalogNames() {
-        Set<String> catalogs = new HashSet<>();
+        Set<String> catalogs = Sets.newHashSetWithExpectedSize(selections.size());
         for (ResourceSelection selection : selections) {
             catalogs.add(selection.getCatalog());
         }

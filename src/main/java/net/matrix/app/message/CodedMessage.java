@@ -15,7 +15,7 @@ import net.matrix.text.MessageFormats;
  */
 public class CodedMessage
     implements Serializable {
-    private static final long serialVersionUID = -4533057179855470413L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 编码。
@@ -77,7 +77,7 @@ public class CodedMessage
         this.code = code;
         this.time = time;
         this.level = level;
-        this.arguments = new ArrayList<>();
+        this.arguments = new ArrayList<>(arguments.length);
         for (String argument : arguments) {
             this.arguments.add(argument);
         }
