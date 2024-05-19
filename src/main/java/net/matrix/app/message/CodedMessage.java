@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.matrix.text.MessageFormats;
+import net.matrix.java.text.MessageFormatMx;
 
 /**
  * 编码消息。
@@ -183,9 +183,9 @@ public class CodedMessage
     private void format(final StringBuilder sb) {
         CodedMessageDefinition def = CodedMessageDefinition.getDefinition(code);
         if (def == null) {
-            sb.append(MessageFormats.formatFallback(code, arguments.toArray()));
+            sb.append(MessageFormatMx.formatFallback(code, arguments.toArray()));
         } else {
-            sb.append(MessageFormats.format(def.getTemplate(), def.getLocale(), arguments.toArray()));
+            sb.append(MessageFormatMx.format(def.getTemplate(), def.getLocale(), arguments.toArray()));
         }
         for (String unformattedArgument : unformattedArguments) {
             sb.append('|');

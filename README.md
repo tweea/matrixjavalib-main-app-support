@@ -1,4 +1,4 @@
 matrixjavalib-main-app-support
 ==============================
 
-matrixjavalib 应用程序辅助
+应用程序辅助工具

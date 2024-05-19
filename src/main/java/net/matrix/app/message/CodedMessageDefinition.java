@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import net.matrix.text.Locales;
+import net.matrix.java.util.LocaleMx;
 
 /**
  * 编码消息定义。
@@ -48,7 +48,7 @@ public class CodedMessageDefinition {
             return null;
         }
 
-        CodedMessageDefinition definition = definitions.get(Locales.current());
+        CodedMessageDefinition definition = definitions.get(LocaleMx.current());
         if (definition == null) {
             definition = definitions.get(Locale.ROOT);
         }

@@ -9,7 +9,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import net.matrix.text.Locales;
+import net.matrix.java.util.LocaleMx;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,12 +21,12 @@ public class CodedMessageDefinitionLoaderTest {
 
     @Test
     public void testGetDefinition() {
-        Locales.current(Locale.CHINA);
+        LocaleMx.current(Locale.CHINA);
         CodedMessageDefinition part = CodedMessageDefinition.getDefinition("System.Error");
         assertThat(part.getCode()).isEqualTo("System.Error");
         assertThat(part.getTemplate()).isEqualTo("系统错误");
 
-        Locales.current(Locale.US);
+        LocaleMx.current(Locale.US);
         part = CodedMessageDefinition.getDefinition("System.Error");
         assertThat(part.getCode()).isEqualTo("System.Error");
         assertThat(part.getTemplate()).isEqualTo("System error");

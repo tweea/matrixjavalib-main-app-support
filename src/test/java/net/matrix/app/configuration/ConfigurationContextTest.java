@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import net.matrix.app.io.RelativeResource;
+import net.matrix.app.io.RelativeResourceRootRegister;
 import net.matrix.app.repository.ResourceRepository;
 import net.matrix.app.repository.ResourceSelection;
 import net.matrix.configuration.ReloadableConfigurationContainer;
 import net.matrix.configuration.XMLConfigurationContainer;
-import net.matrix.io.RelativeResource;
-import net.matrix.io.RelativeResourceRootRegister;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;

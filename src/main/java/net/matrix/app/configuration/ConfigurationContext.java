@@ -4,10 +4,12 @@
  */
 package net.matrix.app.configuration;
 
+import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -128,7 +130,8 @@ public final class ConfigurationContext
                 return container;
             }
             try {
-                container = type.newInstance();
+                Constructor<T> constructor = ConstructorUtils.getAccessibleConstructor(type);
+                container = constructor.newInstance();
             } catch (ReflectiveOperationException e) {
                 throw new ConfigurationException("配置类 " + type.getName() + " 实例化失败", e);
             }
