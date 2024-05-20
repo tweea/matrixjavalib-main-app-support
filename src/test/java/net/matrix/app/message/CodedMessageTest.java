@@ -67,7 +67,7 @@ public class CodedMessageTest {
         CodedMessage message = new CodedMessage("Message.Fallback", CodedMessageLevel.INFORMATION, "Test", "test2");
 
         String formatString = message.format();
-        assertThat(formatString).isEqualTo("Message.Fallback, Test, test2");
+        assertThat(formatString).isEqualTo("Message.Fallback，Test，test2");
     }
 
     @Test
