@@ -1,8 +1,8 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 /**
- * 应用配置，支持应用的配置信息加载。
+ * 应用配置，管理加载应用中的配置信息。
  */
 package net.matrix.app.configuration;

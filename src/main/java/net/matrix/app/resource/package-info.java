@@ -3,6 +3,6 @@
  * 保留所有权利。
  */
 /**
- * 资源仓库。
+ * 应用资源，管理应用中的资源。
  */
 package net.matrix.app.resource;
