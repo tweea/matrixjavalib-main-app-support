@@ -2,7 +2,7 @@
  * 版权所有 2020 Matrix。
  * 保留所有权利。
  */
-package net.matrix.app.repository;
+package net.matrix.app.resource;
 
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.Test;

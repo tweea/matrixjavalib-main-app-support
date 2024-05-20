@@ -14,10 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
-import net.matrix.app.repository.ResourceContext;
-import net.matrix.app.repository.ResourceContextConfig;
-import net.matrix.app.repository.ResourceRepository;
-import net.matrix.app.repository.ResourceSelection;
+import net.matrix.app.resource.ResourceContext;
+import net.matrix.app.resource.ResourceContextConfig;
+import net.matrix.app.resource.ResourceRepository;
+import net.matrix.app.resource.ResourceSelection;
 import net.matrix.configuration.ReloadableConfigurationContainer;
 
 /**

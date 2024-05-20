@@ -2,7 +2,7 @@
  * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
-package net.matrix.app.io;
+package net.matrix.app.resource;
 
 import java.util.Objects;
 
