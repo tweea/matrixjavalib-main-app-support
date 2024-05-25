@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app;
@@ -10,18 +10,18 @@ package net.matrix.app;
 public class DefaultSystemController
     implements SystemController {
     /**
-     * 关联的系统环境。
+     * 系统环境。
      */
     private SystemContext context;
 
     @Override
-    public void setContext(final SystemContext context) {
-        this.context = context;
+    public SystemContext getContext() {
+        return context;
     }
 
     @Override
-    public SystemContext getContext() {
-        return context;
+    public void setContext(SystemContext context) {
+        this.context = context;
     }
 
     @Override
