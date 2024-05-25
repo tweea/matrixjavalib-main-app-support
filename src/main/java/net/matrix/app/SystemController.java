@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app;
@@ -12,19 +12,19 @@ import net.matrix.lang.Resettable;
 public interface SystemController
     extends Resettable {
     /**
-     * 设置与控制器关联的系统环境。
+     * 获取系统环境。
      * 
-     * @param context
-     *     系统环境
-     */
-    void setContext(SystemContext context);
-
-    /**
-     * 获取与控制器关联的系统环境。
-     * 
-     * @return 系统环境
+     * @return 系统环境。
      */
     SystemContext getContext();
+
+    /**
+     * 设置系统环境。
+     * 
+     * @param context
+     *     系统环境。
+     */
+    void setContext(SystemContext context);
 
     /**
      * 初始化系统。

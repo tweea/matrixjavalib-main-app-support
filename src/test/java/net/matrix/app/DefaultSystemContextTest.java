@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app;
@@ -10,6 +10,20 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DefaultSystemContextTest {
+    @Test
+    public void testGetResourceLoader() {
+        DefaultSystemContext context = new DefaultSystemContext();
+
+        assertThat(context.getResourceLoader()).isNotNull();
+    }
+
+    @Test
+    public void testGetResourcePatternResolver() {
+        DefaultSystemContext context = new DefaultSystemContext();
+
+        assertThat(context.getResourcePatternResolver()).isNotNull();
+    }
+
     @Test
     public void testGetConfig() {
         DefaultSystemContext context = new DefaultSystemContext();
@@ -34,12 +48,21 @@ public class DefaultSystemContextTest {
     }
 
     @Test
-    public void testRegisterObject() {
+    public void testRegisterObject_name() {
         DefaultSystemContext context = new DefaultSystemContext();
-        Object obj = new Object();
+        Object object = new Object();
 
-        context.registerObject(Object.class, obj);
-        assertThat(context.lookupObject(Object.class)).isSameAs(obj);
+        context.registerObject("test", object);
+        assertThat(context.lookupObject("test", Object.class)).isSameAs(object);
+    }
+
+    @Test
+    public void testRegisterObject_type() {
+        DefaultSystemContext context = new DefaultSystemContext();
+        Object object = new Object();
+
+        context.registerObject(Object.class, object);
+        assertThat(context.lookupObject(Object.class)).isSameAs(object);
     }
 
     @Test

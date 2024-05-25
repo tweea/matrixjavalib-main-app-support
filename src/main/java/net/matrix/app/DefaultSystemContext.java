@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app;
@@ -30,6 +30,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
+import net.matrix.text.ResourceBundleMessageFormatter;
+
 /**
  * 默认的系统环境。
  */
@@ -41,35 +43,55 @@ public class DefaultSystemContext
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSystemContext.class);
 
     /**
+     * 区域相关资源。
+     */
+    private static final ResourceBundleMessageFormatter RBMF = new ResourceBundleMessageFormatter(DefaultSystemContext.class).useCurrentLocale();
+
+    /**
      * 系统配置位置的系统属性名。
      */
     private static final String CONFIG_LOCATION_PROPERTY = "systemConfigLocation";
+
+    /**
+     * 默认的系统配置位置。
+     */
+    private static final String DEFAULT_CONFIG_LOCATION = "classpath:sysconfig.cfg,classpath:sysconfig.dev.cfg";
 
     /**
      * 系统控制器类名的系统属性名。
      */
     private static final String CONTROLLER_CLASS_PROPERTY = "systemControllerClass";
 
+    /**
+     * 系统资源加载器。
+     */
     protected ResourceLoader resourceLoader;
 
-    protected ResourcePatternResolver resourceResolver;
+    /**
+     * 系统资源扫描器。
+     */
+    protected ResourcePatternResolver resourcePatternResolver;
 
+    /**
+     * 系统配置。
+     */
     protected Configuration config;
 
+    /**
+     * 已注册对象。
+     */
     protected final Map<String, Object> objects;
 
+    /**
+     * 系统控制器。
+     */
     protected SystemController controller;
 
     /**
-     * 构造空实例。
+     * 构造器。
      */
     public DefaultSystemContext() {
         this.objects = new HashMap<>();
-    }
-
-    @Override
-    public void setResourceLoader(final ResourceLoader loader) {
-        this.resourceLoader = loader;
     }
 
     @Override
@@ -81,31 +103,32 @@ public class DefaultSystemContext
     }
 
     @Override
-    public ResourcePatternResolver getResourcePatternResolver() {
-        if (resourceResolver == null) {
-            if (getResourceLoader() instanceof ResourcePatternResolver) {
-                resourceResolver = (ResourcePatternResolver) resourceLoader;
-            } else {
-                resourceResolver = new PathMatchingResourcePatternResolver(resourceLoader);
-            }
-        }
-        return resourceResolver;
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
     }
 
     @Override
-    public void setConfig(final Configuration config) {
-        this.config = config;
+    public ResourcePatternResolver getResourcePatternResolver() {
+        if (resourcePatternResolver == null) {
+            if (getResourceLoader() instanceof ResourcePatternResolver) {
+                resourcePatternResolver = (ResourcePatternResolver) resourceLoader;
+            } else {
+                resourcePatternResolver = new PathMatchingResourcePatternResolver(resourceLoader);
+            }
+        }
+        return resourcePatternResolver;
+    }
+
+    @Override
+    public void setResourcePatternResolver(ResourcePatternResolver resourcePatternResolver) {
+        this.resourcePatternResolver = resourcePatternResolver;
     }
 
     @Override
     public Configuration getConfig() {
         if (config == null) {
-            String configLocationsProperty = System.getProperty(CONFIG_LOCATION_PROPERTY);
-            if (configLocationsProperty == null) {
-                configLocationsProperty = "classpath:sysconfig.cfg,classpath:sysconfig.dev.cfg";
-            }
-
-            String[] configLocations = StringUtils.split(configLocationsProperty, ",; \t\n");
+            String configLocationProperty = System.getProperty(CONFIG_LOCATION_PROPERTY, DEFAULT_CONFIG_LOCATION);
+            String[] configLocations = StringUtils.split(configLocationProperty, ",; \t\n");
             configLocations = StringUtils.stripAll(configLocations);
 
             List<AbstractConfiguration> configList = new ArrayList<>();
@@ -113,23 +136,27 @@ public class DefaultSystemContext
                 if (StringUtils.isBlank(configLocation)) {
                     continue;
                 }
+
                 Resource configResource = getResourceLoader().getResource(configLocation);
                 if (!configResource.exists()) {
-                    LOG.info("系统配置文件 {} 不存在", configResource);
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug(RBMF.get("未找到系统配置文件 {}"), configResource);
+                    }
                     continue;
                 }
+
                 try {
                     PropertiesConfiguration memberConfig = new PropertiesConfiguration();
                     FileHandler fileHandler = new FileHandler(memberConfig);
                     fileHandler.load(configResource.getInputStream());
                     configList.add(memberConfig);
-                    LOG.info("系统配置文件 {} 加载完成", configResource);
+                    LOG.info(RBMF.get("系统配置文件 {} 加载完成"), configResource);
                 } catch (IOException | ConfigurationException e) {
-                    throw new ConfigurationRuntimeException("系统配置文件 " + configResource + " 加载失败", e);
+                    throw new ConfigurationRuntimeException(RBMF.format("系统配置文件 {0} 加载失败", configResource), e);
                 }
             }
             if (configList.isEmpty()) {
-                LOG.info("系统配置文件未找到");
+                LOG.info(RBMF.get("未加载系统配置文件"));
                 config = new PropertiesConfiguration();
             } else if (configList.size() == 1) {
                 config = configList.get(0);
@@ -145,36 +172,33 @@ public class DefaultSystemContext
     }
 
     @Override
-    public void registerObject(final String name, final Object object) {
+    public void setConfig(Configuration config) {
+        this.config = config;
+    }
+
+    @Override
+    public void registerObject(String name, Object object) {
         objects.put(name, object);
     }
 
     @Override
-    public <T> void registerObject(final Class<T> type, final T object) {
+    public <T> void registerObject(Class<T> type, T object) {
         registerObject(type.getName(), object);
     }
 
     @Override
-    public <T> T lookupObject(final String name) {
+    public <T> T lookupObject(String name) {
         return (T) objects.get(name);
     }
 
     @Override
-    public <T> T lookupObject(final String name, final Class<T> type) {
+    public <T> T lookupObject(String name, Class<T> type) {
         return type.cast(lookupObject(name));
     }
 
     @Override
-    public <T> T lookupObject(final Class<T> type) {
+    public <T> T lookupObject(Class<T> type) {
         return lookupObject(type.getName(), type);
-    }
-
-    @Override
-    public void setController(final SystemController controller) {
-        this.controller = controller;
-        if (this.controller != null) {
-            this.controller.setContext(this);
-        }
     }
 
     @Override
@@ -189,11 +213,19 @@ public class DefaultSystemContext
                     Constructor<?> controllerConstructor = ConstructorUtils.getAccessibleConstructor(controllerClass);
                     controller = (SystemController) controllerConstructor.newInstance();
                 } catch (ReflectiveOperationException e) {
-                    throw new ConfigurationRuntimeException("控制器类 " + controllerClassProperty + " 实例化失败", e);
+                    throw new ConfigurationRuntimeException(RBMF.format("控制器类 {0} 实例化失败", controllerClassProperty), e);
                 }
             }
             controller.setContext(this);
         }
         return controller;
+    }
+
+    @Override
+    public void setController(SystemController controller) {
+        this.controller = controller;
+        if (this.controller != null) {
+            this.controller.setContext(this);
+        }
     }
 }
