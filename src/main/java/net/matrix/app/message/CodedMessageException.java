@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
@@ -7,7 +7,7 @@ package net.matrix.app.message;
 import net.matrix.app.SystemException;
 
 /**
- * 编码消息异常。
+ * 编码消息的系统异常。
  */
 public class CodedMessageException
     extends SystemException {
@@ -26,7 +26,7 @@ public class CodedMessageException
      * @param messageCode
      *     消息编码。
      */
-    public CodedMessageException(final String messageCode) {
+    public CodedMessageException(String messageCode) {
         super(messageCode);
     }
 
@@ -36,7 +36,7 @@ public class CodedMessageException
      * @param message
      *     消息。
      */
-    public CodedMessageException(final CodedMessage message) {
+    public CodedMessageException(CodedMessage message) {
         super(message);
     }
 
@@ -46,7 +46,7 @@ public class CodedMessageException
      * @param cause
      *     原因异常（使用 {@link #getCause()} 方法获取）。可以使用 <code>null</code> 值，指原因异常不存在或未知。
      */
-    public CodedMessageException(final Throwable cause) {
+    public CodedMessageException(Throwable cause) {
         super(cause);
     }
 
@@ -59,7 +59,7 @@ public class CodedMessageException
      * @param messageCode
      *     消息编码。
      */
-    public CodedMessageException(final Throwable cause, final String messageCode) {
+    public CodedMessageException(Throwable cause, String messageCode) {
         super(cause, messageCode);
     }
 
@@ -72,7 +72,7 @@ public class CodedMessageException
      * @param message
      *     消息。
      */
-    public CodedMessageException(final Throwable cause, final CodedMessage message) {
+    public CodedMessageException(Throwable cause, CodedMessage message) {
         super(cause, message);
     }
 
