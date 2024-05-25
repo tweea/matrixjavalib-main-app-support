@@ -79,7 +79,7 @@ public final class CodedMessages {
      * @return 新建的消息
      */
     public static CodedMessage information(final String code, final String... arguments) {
-        return new CodedMessage(code, CodedMessageLevel.INFORMATION, arguments);
+        return new CodedMessage(code, CodedMessageLevel.INFO, arguments);
     }
 
     /**
@@ -92,7 +92,7 @@ public final class CodedMessages {
      * @return 新建的消息
      */
     public static CodedMessage warning(final String code, final String... arguments) {
-        return new CodedMessage(code, CodedMessageLevel.WARNING, arguments);
+        return new CodedMessage(code, CodedMessageLevel.WARN, arguments);
     }
 
     /**
@@ -277,7 +277,7 @@ public final class CodedMessages {
         Element messageElement = document.createElement("message");
         messageElement.setAttribute("time", Long.toString(message.getTime()));
         messageElement.setAttribute("code", message.getCode());
-        messageElement.setAttribute("level", Integer.toString(message.getLevel().getCode()));
+        messageElement.setAttribute("level", Integer.toString(message.getLevel().code));
         for (String argument : message.getArguments()) {
             Element argumentElement = document.createElement("argument");
             messageElement.appendChild(argumentElement);

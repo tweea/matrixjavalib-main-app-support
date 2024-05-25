@@ -37,7 +37,7 @@ public class SystemExceptionTest {
     public void testNew3() {
         SystemException exception = new SystemException(CodedMessages.information("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
-        assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFORMATION);
+        assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(exception.getCodedMessage().getMessages()).isEmpty();
     }
 
@@ -45,12 +45,12 @@ public class SystemExceptionTest {
     public void testNew4() {
         SystemException exception = new SystemException(new Exception(), CodedMessages.information("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
-        assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFORMATION);
+        assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(exception.getCodedMessage().getMessages()).isEmpty();
 
         exception = new SystemException(exception, CodedMessages.information("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
-        assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFORMATION);
+        assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(exception.getCodedMessage().getMessages()).hasSize(1);
     }
 }

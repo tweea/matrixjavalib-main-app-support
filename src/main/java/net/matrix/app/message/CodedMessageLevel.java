@@ -1,11 +1,12 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import net.matrix.java.lang.EnumMx;
 
 /**
  * 编码消息级别。
@@ -24,12 +25,12 @@ public enum CodedMessageLevel {
     /**
      * 消息。
      */
-    INFORMATION(3),
+    INFO(3),
 
     /**
      * 警告。
      */
-    WARNING(4),
+    WARN(4),
 
     /**
      * 错误。
@@ -41,42 +42,25 @@ public enum CodedMessageLevel {
      */
     FATAL(6);
 
-    /**
-     * 用于按编码查找。
-     */
-    private static final Map<Integer, CodedMessageLevel> CODE_MAP;
+    private static final Map<Integer, CodedMessageLevel> CODE_MAP = EnumMx.buildValueMap(CodedMessageLevel.class, v -> v.code);
 
     /**
      * 编码。
      */
-    private final Integer code;
+    public final Integer code;
 
-    static {
-        CODE_MAP = new HashMap<>();
-        for (CodedMessageLevel level : values()) {
-            CODE_MAP.put(level.code, level);
-        }
-    }
-
-    CodedMessageLevel(final Integer code) {
+    CodedMessageLevel(Integer code) {
         this.code = code;
     }
 
     /**
-     * 根据编码查找。
+     * 编码转换为枚举值。
      * 
      * @param code
-     *     编码
-     * @return 编码消息级别
+     *     编码。
+     * @return 枚举值。
      */
-    public static CodedMessageLevel forCode(final Integer code) {
+    public static CodedMessageLevel forCode(Integer code) {
         return CODE_MAP.get(code);
-    }
-
-    /**
-     * 编码。
-     */
-    public Integer getCode() {
-        return code;
     }
 }

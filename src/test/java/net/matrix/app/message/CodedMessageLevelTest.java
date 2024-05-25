@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
@@ -14,10 +14,5 @@ public class CodedMessageLevelTest {
         assertThat(CodedMessageLevel.forCode(1)).isEqualTo(CodedMessageLevel.TRACE);
         assertThat(CodedMessageLevel.forCode(null)).isNull();
         assertThat(CodedMessageLevel.forCode(19)).isNull();
-    }
-
-    @Test
-    public void testGetCode() {
-        assertThat(CodedMessageLevel.TRACE.getCode()).isEqualTo(1);
     }
 }

@@ -20,9 +20,9 @@ public class CodedMessageTest {
 
     @Test
     public void testCodedMessage() {
-        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFORMATION);
+        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
         assertThat(message.getCode()).isEqualTo("Message.Test1");
-        assertThat(message.getLevel()).isEqualTo(CodedMessageLevel.INFORMATION);
+        assertThat(message.getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(message.getArguments()).isEmpty();
         assertThat(message.getUnformattedArguments()).isEmpty();
         assertThat(message.getMessages()).isEmpty();
@@ -30,7 +30,7 @@ public class CodedMessageTest {
 
     @Test
     public void testAddArgument() {
-        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFORMATION);
+        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
 
         message.addArgument("abc");
         assertThat(message.getArguments()).hasSize(1);
@@ -39,7 +39,7 @@ public class CodedMessageTest {
 
     @Test
     public void testAddUnformattedArgument() {
-        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFORMATION);
+        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
 
         message.addUnformattedArgument("abc");
         assertThat(message.getUnformattedArguments()).hasSize(1);
@@ -48,15 +48,15 @@ public class CodedMessageTest {
 
     @Test
     public void testHasLevel() {
-        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFORMATION);
+        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
 
-        assertThat(message.hasLevel(CodedMessageLevel.INFORMATION)).isTrue();
+        assertThat(message.hasLevel(CodedMessageLevel.INFO)).isTrue();
         assertThat(message.hasLevel(CodedMessageLevel.ERROR)).isFalse();
     }
 
     @Test
     public void testFormat() {
-        CodedMessage message = new CodedMessage("Message.Test2", CodedMessageLevel.INFORMATION, "Test", "test2");
+        CodedMessage message = new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "Test", "test2");
 
         String formatString = message.format();
         assertThat(formatString).isEqualTo("测试消息 B：Testtest2");
@@ -64,7 +64,7 @@ public class CodedMessageTest {
 
     @Test
     public void testFormat_fallback() {
-        CodedMessage message = new CodedMessage("Message.Fallback", CodedMessageLevel.INFORMATION, "Test", "test2");
+        CodedMessage message = new CodedMessage("Message.Fallback", CodedMessageLevel.INFO, "Test", "test2");
 
         String formatString = message.format();
         assertThat(formatString).isEqualTo("Message.Fallback，Test，test2");
@@ -72,7 +72,7 @@ public class CodedMessageTest {
 
     @Test
     public void testFormat_unformatted() {
-        CodedMessage message = new CodedMessage("Message.Test2", CodedMessageLevel.INFORMATION, "Test", "test2");
+        CodedMessage message = new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "Test", "test2");
         message.addUnformattedArgument("12345");
 
         String formatString = message.format();
@@ -81,8 +81,8 @@ public class CodedMessageTest {
 
     @Test
     public void testFormatAll() {
-        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFORMATION, "a");
-        message.getMessages().add(new CodedMessage("Message.Test2", CodedMessageLevel.INFORMATION, "b", "c"));
+        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO, "a");
+        message.getMessages().add(new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "b", "c"));
 
         String formatString = message.formatAll();
         assertThat(formatString).isEqualTo("测试消息：a\n\t测试消息 B：bc");
