@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app;
@@ -8,7 +8,7 @@ import net.matrix.app.message.CodedMessage;
 import net.matrix.app.message.CodedMessages;
 
 /**
- * 应用系统的根异常，包含一个或多个编码消息。
+ * 系统非检查异常，包含编码消息。
  */
 public class SystemRuntimeException
     extends RuntimeException
@@ -16,7 +16,7 @@ public class SystemRuntimeException
     private static final long serialVersionUID = 1L;
 
     /**
-     * 异常包含的消息。
+     * 消息。
      */
     private final CodedMessage message;
 
@@ -33,7 +33,7 @@ public class SystemRuntimeException
      * @param messageCode
      *     消息编码。
      */
-    public SystemRuntimeException(final String messageCode) {
+    public SystemRuntimeException(String messageCode) {
         this.message = CodedMessages.error(messageCode);
     }
 
@@ -43,7 +43,7 @@ public class SystemRuntimeException
      * @param message
      *     消息。
      */
-    public SystemRuntimeException(final CodedMessage message) {
+    public SystemRuntimeException(CodedMessage message) {
         this.message = message;
     }
 
@@ -53,15 +53,10 @@ public class SystemRuntimeException
      * @param cause
      *     原因异常（使用 {@link #getCause()} 方法获取）。可以使用 <code>null</code> 值，指原因异常不存在或未知。
      */
-    public SystemRuntimeException(final Throwable cause) {
+    public SystemRuntimeException(Throwable cause) {
         super(cause);
         this.message = CodedMessages.error(getDefaultMessageCode());
-        if (cause instanceof CodedException) {
-            CodedException ce = (CodedException) cause;
-            this.message.getMessages().add(ce.getCodedMessage());
-        } else if (cause != null) {
-            this.message.addUnformattedArgument(cause.getMessage());
-        }
+        initCauseMessage(cause);
     }
 
     /**
@@ -73,15 +68,10 @@ public class SystemRuntimeException
      * @param messageCode
      *     消息编码。
      */
-    public SystemRuntimeException(final Throwable cause, final String messageCode) {
+    public SystemRuntimeException(Throwable cause, String messageCode) {
         super(cause);
         this.message = CodedMessages.error(messageCode);
-        if (cause instanceof CodedException) {
-            CodedException ce = (CodedException) cause;
-            this.message.getMessages().add(ce.getCodedMessage());
-        } else if (cause != null) {
-            this.message.addUnformattedArgument(cause.getMessage());
-        }
+        initCauseMessage(cause);
     }
 
     /**
@@ -93,9 +83,26 @@ public class SystemRuntimeException
      * @param message
      *     消息。
      */
-    public SystemRuntimeException(final Throwable cause, final CodedMessage message) {
+    public SystemRuntimeException(Throwable cause, CodedMessage message) {
         super(cause);
         this.message = message;
+        initCauseMessage(cause);
+    }
+
+    @Override
+    public synchronized Throwable initCause(Throwable cause) {
+        super.initCause(cause);
+        initCauseMessage(cause);
+        return this;
+    }
+
+    /**
+     * 初始化原因异常的消息。
+     * 
+     * @param cause
+     *     原因异常。
+     */
+    private void initCauseMessage(Throwable cause) {
         if (cause instanceof CodedException) {
             CodedException ce = (CodedException) cause;
             this.message.getMessages().add(ce.getCodedMessage());
@@ -110,7 +117,7 @@ public class SystemRuntimeException
     }
 
     @Override
-    public final CodedMessage getCodedMessage() {
+    public CodedMessage getCodedMessage() {
         return message;
     }
 
