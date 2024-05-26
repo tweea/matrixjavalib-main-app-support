@@ -22,8 +22,8 @@ public class CodedMessagesTest {
         List<CodedMessage> messageList = new ArrayList<>();
         messageList.add(CodedMessages.information("System.Error", "test1", "test2"));
         messageList.add(CodedMessages.information("100000000", "test3"));
-        messageList.get(1).getUnformattedArguments().add("unformatted");
-        messageList.get(1).getMessages().add(CodedMessages.debug("12345", "moo..."));
+        messageList.get(1).addUnformattedArgument("unformatted");
+        messageList.get(1).addMessage(CodedMessages.debug("12345", "moo..."));
         String messageString;
         try (StringWriter os = new StringWriter()) {
             CodedMessages.save(messageList, os);

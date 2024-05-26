@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
@@ -19,9 +19,10 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testCodedMessage() {
+    public void testNew() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
         assertThat(message.getCode()).isEqualTo("Message.Test1");
+        assertThat(message.getTime()).isGreaterThan(0);
         assertThat(message.getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(message.getArguments()).isEmpty();
         assertThat(message.getUnformattedArguments()).isEmpty();
@@ -47,10 +48,23 @@ public class CodedMessageTest {
     }
 
     @Test
+    public void testAddMessage() {
+        CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
+        CodedMessage message2 = new CodedMessage("Message.Test2", CodedMessageLevel.INFO);
+
+        message.addMessage(message2);
+        assertThat(message.getMessages()).hasSize(1);
+        assertThat(message.getMessages()).containsExactly(message2);
+    }
+
+    @Test
     public void testHasLevel() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
+        CodedMessage message2 = new CodedMessage("Message.Test2", CodedMessageLevel.WARN);
+        message.addMessage(message2);
 
         assertThat(message.hasLevel(CodedMessageLevel.INFO)).isTrue();
+        assertThat(message.hasLevel(CodedMessageLevel.WARN)).isTrue();
         assertThat(message.hasLevel(CodedMessageLevel.ERROR)).isFalse();
     }
 
@@ -82,7 +96,7 @@ public class CodedMessageTest {
     @Test
     public void testFormatAll() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO, "a");
-        message.getMessages().add(new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "b", "c"));
+        message.addMessage(new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "b", "c"));
 
         String formatString = message.formatAll();
         assertThat(formatString).isEqualTo("测试消息：a\n\t测试消息 B：bc");

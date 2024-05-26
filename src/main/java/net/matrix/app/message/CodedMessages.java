@@ -199,7 +199,7 @@ public final class CodedMessages {
             } else if ("unformattedArgument".equals(childNode.getNodeName())) {
                 message.addUnformattedArgument(childNode.getTextContent());
             } else if ("message".equals(childNode.getNodeName())) {
-                message.getMessages().add(load1(childNode));
+                message.addMessage(load1(childNode));
             }
         }
         return message;

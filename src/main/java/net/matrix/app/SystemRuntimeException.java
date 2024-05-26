@@ -105,7 +105,7 @@ public class SystemRuntimeException
     private void initCauseMessage(Throwable cause) {
         if (cause instanceof CodedException) {
             CodedException ce = (CodedException) cause;
-            this.message.getMessages().add(ce.getCodedMessage());
+            this.message.addMessage(ce.getCodedMessage());
         } else if (cause != null) {
             this.message.addUnformattedArgument(cause.getMessage());
         }

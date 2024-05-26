@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
@@ -7,6 +7,8 @@ package net.matrix.app.message;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.common.collect.Lists;
 
 import net.matrix.java.text.MessageFormatMx;
 
@@ -23,12 +25,12 @@ public class CodedMessage
     private final String code;
 
     /**
-     * 记录时间。
+     * 时间。
      */
     private final long time;
 
     /**
-     * 消息级别。
+     * 级别。
      */
     private final CodedMessageLevel level;
 
@@ -43,85 +45,82 @@ public class CodedMessage
     private final List<String> unformattedArguments;
 
     /**
-     * 依附消息列表。
+     * 依附的消息列表。
      */
     private final List<CodedMessage> messages;
 
     /**
-     * 构造一个消息，记录时间为现在。
+     * 构造器，设置时间为现在。
      * 
      * @param code
-     *     编码
+     *     编码。
      * @param level
-     *     消息级别
+     *     级别。
      * @param arguments
-     *     参数列表
+     *     参数列表。
      */
-    public CodedMessage(final String code, final CodedMessageLevel level, final String... arguments) {
+    public CodedMessage(String code, CodedMessageLevel level, String... arguments) {
         this(code, System.currentTimeMillis(), level, arguments);
     }
 
     /**
-     * 构造一个消息。
+     * 构造器。
      * 
      * @param code
-     *     编码
+     *     编码。
      * @param time
-     *     记录时间
+     *     时间。
      * @param level
-     *     消息级别
+     *     级别。
      * @param arguments
-     *     参数列表
+     *     参数列表。
      */
-    public CodedMessage(final String code, final long time, final CodedMessageLevel level, final String... arguments) {
+    public CodedMessage(String code, long time, CodedMessageLevel level, String... arguments) {
         this.code = code;
         this.time = time;
         this.level = level;
-        this.arguments = new ArrayList<>(arguments.length);
-        for (String argument : arguments) {
-            this.arguments.add(argument);
-        }
+        this.arguments = Lists.newArrayList(arguments);
         this.unformattedArguments = new ArrayList<>();
         this.messages = new ArrayList<>();
     }
 
     /**
-     * 编码。
+     * 获取编码。
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 记录时间。
+     * 获取时间。
      */
     public long getTime() {
         return time;
     }
 
     /**
-     * 消息级别。
+     * 获取级别。
      */
     public CodedMessageLevel getLevel() {
         return level;
     }
 
     /**
-     * 参数列表。
+     * 获取参数列表。
      */
     public List<String> getArguments() {
         return arguments;
     }
 
     /**
-     * 不参与格式化的参数列表。
+     * 获取不参与格式化的参数列表。
      */
     public List<String> getUnformattedArguments() {
         return unformattedArguments;
     }
 
     /**
-     * 依附消息列表。
+     * 获取依附的消息列表。
      */
     public List<CodedMessage> getMessages() {
         return messages;
@@ -131,9 +130,9 @@ public class CodedMessage
      * 在参数列表中增加一个参数。
      * 
      * @param argument
-     *     参数
+     *     参数。
      */
-    public void addArgument(final String argument) {
+    public void addArgument(String argument) {
         arguments.add(argument);
     }
 
@@ -141,25 +140,35 @@ public class CodedMessage
      * 在不参与格式化的参数列表中增加一个参数。
      * 
      * @param argument
-     *     参数
+     *     参数。
      */
-    public void addUnformattedArgument(final String argument) {
+    public void addUnformattedArgument(String argument) {
         unformattedArguments.add(argument);
     }
 
     /**
-     * 判断消息中是否包含指定级别的消息。
+     * 在依附的消息列表中增加一个消息。
      * 
-     * @param targetLevel
-     *     目标级别
-     * @return 是否包含
+     * @param message
+     *     消息。
      */
-    public boolean hasLevel(final CodedMessageLevel targetLevel) {
-        if (level == targetLevel) {
+    public void addMessage(CodedMessage message) {
+        messages.add(message);
+    }
+
+    /**
+     * 判断消息或依附的消息列表中是否包含指定级别的消息。
+     * 
+     * @param theLevel
+     *     级别。
+     * @return 是否包含指定级别的消息。
+     */
+    public boolean hasLevel(CodedMessageLevel theLevel) {
+        if (level == theLevel) {
             return true;
         }
         for (CodedMessage message : messages) {
-            if (message.hasLevel(targetLevel)) {
+            if (message.hasLevel(theLevel)) {
                 return true;
             }
         }
@@ -167,9 +176,9 @@ public class CodedMessage
     }
 
     /**
-     * 将消息格式化为字符串。
+     * 将消息格式化为字符串形式。
      * 
-     * @return 消息字符串
+     * @return 消息的字符串形式。
      */
     public String format() {
         StringBuilder sb = new StringBuilder();
@@ -178,14 +187,14 @@ public class CodedMessage
     }
 
     /**
-     * 将消息格式化为字符串。
+     * 将消息格式化为字符串形式。
      */
-    private void format(final StringBuilder sb) {
-        CodedMessageDefinition def = CodedMessageDefinition.getDefinition(code);
-        if (def == null) {
+    private void format(StringBuilder sb) {
+        CodedMessageDefinition definition = CodedMessageDefinition.getDefinition(code);
+        if (definition == null) {
             sb.append(MessageFormatMx.formatFallback(code, arguments.toArray()));
         } else {
-            sb.append(MessageFormatMx.format(def.getTemplate(), def.getLocale(), arguments.toArray()));
+            sb.append(MessageFormatMx.format(definition.getTemplate(), definition.getLocale(), arguments.toArray()));
         }
         for (String unformattedArgument : unformattedArguments) {
             sb.append('|');
@@ -194,21 +203,21 @@ public class CodedMessage
     }
 
     /**
-     * 将所有消息格式化为字符串。
+     * 将消息和依附的消息列表格式化为字符串形式。
      * 
-     * @return 消息字符串
+     * @return 消息的字符串形式。
      */
     public String formatAll() {
         StringBuilder sb = new StringBuilder();
         formatAll(sb, 0);
-        sb.deleteCharAt(sb.length() - 1);
+        sb.setLength(sb.length() - 1);
         return sb.toString();
     }
 
     /**
-     * 将所有消息格式化为字符串。
+     * 将消息和依附的消息列表格式化为字符串形式。
      */
-    private void formatAll(final StringBuilder sb, final int depth) {
+    private void formatAll(StringBuilder sb, int depth) {
         for (int i = 0; i < depth; i++) {
             sb.append('\t');
         }
