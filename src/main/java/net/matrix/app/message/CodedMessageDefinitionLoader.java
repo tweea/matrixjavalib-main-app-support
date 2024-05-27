@@ -81,7 +81,7 @@ public final class CodedMessageDefinitionLoader {
             for (HierarchicalConfiguration definitionConfig : config.configurationsAt("definition")) {
                 String code = definitionConfig.getString("[@code]");
                 String template = definitionConfig.getString("[@template]");
-                CodedMessageDefinition.define(new CodedMessageDefinition(code, locale, template));
+                CodedMessageDefinition.add(new CodedMessageDefinition(code, locale, template));
             }
         } catch (IOException | ConfigurationException e) {
             LOG.error("加载失败", e);

@@ -14,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CodedMessageTest {
     @BeforeAll
     public static void beforeAll() {
-        CodedMessageDefinition.define(new CodedMessageDefinition("Message.Test1", Locale.ROOT, "测试消息：{0}"));
-        CodedMessageDefinition.define(new CodedMessageDefinition("Message.Test2", Locale.ROOT, "测试消息 B：{0}{1}"));
+        CodedMessageDefinition.add(new CodedMessageDefinition("Message.Test1", Locale.ROOT, "测试消息：{0}"));
+        CodedMessageDefinition.add(new CodedMessageDefinition("Message.Test2", Locale.ROOT, "测试消息 B：{0}{1}"));
     }
 
     @Test

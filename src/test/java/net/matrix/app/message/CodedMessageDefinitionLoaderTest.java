@@ -22,12 +22,12 @@ public class CodedMessageDefinitionLoaderTest {
     @Test
     public void testGetDefinition() {
         LocaleMx.current(Locale.CHINA);
-        CodedMessageDefinition part = CodedMessageDefinition.getDefinition("System.Error");
+        CodedMessageDefinition part = CodedMessageDefinition.get("System.Error");
         assertThat(part.getCode()).isEqualTo("System.Error");
         assertThat(part.getTemplate()).isEqualTo("系统错误");
 
         LocaleMx.current(Locale.US);
-        part = CodedMessageDefinition.getDefinition("System.Error");
+        part = CodedMessageDefinition.get("System.Error");
         assertThat(part.getCode()).isEqualTo("System.Error");
         assertThat(part.getTemplate()).isEqualTo("System error");
     }

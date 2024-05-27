@@ -190,7 +190,7 @@ public class CodedMessage
      * 将消息格式化为字符串形式。
      */
     private void format(StringBuilder sb) {
-        CodedMessageDefinition definition = CodedMessageDefinition.getDefinition(code);
+        CodedMessageDefinition definition = CodedMessageDefinition.get(code);
         if (definition == null) {
             sb.append(MessageFormatMx.formatFallback(code, arguments.toArray()));
         } else {

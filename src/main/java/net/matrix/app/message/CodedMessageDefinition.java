@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
@@ -39,10 +39,10 @@ public class CodedMessageDefinition {
      * 获取编码消息定义。
      * 
      * @param code
-     *     编码
-     * @return 编码消息定义
+     *     编码。
+     * @return 编码消息定义。
      */
-    public static CodedMessageDefinition getDefinition(final String code) {
+    public static CodedMessageDefinition get(String code) {
         Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.get(code);
         if (definitions == null) {
             return null;
@@ -56,55 +56,51 @@ public class CodedMessageDefinition {
     }
 
     /**
-     * 定义编码消息。
+     * 增加编码消息定义。
      * 
      * @param definition
-     *     编码消息定义
+     *     编码消息定义。
      */
-    public static void define(final CodedMessageDefinition definition) {
+    public static void add(CodedMessageDefinition definition) {
         String code = definition.getCode();
         Locale locale = definition.getLocale();
 
-        Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.get(code);
-        if (definitions == null) {
-            definitions = new HashMap<>();
-            DEFINITIONS.put(code, definitions);
-        }
+        Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.computeIfAbsent(code, key -> new HashMap<>());
         definitions.put(locale, definition);
     }
 
     /**
-     * 根据必要信息构造。
+     * 构造器。
      * 
      * @param code
-     *     编码
+     *     编码。
      * @param locale
-     *     区域
+     *     区域。
      * @param template
-     *     模板
+     *     模板。
      */
-    public CodedMessageDefinition(final String code, final Locale locale, final String template) {
+    public CodedMessageDefinition(String code, Locale locale, String template) {
         this.code = code;
         this.locale = locale;
         this.template = template;
     }
 
     /**
-     * 编码。
+     * 获取编码。
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 区域。
+     * 获取区域。
      */
     public Locale getLocale() {
         return locale;
     }
 
     /**
-     * 消息模板。
+     * 获取模板。
      */
     public String getTemplate() {
         return template;
@@ -112,7 +108,7 @@ public class CodedMessageDefinition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, locale);
+        return Objects.hash(code, locale, template);
     }
 
     @Override
@@ -120,27 +116,10 @@ public class CodedMessageDefinition {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof CodedMessageDefinition)) {
             return false;
         }
         CodedMessageDefinition other = (CodedMessageDefinition) obj;
-        if (code == null) {
-            if (other.code != null) {
-                return false;
-            }
-        } else if (!code.equals(other.code)) {
-            return false;
-        }
-        if (locale == null) {
-            if (other.locale != null) {
-                return false;
-            }
-        } else if (!locale.equals(other.locale)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(code, other.code) && Objects.equals(locale, other.locale) && Objects.equals(template, other.template);
     }
 }
