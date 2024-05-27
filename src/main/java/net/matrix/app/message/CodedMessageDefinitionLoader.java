@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.message;
@@ -11,6 +11,7 @@ import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.io.FileHandler;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
+import net.matrix.text.ResourceBundleMessageFormatter;
+
 /**
- * 加载编码消息定义。
+ * 编码消息定义加载工具。
  */
 public final class CodedMessageDefinitionLoader {
     /**
@@ -28,63 +31,76 @@ public final class CodedMessageDefinitionLoader {
     private static final Logger LOG = LoggerFactory.getLogger(CodedMessageDefinitionLoader.class);
 
     /**
+     * 区域相关资源。
+     */
+    private static final ResourceBundleMessageFormatter RBMF = new ResourceBundleMessageFormatter(CodedMessageDefinitionLoader.class).useCurrentLocale();
+
+    /**
      * 阻止实例化。
      */
     private CodedMessageDefinitionLoader() {
     }
 
     /**
-     * 从类路径中加载所有名为 codedMessageDefinition.xml 的配置文件。
+     * 扫描类路径，加载所有名称符合 codedMessageDefinition(_*).xml 的配置文件。
      */
     public static void loadBuiltinDefinitions() {
-        loadDefinitions(new PathMatchingResourcePatternResolver(), "classpath*:codedMessageDefinition*.xml");
+        ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+        loadDefinitions(resourcePatternResolver, "classpath*:codedMessageDefinition*.xml", "codedMessageDefinition_");
     }
 
     /**
-     * 加载所有匹配的配置文件。
+     * 加载所有名称符合特定匹配模式的配置文件。
      * 
-     * @param resolver
-     *     资源加载策略
+     * @param resourcePatternResolver
+     *     资源扫描器。
      * @param locationPattern
-     *     匹配模式
+     *     匹配模式。
+     * @param filenamePrefix
+     *     文件名前缀。
      */
-    public static void loadDefinitions(final ResourcePatternResolver resolver, final String locationPattern) {
+    public static void loadDefinitions(ResourcePatternResolver resourcePatternResolver, String locationPattern, String filenamePrefix) {
+        Resource[] resources;
         try {
-            Resource[] resources = resolver.getResources(locationPattern);
-            for (Resource resource : resources) {
-                String filename = resource.getFilename();
-                Locale locale = Locale.ROOT;
-                String filenamePrefix = "codedMessageDefinition_";
-                if (filename.startsWith(filenamePrefix)) {
-                    locale = LocaleUtils.toLocale(filename.substring(filenamePrefix.length(), filename.lastIndexOf(".xml")));
-                }
-                loadDefinitions(locale, resource);
-            }
+            resources = resourcePatternResolver.getResources(locationPattern);
         } catch (IOException e) {
-            LOG.error("加载失败", e);
+            LOG.error(RBMF.get("编码消息定义加载失败"), e);
+            return;
+        }
+
+        for (Resource resource : resources) {
+            String fileBaseName = FilenameUtils.getBaseName(resource.getFilename());
+            Locale locale;
+            if (fileBaseName.startsWith(filenamePrefix)) {
+                locale = LocaleUtils.toLocale(fileBaseName.substring(filenamePrefix.length()));
+            } else {
+                locale = Locale.ROOT;
+            }
+            loadDefinitions(locale, resource);
         }
     }
 
     /**
-     * 从指定位置加载配置文件。
+     * 加载配置文件。
      * 
      * @param locale
-     *     区域
+     *     区域。
      * @param resource
-     *     配置文件位置
+     *     配置文件。
      */
-    public static void loadDefinitions(final Locale locale, final Resource resource) {
+    public static void loadDefinitions(Locale locale, Resource resource) {
+        XMLConfiguration config = new XMLConfiguration();
         try {
-            XMLConfiguration config = new XMLConfiguration();
             FileHandler fileHandler = new FileHandler(config);
             fileHandler.load(resource.getInputStream());
-            for (HierarchicalConfiguration definitionConfig : config.configurationsAt("definition")) {
-                String code = definitionConfig.getString("[@code]");
-                String template = definitionConfig.getString("[@template]");
-                CodedMessageDefinition.add(new CodedMessageDefinition(code, locale, template));
-            }
         } catch (IOException | ConfigurationException e) {
-            LOG.error("加载失败", e);
+            LOG.error(RBMF.get("编码消息定义加载失败"), e);
+        }
+
+        for (HierarchicalConfiguration definitionConfig : config.configurationsAt("definition")) {
+            String code = definitionConfig.getString("[@code]");
+            String template = definitionConfig.getString("[@template]");
+            CodedMessageDefinition.add(new CodedMessageDefinition(code, locale, template));
         }
     }
 }
