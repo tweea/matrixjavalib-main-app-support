@@ -29,7 +29,7 @@ public class RelativeResource {
      * @param rootName
      *     根路径名。
      * @param relativePath
-     *     相对路径
+     *     相对路径。
      */
     public RelativeResource(String rootName, String relativePath) {
         this.rootName = rootName;
