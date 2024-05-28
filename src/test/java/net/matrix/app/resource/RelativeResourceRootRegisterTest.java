@@ -32,7 +32,7 @@ public class RelativeResourceRootRegisterTest {
     }
 
     @Test
-    public void testGetResource1() {
+    public void testGetResource_notRegister() {
         RelativeResourceRootRegister register = new RelativeResourceRootRegister();
         RelativeResource relativeResource = new RelativeResource("test", "bar.xml");
 

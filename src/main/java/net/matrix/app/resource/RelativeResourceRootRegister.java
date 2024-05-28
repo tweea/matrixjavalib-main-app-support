@@ -10,18 +10,25 @@ import java.util.Map;
 
 import org.springframework.core.io.Resource;
 
+import net.matrix.text.ResourceBundleMessageFormatter;
+
 /**
  * 管理相对定位资源的根资源，提供将相对定位资源转换为实际资源的方法。
  * 操作相对定位资源前，需要先注册对应根资源。
  */
 public class RelativeResourceRootRegister {
     /**
-     * 所有注册的根资源。
+     * 区域相关资源。
+     */
+    private static final ResourceBundleMessageFormatter RBMF = new ResourceBundleMessageFormatter(RelativeResourceRootRegister.class).useCurrentLocale();
+
+    /**
+     * 所有已注册的根资源。
      */
     private final Map<String, Resource> roots;
 
     /**
-     * 构造未注册根资源的实例。
+     * 构造器。
      */
     public RelativeResourceRootRegister() {
         this.roots = new HashMap<>();
@@ -31,22 +38,22 @@ public class RelativeResourceRootRegister {
      * 注册根资源到根路径名。
      * 
      * @param name
-     *     根路径名
+     *     根路径名。
      * @param root
-     *     根资源
+     *     根资源。
      */
-    public void registerRoot(final String name, final Resource root) {
+    public void registerRoot(String name, Resource root) {
         roots.put(name, root);
     }
 
     /**
-     * 获取注册的根资源。
+     * 获取已注册的根资源。
      * 
      * @param name
-     *     根路径名
-     * @return 根资源
+     *     根路径名。
+     * @return 根资源。
      */
-    public Resource getRoot(final String name) {
+    public Resource getRoot(String name) {
         return roots.get(name);
     }
 
@@ -54,18 +61,19 @@ public class RelativeResourceRootRegister {
      * 获取相对定位资源对应的实际资源。
      * 
      * @param relativeResource
-     *     相对定位资源
-     * @return 实际资源
+     *     相对定位资源。
+     * @return 实际资源。
      * @throws IOException
-     *     获取失败
+     *     获取失败。
      * @throws IllegalStateException
-     *     根路径未注册
+     *     根路径名未注册。
      */
-    public Resource getResource(final RelativeResource relativeResource)
+    public Resource getResource(RelativeResource relativeResource)
         throws IOException {
-        Resource root = getRoot(relativeResource.getRootName());
+        String name = relativeResource.getRootName();
+        Resource root = roots.get(name);
         if (root == null) {
-            throw new IllegalStateException("根路径 " + relativeResource.getRootName() + " 未注册");
+            throw new IllegalStateException(RBMF.format("根路径名 {0} 未注册", name));
         }
         return root.createRelative(relativeResource.getRelativePath());
     }
