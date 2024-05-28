@@ -7,7 +7,7 @@ package net.matrix.app;
 import org.junit.jupiter.api.Test;
 
 import net.matrix.app.message.CodedMessageLevel;
-import net.matrix.app.message.CodedMessages;
+import net.matrix.app.message.CodedMessageMx;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,7 +35,7 @@ public class SystemRuntimeExceptionTest {
 
     @Test
     public void testNew3() {
-        SystemRuntimeException exception = new SystemRuntimeException(CodedMessages.information("System.Error"));
+        SystemRuntimeException exception = new SystemRuntimeException(CodedMessageMx.info("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(exception.getCodedMessage().getMessages()).isEmpty();
@@ -43,12 +43,12 @@ public class SystemRuntimeExceptionTest {
 
     @Test
     public void testNew4() {
-        SystemRuntimeException exception = new SystemRuntimeException(new Exception(), CodedMessages.information("System.Error"));
+        SystemRuntimeException exception = new SystemRuntimeException(new Exception(), CodedMessageMx.info("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(exception.getCodedMessage().getMessages()).isEmpty();
 
-        exception = new SystemRuntimeException(exception, CodedMessages.information("System.Error"));
+        exception = new SystemRuntimeException(exception, CodedMessageMx.info("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(exception.getCodedMessage().getMessages()).hasSize(1);

@@ -5,7 +5,7 @@
 package net.matrix.app;
 
 import net.matrix.app.message.CodedMessage;
-import net.matrix.app.message.CodedMessages;
+import net.matrix.app.message.CodedMessageMx;
 
 /**
  * 系统异常，包含编码消息。
@@ -24,7 +24,7 @@ public class SystemException
      * 使用默认消息构造异常。原因异常没有初始化，可以随后调用 {@link #initCause} 进行初始化。
      */
     public SystemException() {
-        this.message = CodedMessages.error(getDefaultMessageCode());
+        this.message = CodedMessageMx.error(getDefaultMessageCode());
     }
 
     /**
@@ -34,7 +34,7 @@ public class SystemException
      *     消息编码。
      */
     public SystemException(String messageCode) {
-        this.message = CodedMessages.error(messageCode);
+        this.message = CodedMessageMx.error(messageCode);
     }
 
     /**
@@ -55,7 +55,7 @@ public class SystemException
      */
     public SystemException(Throwable cause) {
         super(cause);
-        this.message = CodedMessages.error(getDefaultMessageCode());
+        this.message = CodedMessageMx.error(getDefaultMessageCode());
         initCauseMessage(cause);
     }
 
@@ -70,7 +70,7 @@ public class SystemException
      */
     public SystemException(Throwable cause, String messageCode) {
         super(cause);
-        this.message = CodedMessages.error(messageCode);
+        this.message = CodedMessageMx.error(messageCode);
         initCauseMessage(cause);
     }
 

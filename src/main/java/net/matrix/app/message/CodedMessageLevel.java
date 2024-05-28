@@ -23,7 +23,7 @@ public enum CodedMessageLevel {
     DEBUG(2),
 
     /**
-     * 消息。
+     * 信息。
      */
     INFO(3),
 
