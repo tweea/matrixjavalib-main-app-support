@@ -1,31 +1,80 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
 
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.assertj.core.util.introspection.FieldSupport;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ResourceSelectionSetTest {
-    private static ResourceSelectionSet set1;
+    private FieldSupport fieldSupport = FieldSupport.extraction();
 
-    private static ResourceSelectionSet set2;
+    @Test
+    public void testAdd() {
+        ResourceSelectionSet set = new ResourceSelectionSet();
+        ResourceSelection selection = new ResourceSelection("configset", "set1/1", "configset.xml");
 
-    @BeforeAll
-    public static void beforeAll() {
-        set1 = new ResourceSelectionSet();
+        set.add(selection);
+        Set<ResourceSelection> selections = fieldSupport.fieldValue("selections", Set.class, set);
+        assertThat(selections).hasSize(1);
+        assertThat(selections).contains(selection);
+    }
+
+    @Test
+    public void testContains() {
+        ResourceSelectionSet set = new ResourceSelectionSet();
+        ResourceSelection selection = new ResourceSelection("configset", "set1/1", "configset.xml");
+        set.add(selection);
+
+        assertThat(set.contains(selection)).isTrue();
+    }
+
+    @Test
+    public void testRemove() {
+        ResourceSelectionSet set = new ResourceSelectionSet();
+        ResourceSelection selection = new ResourceSelection("configset", "set1/1", "configset.xml");
+        set.add(selection);
+
+        set.remove(selection);
+        Set<ResourceSelection> selections = fieldSupport.fieldValue("selections", Set.class, set);
+        assertThat(selections).isEmpty();
+    }
+
+    @Test
+    public void testGetCatalogs() {
+        ResourceSelectionSet set = new ResourceSelectionSet();
+        set.add(new ResourceSelection("configset", "set2/1", "configset.xml"));
+        set.add(new ResourceSelection("naming", "1", "paths.xml"));
+        set.add(new ResourceSelection("test", "1/rat", "big.xml"));
+        set.add(new ResourceSelection("test", "1/mouse", "small.xml"));
+        set.add(new ResourceSelection("test/orz", "1", "foo.xml"));
+        set.add(new ResourceSelection("test/orz", "1", "bar.xml"));
+        set.add(new ResourceSelection("test/virtual", "2", "foo.xml"));
+
+        assertThat(set.getCatalogs()).hasSize(5);
+        assertThat(set.getCatalogs()).contains("naming");
+        assertThat(set.getCatalogs()).contains("test/orz");
+        assertThat(set.getNames("test")).hasSize(2);
+        assertThat(set.getNames("test")).contains("big.xml");
+        assertThat(set.getSelections("configset", "configset.xml")).isNotEmpty();
+    }
+
+    @Test
+    public void testCheckDiff() {
+        ResourceSelectionSet set1 = new ResourceSelectionSet();
         set1.add(new ResourceSelection("configset", "set1/1", "configset.xml"));
         set1.add(new ResourceSelection("naming", "1", "paths.xml"));
         set1.add(new ResourceSelection("test", "1/mouse", "big.xml"));
         set1.add(new ResourceSelection("test", "2/mouse", "small.xml"));
         set1.add(new ResourceSelection("test/orz", "1", "foo.xml"));
         set1.add(new ResourceSelection("test/virtual", "1", "foo.xml"));
-        set2 = new ResourceSelectionSet();
+
+        ResourceSelectionSet set2 = new ResourceSelectionSet();
         set2.add(new ResourceSelection("configset", "set2/1", "configset.xml"));
         set2.add(new ResourceSelection("naming", "1", "paths.xml"));
         set2.add(new ResourceSelection("test", "1/rat", "big.xml"));
@@ -33,30 +82,7 @@ public class ResourceSelectionSetTest {
         set2.add(new ResourceSelection("test/orz", "1", "foo.xml"));
         set2.add(new ResourceSelection("test/orz", "1", "bar.xml"));
         set2.add(new ResourceSelection("test/virtual", "2", "foo.xml"));
-    }
 
-    @Test
-    public void testAdd1() {
-        assertThat(set1.catalogNames()).hasSize(5);
-        assertThat(set1.catalogNames()).contains("naming");
-        assertThat(set1.catalogNames()).contains("test/orz");
-        assertThat(set1.resourceNames("test")).hasSize(2);
-        assertThat(set1.resourceNames("test")).contains("big.xml");
-        assertThat(set1.getSelections("configset", "configset.xml")).isNotEmpty();
-    }
-
-    @Test
-    public void testAdd2() {
-        assertThat(set2.catalogNames()).hasSize(5);
-        assertThat(set2.catalogNames()).contains("naming");
-        assertThat(set2.catalogNames()).contains("test/orz");
-        assertThat(set2.resourceNames("test")).hasSize(2);
-        assertThat(set2.resourceNames("test")).contains("big.xml");
-        assertThat(set2.getSelections("configset", "configset.xml")).isNotEmpty();
-    }
-
-    @Test
-    public void testCheckDiff() {
         Set<ResourceSelection> updateInfoList = set1.checkDiff(set2);
         assertThat(updateInfoList).hasSize(5);
     }

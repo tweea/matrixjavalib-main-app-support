@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -7,27 +7,19 @@ package net.matrix.app.resource;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Sets;
+import net.matrix.java.util.CollectionMx;
 
 /**
  * 资源仓库选择集合。
  */
 public class ResourceSelectionSet {
     /**
-     * 日志记录器。
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(ResourceSelectionSet.class);
-
-    /**
      * 内部选择集合。
      */
     private final Set<ResourceSelection> selections;
 
     /**
-     * 构造一个空的集合。
+     * 构造器。
      */
     public ResourceSelectionSet() {
         this.selections = new HashSet<>();
@@ -37,9 +29,9 @@ public class ResourceSelectionSet {
      * 增加一个资源仓库选择。
      * 
      * @param selection
-     *     资源仓库选择
+     *     资源仓库选择。
      */
-    public void add(final ResourceSelection selection) {
+    public void add(ResourceSelection selection) {
         selections.add(selection);
     }
 
@@ -47,62 +39,58 @@ public class ResourceSelectionSet {
      * 判断是否已包含指定资源仓库选择。
      * 
      * @param selection
-     *     资源仓库选择
-     * @return 是否已包含
+     *     资源仓库选择。
+     * @return 是否已包含指定资源仓库选择。
      */
-    public boolean contains(final ResourceSelection selection) {
+    public boolean contains(ResourceSelection selection) {
         return selections.contains(selection);
     }
 
     /**
-     * 移除资源仓库选择。
+     * 移除指定资源仓库选择。
      * 
      * @param selection
-     *     资源仓库选择
-     * @return 是否已包含指定资源仓库选择
+     *     资源仓库选择。
+     * @return 是否已包含指定资源仓库选择。
      */
-    public boolean remove(final ResourceSelection selection) {
+    public boolean remove(ResourceSelection selection) {
         return selections.remove(selection);
     }
 
     /**
-     * 汇总得到所有资源仓库选择的类别信息。
+     * 获取所有资源仓库选择的类别集合。
      * 
-     * @return 类别名称集合
+     * @return 类别集合。
      */
-    public Set<String> catalogNames() {
-        Set<String> catalogs = Sets.newHashSetWithExpectedSize(selections.size());
-        for (ResourceSelection selection : selections) {
-            catalogs.add(selection.getCatalog());
-        }
-        return catalogs;
+    public Set<String> getCatalogs() {
+        return CollectionMx.buildSet(selections, ResourceSelection::getCatalog);
     }
 
     /**
-     * 根据类别名称获取集合中包含的同一类别的资源名称。
+     * 获取特定类别的资源仓库选择的名称集合。
      * 
      * @param catalog
-     *     类别
-     * @return 资源名称集合
+     *     类别。
+     * @return 名称集合。
      */
-    public Set<String> resourceNames(final String catalog) {
-        Set<String> resources = new HashSet<>();
+    public Set<String> getNames(String catalog) {
+        Set<String> names = new HashSet<>();
         for (ResourceSelection selection : selections) {
             if (selection.getCatalog().equals(catalog)) {
-                resources.add(selection.getName());
+                names.add(selection.getName());
             }
         }
-        return resources;
+        return names;
     }
 
     /**
      * 选择指定类别的默认名称资源。
      * 
      * @param catalog
-     *     类别
-     * @return 资源选择
+     *     类别。
+     * @return 资源仓库选择集合。
      */
-    public Set<ResourceSelection> getSelections(final String catalog) {
+    public Set<ResourceSelection> getSelections(String catalog) {
         return getSelections(catalog, ResourceSelection.generateName(catalog));
     }
 
@@ -110,12 +98,12 @@ public class ResourceSelectionSet {
      * 选择指定类别的指定名称资源。
      * 
      * @param catalog
-     *     类别
+     *     类别。
      * @param name
-     *     名称
-     * @return 资源选择
+     *     名称。
+     * @return 资源仓库选择集合。
      */
-    public Set<ResourceSelection> getSelections(final String catalog, final String name) {
+    public Set<ResourceSelection> getSelections(String catalog, String name) {
         Set<ResourceSelection> result = new HashSet<>();
         for (ResourceSelection selection : selections) {
             if (selection.getCatalog().equals(catalog) && selection.getName().equals(name)) {
@@ -129,32 +117,13 @@ public class ResourceSelectionSet {
      * 检查本集合与另一集合包含资源仓库选择的差异。
      * 
      * @param target
-     *     另一集合
-     * @return 差异集合
+     *     另一集合。
+     * @return 差异集合。
      */
-    public Set<ResourceSelection> checkDiff(final ResourceSelectionSet target) {
-        // 更新信息列表
+    public Set<ResourceSelection> checkDiff(ResourceSelectionSet target) {
         Set<ResourceSelection> diffs = new HashSet<>();
-
-        // 读取源版本
-        Set<ResourceSelection> sourceEntrys = selections;
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("源版本：{}", sourceEntrys);
-        }
-
-        // 读取目标版本
-        Set<ResourceSelection> targetEntrys = target.selections;
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("目标版本：{}", targetEntrys);
-        }
-
-        // 处理是否更新
-        diffs.addAll(targetEntrys);
-        diffs.removeAll(sourceEntrys);
-
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("更新结果：{}", diffs);
-        }
+        diffs.addAll(target.selections);
+        diffs.removeAll(selections);
         return diffs;
     }
 }

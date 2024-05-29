@@ -71,7 +71,7 @@ public class ResourceContextConfig
      */
     public Set<String> catalogNames() {
         checkReload();
-        return selectionSet.catalogNames();
+        return selectionSet.getCatalogs();
     }
 
     /**
@@ -83,7 +83,7 @@ public class ResourceContextConfig
      */
     public Set<String> resourceNames(final String catalog) {
         checkReload();
-        return selectionSet.resourceNames(catalog);
+        return selectionSet.getNames(catalog);
     }
 
     /**
