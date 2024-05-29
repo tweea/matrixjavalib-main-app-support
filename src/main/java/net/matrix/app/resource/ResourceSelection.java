@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -32,16 +32,16 @@ public class ResourceSelection {
     private final String name;
 
     /**
-     * 根据必要信息构造。如果未提供名称，则根据类别生成默认的名称。
+     * 构造器。如果未提供名称，则根据类别生成默认的名称。
      * 
      * @param catalog
-     *     分类
+     *     类别。
      * @param version
-     *     版本
+     *     版本。
      * @param name
-     *     名称
+     *     名称。
      */
-    public ResourceSelection(final String catalog, final String version, final String name) {
+    public ResourceSelection(String catalog, String version, String name) {
         this.catalog = catalog;
         this.version = version;
         if (StringUtils.isBlank(name)) {
@@ -55,30 +55,30 @@ public class ResourceSelection {
      * 根据类别生成默认的名称。
      * 
      * @param catalog
-     *     类别
-     * @return 名称
+     *     类别。
+     * @return 名称。
      */
-    public static String generateName(final String catalog) {
-        String[] catalogs = catalog.split("/");
+    public static String generateName(String catalog) {
+        String[] catalogs = StringUtils.split(catalog, '/');
         return catalogs[catalogs.length - 1];
     }
 
     /**
-     * 分类。
+     * 获取类别。
      */
     public String getCatalog() {
         return catalog;
     }
 
     /**
-     * 版本。
+     * 获取版本。
      */
     public String getVersion() {
         return version;
     }
 
     /**
-     * 名称。
+     * 获取名称。
      */
     public String getName() {
         return name;
@@ -95,38 +95,14 @@ public class ResourceSelection {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof ResourceSelection)) {
             return false;
         }
         ResourceSelection other = (ResourceSelection) obj;
-        if (catalog == null) {
-            if (other.catalog != null) {
-                return false;
-            }
-        } else if (!catalog.equals(other.catalog)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (version == null) {
-            if (other.version != null) {
-                return false;
-            }
-        } else if (!version.equals(other.version)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(catalog, other.catalog) && Objects.equals(name, other.name) && Objects.equals(version, other.version);
     }
 }
