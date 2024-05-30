@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+import net.matrix.text.ResourceBundleMessageFormatter;
+
 /**
- * 资源仓库，根据指定的资源根位置相对定位所有资源。
+ * 资源仓库，根据指定的根资源相对定位所有资源。
  */
 public class ResourceRepository {
     /**
@@ -21,14 +23,19 @@ public class ResourceRepository {
     private static final Logger LOG = LoggerFactory.getLogger(ResourceRepository.class);
 
     /**
-     * 资源根位置。
+     * 区域相关资源。
+     */
+    private static final ResourceBundleMessageFormatter RBMF = new ResourceBundleMessageFormatter(ResourceRepository.class).useCurrentLocale();
+
+    /**
+     * 根资源。
      */
     private final Resource root;
 
     /**
-     * 资源根位置。
+     * 构造器。
      */
-    public ResourceRepository(final Resource root) {
+    public ResourceRepository(Resource root) {
         this.root = root;
     }
 
@@ -36,13 +43,14 @@ public class ResourceRepository {
      * 定位资源。
      * 
      * @param selection
-     *     资源仓库选择
-     * @return 资源
+     *     资源仓库选择。
+     * @return 资源。
      */
-    public Resource getResource(final ResourceSelection selection) {
+    public Resource getResource(ResourceSelection selection) {
         if (LOG.isTraceEnabled()) {
-            LOG.trace("定位资源：{}", selection);
+            LOG.trace(RBMF.get("开始定位资源 {}/{}"), root, selection);
         }
+
         String catalog = selection.getCatalog();
         String version = selection.getVersion();
         String name = selection.getName();
@@ -52,17 +60,18 @@ public class ResourceRepository {
             path = path + '/' + version;
         }
         while (true) {
+            Resource resource;
             try {
-                Resource resource = root.createRelative(path + '/' + name);
-                if (resource.exists()) {
-                    if (LOG.isTraceEnabled()) {
-                        LOG.trace("定位资源到：{}", resource);
-                    }
-                    return resource;
-                }
+                resource = root.createRelative(path + '/' + name);
             } catch (IOException e) {
-                LOG.warn("{}/{}/{} 解析失败", root, path, name, e);
-                return null;
+                LOG.warn(RBMF.get("定位资源 {}/{}/{} 失败"), root, path, name, e);
+                break;
+            }
+            if (resource.exists()) {
+                if (LOG.isTraceEnabled()) {
+                    LOG.trace(RBMF.get("定位资源 {}/{} 到 {}"), root, selection, resource);
+                }
+                return resource;
             }
             if (path.length() <= catalog.length()) {
                 break;
@@ -70,7 +79,7 @@ public class ResourceRepository {
             path = path.substring(0, path.lastIndexOf('/'));
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("未找到资源：{}", selection);
+            LOG.debug(RBMF.get("没有定位资源 {}/{}"), root, selection);
         }
         return null;
     }
