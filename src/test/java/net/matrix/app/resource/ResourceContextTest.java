@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -14,10 +14,10 @@ public class ResourceContextTest {
     @Test
     public void testGetResource()
         throws ConfigurationException {
-        ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
+        ResourceRepository repository = new ResourceRepository(new ClassPathResource("repo1/"));
         ResourceContextConfig selectionSet = new ResourceContextConfig();
-        selectionSet.load(repo.getResource(new ResourceSelection("configset", "set1", "configset.xml")));
-        ResourceContext context = new ResourceContext(repo, selectionSet);
+        selectionSet.load(repository.getResource(new ResourceSelection("configset", "set1", "configset.xml")));
+        ResourceContext context = new ResourceContext(repository, selectionSet);
 
         assertThat(context.getResource("test/orz", "foo.xml").exists()).isTrue();
     }

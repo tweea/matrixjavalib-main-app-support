@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -7,7 +7,7 @@ package net.matrix.app.resource;
 import org.springframework.core.io.Resource;
 
 /**
- * 资源仓库加载环境，根据环境配置在一个资源仓库中定位资源。
+ * 资源仓库加载环境，根据资源仓库加载环境配置在资源仓库中定位资源。
  */
 public class ResourceContext {
     /**
@@ -16,32 +16,32 @@ public class ResourceContext {
     private final ResourceRepository repository;
 
     /**
-     * 加载环境配置。
+     * 资源仓库加载环境配置。
      */
     private final ResourceContextConfig contextConfig;
 
     /**
-     * 根据必要信息构造。
+     * 构造器。
      * 
      * @param repository
-     *     资源仓库
+     *     资源仓库。
      * @param contextConfig
-     *     资源仓库加载环境配置
+     *     资源仓库加载环境配置。
      */
-    public ResourceContext(final ResourceRepository repository, final ResourceContextConfig contextConfig) {
+    public ResourceContext(ResourceRepository repository, ResourceContextConfig contextConfig) {
         this.repository = repository;
         this.contextConfig = contextConfig;
     }
 
     /**
-     * 资源仓库。
+     * 获取资源仓库。
      */
     public ResourceRepository getRepository() {
         return repository;
     }
 
     /**
-     * 加载环境配置。
+     * 获取资源仓库加载环境配置。
      */
     public ResourceContextConfig getContextConfig() {
         return contextConfig;
@@ -58,14 +58,15 @@ public class ResourceContext {
      * 定位资源。
      * 
      * @param catalog
-     *     类别
-     * @return 资源
+     *     类别。
+     * @return 资源。
      */
-    public Resource getResource(final String catalog) {
+    public Resource getResource(String catalog) {
         ResourceSelection selection = contextConfig.getSelection(catalog);
         if (selection == null) {
             return null;
         }
+
         return repository.getResource(selection);
     }
 
@@ -73,16 +74,17 @@ public class ResourceContext {
      * 定位资源。
      * 
      * @param catalog
-     *     类别
+     *     类别。
      * @param name
-     *     名称
-     * @return 资源
+     *     名称。
+     * @return 资源。
      */
-    public Resource getResource(final String catalog, final String name) {
+    public Resource getResource(String catalog, String name) {
         ResourceSelection selection = contextConfig.getSelection(catalog, name);
         if (selection == null) {
             return null;
         }
+
         return repository.getResource(selection);
     }
 
@@ -90,10 +92,10 @@ public class ResourceContext {
      * 定位资源。
      * 
      * @param selection
-     *     资源选择
-     * @return 资源
+     *     资源仓库选择。
+     * @return 资源。
      */
-    public Resource getResource(final ResourceSelection selection) {
+    public Resource getResource(ResourceSelection selection) {
         String catalog = selection.getCatalog();
         String version = selection.getVersion();
         String name = selection.getName();
