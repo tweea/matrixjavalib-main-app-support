@@ -30,7 +30,7 @@ public class ConfigurationContextTest {
         ResourceSelection selection = new ResourceSelection("configset", "set2", "configset.xml");
 
         ConfigurationContext context = ConfigurationContext.load(repository, selection);
-        assertThat(context.getContextConfig().catalogNames()).hasSize(5);
+        assertThat(context.getContextConfig().getCatalogs()).hasSize(5);
     }
 
     public ConfigurationContext loadContext()

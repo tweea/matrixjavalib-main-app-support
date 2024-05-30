@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -35,21 +35,21 @@ public class ResourceContextConfigTest {
 
     @Test
     public void testLoad1() {
-        assertThat(set1.catalogNames()).hasSize(5);
-        assertThat(set1.catalogNames()).contains("naming");
-        assertThat(set1.catalogNames()).contains("test/orz");
-        assertThat(set1.resourceNames("test")).hasSize(2);
-        assertThat(set1.resourceNames("test")).contains("big.xml");
+        assertThat(set1.getCatalogs()).hasSize(5);
+        assertThat(set1.getCatalogs()).contains("naming");
+        assertThat(set1.getCatalogs()).contains("test/orz");
+        assertThat(set1.getNames("test")).hasSize(2);
+        assertThat(set1.getNames("test")).contains("big.xml");
         assertThat(set1.getSelection("configset", "configset.xml")).isNotNull();
     }
 
     @Test
     public void testLoad2() {
-        assertThat(set2.catalogNames()).hasSize(5);
-        assertThat(set2.catalogNames()).contains("naming");
-        assertThat(set2.catalogNames()).contains("test/orz");
-        assertThat(set2.resourceNames("test")).hasSize(2);
-        assertThat(set2.resourceNames("test")).contains("big.xml");
+        assertThat(set2.getCatalogs()).hasSize(5);
+        assertThat(set2.getCatalogs()).contains("naming");
+        assertThat(set2.getCatalogs()).contains("test/orz");
+        assertThat(set2.getNames("test")).hasSize(2);
+        assertThat(set2.getNames("test")).contains("big.xml");
         assertThat(set2.getSelection("configset", "configset.xml")).isNotNull();
     }
 

@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.resource;
@@ -19,19 +19,18 @@ import com.google.common.collect.Iterables;
 import net.matrix.configuration.XMLConfigurationContainer;
 
 /**
- * 资源仓库加载环境配置，保存了一系列资源仓库选择。
+ * 资源仓库加载环境配置，包含资源仓库选择集合。
  */
 public class ResourceContextConfig
     extends XMLConfigurationContainer {
     /**
-     * 根据配置内容生成的选择集合。
+     * 资源仓库选择集合。
      */
     private ResourceSelectionSet selectionSet;
 
     @Override
     public void reset() {
         super.reset();
-        selectionSet = new ResourceSelectionSet();
 
         XMLConfiguration config;
         try {
@@ -40,17 +39,18 @@ public class ResourceContextConfig
             throw new ConfigurationRuntimeException(e);
         }
 
+        selectionSet = new ResourceSelectionSet();
         // catalog 节点
-        List<HierarchicalConfiguration<ImmutableNode>> catalogsNode = config.configurationsAt("catalog");
-        for (HierarchicalConfiguration catalogNode : catalogsNode) {
+        List<HierarchicalConfiguration<ImmutableNode>> catalogNodes = config.configurationsAt("catalog");
+        for (HierarchicalConfiguration catalogNode : catalogNodes) {
             String catalog = catalogNode.getString("[@name]");
             String version = catalogNode.getString("[@version]");
             // resource 节点
-            List<HierarchicalConfiguration> resourcesNode = catalogNode.configurationsAt("file");
-            if (resourcesNode.isEmpty()) {
+            List<HierarchicalConfiguration> resourceNodes = catalogNode.configurationsAt("file");
+            if (resourceNodes.isEmpty()) {
                 selectionSet.add(new ResourceSelection(catalog, version, null));
             } else {
-                for (HierarchicalConfiguration resourceNode : resourcesNode) {
+                for (HierarchicalConfiguration resourceNode : resourceNodes) {
                     String resourceName = resourceNode.getString("[@name]");
                     String resourceVersion = resourceNode.getString("[@version]");
                     String branch = resourceNode.getString("[@branch]");
@@ -67,21 +67,23 @@ public class ResourceContextConfig
     }
 
     /**
-     * 类别名称集合。
+     * 获取所有资源仓库选择的类别集合。
+     * 
+     * @return 类别集合。
      */
-    public Set<String> catalogNames() {
+    public Set<String> getCatalogs() {
         checkReload();
         return selectionSet.getCatalogs();
     }
 
     /**
-     * 资源名称集合。
+     * 获取特定类别的资源仓库选择的名称集合。
      * 
      * @param catalog
-     *     类别
-     * @return 资源名称集合
+     *     类别。
+     * @return 名称集合。
      */
-    public Set<String> resourceNames(final String catalog) {
+    public Set<String> getNames(String catalog) {
         checkReload();
         return selectionSet.getNames(catalog);
     }
@@ -90,10 +92,10 @@ public class ResourceContextConfig
      * 选择指定类别的默认名称资源。
      * 
      * @param catalog
-     *     类别
-     * @return 资源选择
+     *     类别。
+     * @return 资源仓库选择。
      */
-    public ResourceSelection getSelection(final String catalog) {
+    public ResourceSelection getSelection(String catalog) {
         checkReload();
         Set<ResourceSelection> result = selectionSet.getSelections(catalog);
         return Iterables.getFirst(result, null);
@@ -103,12 +105,12 @@ public class ResourceContextConfig
      * 选择指定类别的指定名称资源。
      * 
      * @param catalog
-     *     类别
+     *     类别。
      * @param name
-     *     资源名
-     * @return 资源选择
+     *     名称。
+     * @return 资源仓库选择。
      */
-    public ResourceSelection getSelection(final String catalog, final String name) {
+    public ResourceSelection getSelection(String catalog, String name) {
         checkReload();
         Set<ResourceSelection> result = selectionSet.getSelections(catalog, name);
         return Iterables.getFirst(result, null);
@@ -118,10 +120,10 @@ public class ResourceContextConfig
      * 检查本配置与另一配置包含资源仓库选择的差异。
      * 
      * @param target
-     *     另一配置
-     * @return 差异集合
+     *     另一配置。
+     * @return 差异集合。
      */
-    public Set<ResourceSelection> checkDiff(final ResourceContextConfig target) {
+    public Set<ResourceSelection> checkDiff(ResourceContextConfig target) {
         checkReload();
         return selectionSet.checkDiff(target.selectionSet);
     }
