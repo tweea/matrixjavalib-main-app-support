@@ -1,5 +1,5 @@
 /*
- * 版权所有 2020 Matrix。
+ * 版权所有 2024 Matrix。
  * 保留所有权利。
  */
 package net.matrix.app.configuration;
@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import net.matrix.app.resource.ResourceContextConfig;
 import net.matrix.app.resource.ResourceRepository;
 import net.matrix.app.resource.ResourceSelection;
 import net.matrix.configuration.ReloadableConfigurationContainer;
+import net.matrix.text.ResourceBundleMessageFormatter;
 
 /**
  * 配置仓库加载环境，加载和缓存配置信息。
@@ -31,19 +33,24 @@ public final class ConfigurationContext
     private static final Logger LOG = LoggerFactory.getLogger(ConfigurationContext.class);
 
     /**
+     * 区域相关资源。
+     */
+    private static final ResourceBundleMessageFormatter RBMF = new ResourceBundleMessageFormatter(ConfigurationContext.class).useCurrentLocale();
+
+    /**
      * 缓存的配置信息。
      */
     private Map<Resource, ReloadableConfigurationContainer> containerCache;
 
     /**
-     * 根据必要信息构造。
+     * 构造器。
      * 
      * @param repository
-     *     资源仓库
+     *     资源仓库。
      * @param contextConfig
-     *     资源仓库加载环境配置
+     *     资源仓库加载环境配置。
      */
-    public ConfigurationContext(final ResourceRepository repository, final ResourceContextConfig contextConfig) {
+    public ConfigurationContext(ResourceRepository repository, ResourceContextConfig contextConfig) {
         super(repository, contextConfig);
         this.containerCache = new ConcurrentHashMap<>();
     }
@@ -52,98 +59,85 @@ public final class ConfigurationContext
      * 从资源仓库的指定位置加载。
      * 
      * @param repository
-     *     资源仓库
+     *     资源仓库。
      * @param selection
-     *     资源仓库选择
-     * @return 加载环境
+     *     资源仓库选择。
+     * @return 配置仓库加载环境。
      * @throws ConfigurationException
-     *     加载错误
+     *     加载失败。
      */
-    public static ConfigurationContext load(final ResourceRepository repository, final ResourceSelection selection)
+    public static ConfigurationContext load(ResourceRepository repository, ResourceSelection selection)
         throws ConfigurationException {
-        LOG.debug("从 {} 加载配置集合", selection);
         Resource resource = repository.getResource(selection);
         if (resource == null) {
-            throw new ConfigurationException(selection + " 解析失败");
+            throw new ConfigurationException(RBMF.format("没有定位配置资源 {0}", selection));
         }
+
         ResourceContextConfig contextConfig = new ResourceContextConfig();
         contextConfig.load(resource);
         return new ConfigurationContext(repository, contextConfig);
     }
 
     /**
-     * 重新加载配置，清空缓存。
+     * 重新加载配置，清除缓存的配置信息。
      */
     @Override
     public void reload() {
         super.reload();
         containerCache = new ConcurrentHashMap<>();
-        LOG.info("重新加载配置，清空缓存。");
+        LOG.info(RBMF.get("重新加载配置，清除缓存的配置信息"));
     }
 
     /**
      * 定位配置资源。
      * 
      * @param selection
-     *     配置资源选择
-     * @return 配置资源
+     *     资源仓库选择。
+     * @return 配置资源。
      * @throws ConfigurationException
-     *     配置错误
+     *     定位失败。
      */
-    public Resource getConfigurationResource(final ResourceSelection selection)
+    public Resource getConfigurationResource(ResourceSelection selection)
         throws ConfigurationException {
         Resource resource = getResource(selection);
         if (resource == null) {
-            String catalog = selection.getCatalog();
-            String version = selection.getVersion();
-            String name = selection.getName();
-            throw new ConfigurationException("未找到类别 " + catalog + " 版本 " + version + " 的配置 " + name);
+            throw new ConfigurationException(RBMF.format("没有定位配置资源 {0}", selection));
         }
         return resource;
     }
 
     /**
-     * 加载配置资源，返回配置对象。
+     * 加载配置资源。
      * 
-     * @param <T>
-     *     配置对象
      * @param type
-     *     配置对象的类型
+     *     配置对象类型。
      * @param selection
-     *     配置资源选择
-     * @return 配置对象
+     *     资源仓库选择。
+     * @return 配置对象。
      * @throws ConfigurationException
-     *     配置错误
+     *     加载失败。
      */
-    public <T extends ReloadableConfigurationContainer> T getConfiguration(final Class<T> type, final ResourceSelection selection)
+    public <T extends ReloadableConfigurationContainer> T getConfiguration(Class<T> type, ResourceSelection selection)
         throws ConfigurationException {
         Resource resource = getConfigurationResource(selection);
         T container = (T) containerCache.get(resource);
-        if (container != null) {
-            container.checkReload();
-            return container;
-        }
-        synchronized (containerCache) {
-            container = (T) containerCache.get(resource);
-            if (container != null) {
-                container.checkReload();
-                return container;
-            }
+        if (container == null) {
             try {
                 Constructor<T> constructor = ConstructorUtils.getAccessibleConstructor(type);
                 container = constructor.newInstance();
             } catch (ReflectiveOperationException e) {
-                throw new ConfigurationException("配置类 " + type.getName() + " 实例化失败", e);
+                throw new ConfigurationException(RBMF.format("配置对象类型 {0} 实例化失败", type.getName()), e);
             }
             // 加载配置
-            LOG.debug("从 {}({}) 加载配置", selection, resource);
+            LOG.debug(RBMF.get("从 {} 加载配置"), resource);
             try {
                 container.load(resource);
             } catch (ConfigurationException e) {
-                throw new ConfigurationException("配置 " + resource.getDescription() + " 加载错误", e);
+                throw new ConfigurationException(RBMF.format("从 {0} 加载配置失败", resource.toString()), e);
             }
-            containerCache.put(resource, container);
-            return container;
+            container = ObjectUtils.defaultIfNull((T) containerCache.putIfAbsent(resource, container), container);
         }
+        container.checkReload();
+        return container;
     }
 }
