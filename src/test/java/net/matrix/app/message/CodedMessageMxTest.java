@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodedMessageMxTest {
+class CodedMessageMxTest {
     @Test
-    public void testSaveAndLoad()
+    void testSaveAndLoad()
         throws IOException, CodedMessageException {
         List<CodedMessage> messageList = new ArrayList<>();
         messageList.add(CodedMessageMx.info("System.Error", "test1", "test2"));

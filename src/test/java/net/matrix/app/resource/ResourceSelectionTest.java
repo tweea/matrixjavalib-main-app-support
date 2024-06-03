@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResourceSelectionTest {
+class ResourceSelectionTest {
     @Test
-    public void testNew() {
+    void testNew() {
         ResourceSelection selection = new ResourceSelection("a/b", "1", null);
         assertThat(selection.getCatalog()).isEqualTo("a/b");
         assertThat(selection.getVersion()).isEqualTo("1");

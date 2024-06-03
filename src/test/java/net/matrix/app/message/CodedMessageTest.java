@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodedMessageTest {
+class CodedMessageTest {
     @BeforeAll
-    public static void beforeAll() {
+    static void beforeAll() {
         CodedMessageDefinition.add(new CodedMessageDefinition("Message.Test1", Locale.ROOT, "测试消息：{0}"));
         CodedMessageDefinition.add(new CodedMessageDefinition("Message.Test2", Locale.ROOT, "测试消息 B：{0}{1}"));
     }
 
     @Test
-    public void testNew() {
+    void testNew() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
         assertThat(message.getCode()).isEqualTo("Message.Test1");
         assertThat(message.getTime()).isGreaterThan(0);
@@ -30,7 +30,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testAddArgument() {
+    void testAddArgument() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
 
         message.addArgument("abc");
@@ -39,7 +39,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testAddUnformattedArgument() {
+    void testAddUnformattedArgument() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
 
         message.addUnformattedArgument("abc");
@@ -48,7 +48,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testAddMessage() {
+    void testAddMessage() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
         CodedMessage message2 = new CodedMessage("Message.Test2", CodedMessageLevel.INFO);
 
@@ -58,7 +58,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testHasLevel() {
+    void testHasLevel() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
         CodedMessage message2 = new CodedMessage("Message.Test2", CodedMessageLevel.WARN);
         message.addMessage(message2);
@@ -69,7 +69,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testFormat() {
+    void testFormat() {
         CodedMessage message = new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "Test", "test2");
 
         String formatString = message.format();
@@ -77,7 +77,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testFormat_fallback() {
+    void testFormat_fallback() {
         CodedMessage message = new CodedMessage("Message.Fallback", CodedMessageLevel.INFO, "Test", "test2");
 
         String formatString = message.format();
@@ -85,7 +85,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testFormat_unformatted() {
+    void testFormat_unformatted() {
         CodedMessage message = new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "Test", "test2");
         message.addUnformattedArgument("12345");
 
@@ -94,7 +94,7 @@ public class CodedMessageTest {
     }
 
     @Test
-    public void testFormatAll() {
+    void testFormatAll() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO, "a");
         message.addMessage(new CodedMessage("Message.Test2", CodedMessageLevel.INFO, "b", "c"));
 

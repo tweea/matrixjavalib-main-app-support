@@ -10,9 +10,9 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResourceContextTest {
+class ResourceContextTest {
     @Test
-    public void testGetResource()
+    void testGetResource()
         throws ConfigurationException {
         ResourceRepository repository = new ResourceRepository(new ClassPathResource("repo1/"));
         ResourceContextConfig selectionSet = new ResourceContextConfig();

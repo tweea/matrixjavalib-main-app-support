@@ -9,9 +9,9 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResourceRepositoryTest {
+class ResourceRepositoryTest {
     @Test
-    public void testGetResource0() {
+    void testGetResource0() {
         ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 
         // 默认资源名
@@ -20,7 +20,7 @@ public class ResourceRepositoryTest {
     }
 
     @Test
-    public void testGetResource1() {
+    void testGetResource1() {
         ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 
         // 分类
@@ -35,7 +35,7 @@ public class ResourceRepositoryTest {
     }
 
     @Test
-    public void testGetResource2() {
+    void testGetResource2() {
         ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 
         // 默认版本
@@ -45,7 +45,7 @@ public class ResourceRepositoryTest {
     }
 
     @Test
-    public void testGetResource3() {
+    void testGetResource3() {
         ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 
         // 多级

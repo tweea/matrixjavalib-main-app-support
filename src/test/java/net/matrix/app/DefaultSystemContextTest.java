@@ -9,23 +9,23 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DefaultSystemContextTest {
+class DefaultSystemContextTest {
     @Test
-    public void testGetResourceLoader() {
+    void testGetResourceLoader() {
         DefaultSystemContext context = new DefaultSystemContext();
 
         assertThat(context.getResourceLoader()).isNotNull();
     }
 
     @Test
-    public void testGetResourcePatternResolver() {
+    void testGetResourcePatternResolver() {
         DefaultSystemContext context = new DefaultSystemContext();
 
         assertThat(context.getResourcePatternResolver()).isNotNull();
     }
 
     @Test
-    public void testGetConfig() {
+    void testGetConfig() {
         DefaultSystemContext context = new DefaultSystemContext();
 
         Configuration config = context.getConfig();
@@ -35,7 +35,7 @@ public class DefaultSystemContextTest {
     }
 
     @Test
-    public void testGetConfig2() {
+    void testGetConfig2() {
         System.setProperty("systemConfigLocation", "classpath:sysconfig.cfg,classpath:sysconfig2.cfg");
         DefaultSystemContext context = new DefaultSystemContext();
 
@@ -48,7 +48,7 @@ public class DefaultSystemContextTest {
     }
 
     @Test
-    public void testRegisterObject_name() {
+    void testRegisterObject_name() {
         DefaultSystemContext context = new DefaultSystemContext();
         Object object = new Object();
 
@@ -57,7 +57,7 @@ public class DefaultSystemContextTest {
     }
 
     @Test
-    public void testRegisterObject_type() {
+    void testRegisterObject_type() {
         DefaultSystemContext context = new DefaultSystemContext();
         Object object = new Object();
 
@@ -66,7 +66,7 @@ public class DefaultSystemContextTest {
     }
 
     @Test
-    public void testGetController() {
+    void testGetController() {
         DefaultSystemContext context = new DefaultSystemContext();
 
         SystemController controller = context.getController();
@@ -75,7 +75,7 @@ public class DefaultSystemContextTest {
     }
 
     @Test
-    public void testGetController2() {
+    void testGetController2() {
         System.setProperty("systemControllerClass", TestController.class.getName());
         DefaultSystemContext context = new DefaultSystemContext();
 
@@ -86,7 +86,7 @@ public class DefaultSystemContextTest {
         System.clearProperty("systemControllerClass");
     }
 
-    public static class TestController
+    static class TestController
         extends DefaultSystemController {
     }
 }

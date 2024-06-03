@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodedMessageLevelTest {
+class CodedMessageLevelTest {
     @Test
-    public void testForCode() {
+    void testForCode() {
         assertThat(CodedMessageLevel.forCode(1)).isEqualTo(CodedMessageLevel.TRACE);
         assertThat(CodedMessageLevel.forCode(null)).isNull();
         assertThat(CodedMessageLevel.forCode(19)).isNull();

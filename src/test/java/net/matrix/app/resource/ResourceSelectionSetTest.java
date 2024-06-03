@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResourceSelectionSetTest {
-    private FieldSupport fieldSupport = FieldSupport.extraction();
+class ResourceSelectionSetTest {
+    FieldSupport fieldSupport = FieldSupport.extraction();
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         ResourceSelectionSet set = new ResourceSelectionSet();
         ResourceSelection selection = new ResourceSelection("configset", "set1/1", "configset.xml");
 
@@ -26,7 +26,7 @@ public class ResourceSelectionSetTest {
     }
 
     @Test
-    public void testContains() {
+    void testContains() {
         ResourceSelectionSet set = new ResourceSelectionSet();
         ResourceSelection selection = new ResourceSelection("configset", "set1/1", "configset.xml");
         set.add(selection);
@@ -35,7 +35,7 @@ public class ResourceSelectionSetTest {
     }
 
     @Test
-    public void testRemove() {
+    void testRemove() {
         ResourceSelectionSet set = new ResourceSelectionSet();
         ResourceSelection selection = new ResourceSelection("configset", "set1/1", "configset.xml");
         set.add(selection);
@@ -46,7 +46,7 @@ public class ResourceSelectionSetTest {
     }
 
     @Test
-    public void testGetCatalogs() {
+    void testGetCatalogs() {
         ResourceSelectionSet set = new ResourceSelectionSet();
         set.add(new ResourceSelection("configset", "set2/1", "configset.xml"));
         set.add(new ResourceSelection("naming", "1", "paths.xml"));
@@ -65,7 +65,7 @@ public class ResourceSelectionSetTest {
     }
 
     @Test
-    public void testCheckDiff() {
+    void testCheckDiff() {
         ResourceSelectionSet set1 = new ResourceSelectionSet();
         set1.add(new ResourceSelection("configset", "set1/1", "configset.xml"));
         set1.add(new ResourceSelection("naming", "1", "paths.xml"));

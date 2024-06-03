@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodedMessageExceptionTest {
+class CodedMessageExceptionTest {
     @Test
-    public void testNew() {
+    void testNew() {
         CodedMessageException exception = new CodedMessageException();
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("CodedMessage.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.ERROR);

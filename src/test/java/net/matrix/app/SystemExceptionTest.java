@@ -11,9 +11,9 @@ import net.matrix.app.message.CodedMessageMx;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SystemExceptionTest {
+class SystemExceptionTest {
     @Test
-    public void testNew() {
+    void testNew() {
         SystemException exception = new SystemException();
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.ERROR);
@@ -21,7 +21,7 @@ public class SystemExceptionTest {
     }
 
     @Test
-    public void testNew2() {
+    void testNew2() {
         SystemException exception = new SystemException(new Exception());
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.ERROR);
@@ -34,7 +34,7 @@ public class SystemExceptionTest {
     }
 
     @Test
-    public void testNew3() {
+    void testNew3() {
         SystemException exception = new SystemException(CodedMessageMx.info("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);
@@ -42,7 +42,7 @@ public class SystemExceptionTest {
     }
 
     @Test
-    public void testNew4() {
+    void testNew4() {
         SystemException exception = new SystemException(new Exception(), CodedMessageMx.info("System.Error"));
         assertThat(exception.getCodedMessage().getCode()).isEqualTo("System.Error");
         assertThat(exception.getCodedMessage().getLevel()).isEqualTo(CodedMessageLevel.INFO);

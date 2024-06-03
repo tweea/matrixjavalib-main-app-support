@@ -13,16 +13,16 @@ import net.matrix.java.util.LocaleMx;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodedMessageDefinitionTest {
+class CodedMessageDefinitionTest {
     @BeforeAll
-    public static void beforeAll() {
+    static void beforeAll() {
         CodedMessageDefinition.add(new CodedMessageDefinition("Test1", Locale.ROOT, "message1"));
         CodedMessageDefinition.add(new CodedMessageDefinition("Test1", Locale.CHINA, "message2"));
         CodedMessageDefinition.add(new CodedMessageDefinition("Test2", Locale.ROOT, "messageB"));
     }
 
     @Test
-    public void testGet() {
+    void testGet() {
         CodedMessageDefinition definition = CodedMessageDefinition.get("notfound");
         assertThat(definition).isNull();
 

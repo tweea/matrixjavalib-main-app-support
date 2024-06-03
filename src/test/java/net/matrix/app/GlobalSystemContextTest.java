@@ -8,16 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GlobalSystemContextTest {
+class GlobalSystemContextTest {
     @Test
-    public void testGet() {
+    void testGet() {
         SystemContext context1 = GlobalSystemContext.get();
         SystemContext context2 = GlobalSystemContext.get();
         assertThat(context1).isSameAs(context2);
     }
 
     @Test
-    public void testGet_id() {
+    void testGet_id() {
         SystemContext context1 = GlobalSystemContext.get("a");
         SystemContext context2 = GlobalSystemContext.get("b");
         SystemContext context3 = GlobalSystemContext.get("");
@@ -30,7 +30,7 @@ public class GlobalSystemContextTest {
     }
 
     @Test
-    public void testSet() {
+    void testSet() {
         SystemContext context = new DefaultSystemContext();
 
         GlobalSystemContext.set(context);
@@ -40,7 +40,7 @@ public class GlobalSystemContextTest {
     }
 
     @Test
-    public void testSet_id() {
+    void testSet_id() {
         SystemContext context1 = new DefaultSystemContext();
         SystemContext context2 = new DefaultSystemContext();
         SystemContext context3 = new DefaultSystemContext();

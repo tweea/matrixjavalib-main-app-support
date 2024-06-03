@@ -21,7 +21,6 @@ import org.apache.commons.configuration2.io.FileHandler;
 import org.apache.commons.configuration2.tree.OverrideCombiner;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -30,6 +29,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
+import net.matrix.java.lang.reflect.ReflectionMx;
 import net.matrix.text.ResourceBundleMessageFormatter;
 
 /**
@@ -210,7 +210,8 @@ public class DefaultSystemContext
             } else {
                 try {
                     Class<?> controllerClass = ClassUtils.getClass(controllerClassProperty);
-                    Constructor<?> controllerConstructor = ConstructorUtils.getAccessibleConstructor(controllerClass);
+                    Constructor<?> controllerConstructor = controllerClass.getDeclaredConstructor();
+                    ReflectionMx.makeAccessible(controllerConstructor);
                     controller = (SystemController) controllerConstructor.newInstance();
                 } catch (ReflectiveOperationException e) {
                     throw new ConfigurationRuntimeException(RBMF.format("控制器类 {0} 实例化失败", controllerClassProperty), e);

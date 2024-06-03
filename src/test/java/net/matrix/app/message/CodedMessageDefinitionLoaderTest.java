@@ -12,9 +12,9 @@ import net.matrix.java.util.LocaleMx;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodedMessageDefinitionLoaderTest {
+class CodedMessageDefinitionLoaderTest {
     @Test
-    public void testLoadBuiltinDefinitions() {
+    void testLoadBuiltinDefinitions() {
         CodedMessageDefinitionLoader.loadBuiltinDefinitions();
 
         LocaleMx.current(Locale.CHINA);

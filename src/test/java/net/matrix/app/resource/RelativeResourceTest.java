@@ -8,16 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RelativeResourceTest {
+class RelativeResourceTest {
     @Test
-    public void testRelativeResource_rootName() {
+    void testRelativeResource_rootName() {
         RelativeResource resource = new RelativeResource("a", "b");
         assertThat(resource.getRootName()).isEqualTo("a");
         assertThat(resource.getRelativePath()).isEqualTo("b");
     }
 
     @Test
-    public void testRelativeResource_parent() {
+    void testRelativeResource_parent() {
         RelativeResource parent = new RelativeResource("a", "b");
 
         RelativeResource resource = new RelativeResource(parent, "c");

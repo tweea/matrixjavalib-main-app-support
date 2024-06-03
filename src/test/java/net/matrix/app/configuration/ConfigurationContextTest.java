@@ -22,9 +22,9 @@ import net.matrix.configuration.XMLConfigurationContainer;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class ConfigurationContextTest {
+class ConfigurationContextTest {
     @Test
-    public void testLoad()
+    void testLoad()
         throws ConfigurationException {
         ResourceRepository repository = new ResourceRepository(new ClassPathResource("repo1/"));
         ResourceSelection selection = new ResourceSelection("configset", "set2", "configset.xml");
@@ -33,7 +33,7 @@ public class ConfigurationContextTest {
         assertThat(context.getContextConfig().getCatalogs()).hasSize(5);
     }
 
-    public ConfigurationContext loadContext()
+    ConfigurationContext loadContext()
         throws ConfigurationException {
         ResourceRepository repository = new ResourceRepository(new ClassPathResource("repo1/"));
         ResourceSelection selection = new ResourceSelection("configset", "set1", "configset.xml");
@@ -41,7 +41,7 @@ public class ConfigurationContextTest {
     }
 
     @Test
-    public void testGetConfigurationResource()
+    void testGetConfigurationResource()
         throws ConfigurationException, IOException {
         ConfigurationContext context = loadContext();
         RelativeResourceRootRegister register = new RelativeResourceRootRegister();
@@ -58,7 +58,7 @@ public class ConfigurationContextTest {
     }
 
     @Test
-    public void testGetConfiguration()
+    void testGetConfiguration()
         throws ConfigurationException {
         ConfigurationContext context = loadContext();
         ResourceSelection selection = new ResourceSelection("test", null, "small.xml");
@@ -68,7 +68,7 @@ public class ConfigurationContextTest {
     }
 
     @Test
-    public void testGetConfiguration2()
+    void testGetConfiguration2()
         throws ConfigurationException {
         ConfigurationContext context = loadContext();
         ResourceSelection selection = new ResourceSelection("testxxx", null, "abc.xml");
@@ -77,7 +77,7 @@ public class ConfigurationContextTest {
     }
 
     @Test
-    public void testGetConfiguration3()
+    void testGetConfiguration3()
         throws ConfigurationException {
         ConfigurationContext context = loadContext();
         ResourceSelection selection = new ResourceSelection("test", null, "abc");

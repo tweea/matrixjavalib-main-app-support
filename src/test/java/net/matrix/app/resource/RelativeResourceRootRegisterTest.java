@@ -12,9 +12,9 @@ import org.springframework.core.io.ClassPathResource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class RelativeResourceRootRegisterTest {
+class RelativeResourceRootRegisterTest {
     @Test
-    public void testRegisterRoot() {
+    void testRegisterRoot() {
         RelativeResourceRootRegister register = new RelativeResourceRootRegister();
 
         register.registerRoot("test", new ClassPathResource(""));
@@ -22,7 +22,7 @@ public class RelativeResourceRootRegisterTest {
     }
 
     @Test
-    public void testGetResource()
+    void testGetResource()
         throws IOException {
         RelativeResourceRootRegister register = new RelativeResourceRootRegister();
         register.registerRoot("test", new ClassPathResource(""));
@@ -32,7 +32,7 @@ public class RelativeResourceRootRegisterTest {
     }
 
     @Test
-    public void testGetResource_notRegister() {
+    void testGetResource_notRegister() {
         RelativeResourceRootRegister register = new RelativeResourceRootRegister();
         RelativeResource relativeResource = new RelativeResource("test", "bar.xml");
 

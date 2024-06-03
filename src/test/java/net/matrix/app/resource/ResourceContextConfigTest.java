@@ -13,19 +13,19 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResourceContextConfigTest {
-    private static ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
+class ResourceContextConfigTest {
+    static ResourceRepository repo = new ResourceRepository(new ClassPathResource("repo1/"));
 
-    private static ResourceSelection selection1 = new ResourceSelection("configset", "set1", "configset.xml");
+    static ResourceSelection selection1 = new ResourceSelection("configset", "set1", "configset.xml");
 
-    private static ResourceSelection selection2 = new ResourceSelection("configset", "set2", "configset.xml");
+    static ResourceSelection selection2 = new ResourceSelection("configset", "set2", "configset.xml");
 
-    private static ResourceContextConfig set1;
+    static ResourceContextConfig set1;
 
-    private static ResourceContextConfig set2;
+    static ResourceContextConfig set2;
 
     @BeforeAll
-    public static void beforeAll()
+    static void beforeAll()
         throws ConfigurationException {
         set1 = new ResourceContextConfig();
         set1.load(repo.getResource(selection1));
@@ -34,7 +34,7 @@ public class ResourceContextConfigTest {
     }
 
     @Test
-    public void testLoad1() {
+    void testLoad1() {
         assertThat(set1.getCatalogs()).hasSize(5);
         assertThat(set1.getCatalogs()).contains("naming");
         assertThat(set1.getCatalogs()).contains("test/orz");
@@ -44,7 +44,7 @@ public class ResourceContextConfigTest {
     }
 
     @Test
-    public void testLoad2() {
+    void testLoad2() {
         assertThat(set2.getCatalogs()).hasSize(5);
         assertThat(set2.getCatalogs()).contains("naming");
         assertThat(set2.getCatalogs()).contains("test/orz");
@@ -54,7 +54,7 @@ public class ResourceContextConfigTest {
     }
 
     @Test
-    public void testCheckDiff() {
+    void testCheckDiff() {
         Set<ResourceSelection> updateInfoList = set1.checkDiff(set2);
         assertThat(updateInfoList).hasSize(5);
     }
