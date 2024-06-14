@@ -4,6 +4,8 @@
  */
 package net.matrix.app;
 
+import javax.annotation.Nonnull;
+
 import net.matrix.lang.Resettable;
 
 /**
@@ -16,6 +18,7 @@ public interface SystemController
      * 
      * @return 系统环境。
      */
+    @Nonnull
     SystemContext getContext();
 
     /**
@@ -24,7 +27,7 @@ public interface SystemController
      * @param context
      *     系统环境。
      */
-    void setContext(SystemContext context);
+    void setContext(@Nonnull SystemContext context);
 
     /**
      * 初始化系统。

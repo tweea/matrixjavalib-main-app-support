@@ -7,9 +7,14 @@ package net.matrix.app;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.ThreadSafe;
+
 /**
  * 全局系统环境，保存系统环境的全局实例。
  */
+@ThreadSafe
 public final class GlobalSystemContext {
     /**
      * 系统环境的全局实例。
@@ -27,6 +32,7 @@ public final class GlobalSystemContext {
      * 
      * @return 系统环境的全局实例。
      */
+    @Nonnull
     public static SystemContext get() {
         return get("");
     }
@@ -38,7 +44,8 @@ public final class GlobalSystemContext {
      *     唯一标识。
      * @return 系统环境的全局实例。
      */
-    public static SystemContext get(String id) {
+    @Nonnull
+    public static SystemContext get(@Nonnull String id) {
         return GLOBAL_CONTEXTS.computeIfAbsent(id, key -> new DefaultSystemContext());
     }
 
@@ -48,7 +55,7 @@ public final class GlobalSystemContext {
      * @param context
      *     系统环境。
      */
-    public static void set(SystemContext context) {
+    public static void set(@Nullable SystemContext context) {
         set("", context);
     }
 
@@ -60,7 +67,7 @@ public final class GlobalSystemContext {
      * @param context
      *     系统环境。
      */
-    public static void set(String id, SystemContext context) {
+    public static void set(@Nonnull String id, @Nullable SystemContext context) {
         if (context == null) {
             GLOBAL_CONTEXTS.remove(id);
         } else {

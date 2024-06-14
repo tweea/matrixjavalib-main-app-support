@@ -4,6 +4,8 @@
  */
 package net.matrix.app;
 
+import javax.annotation.Nonnull;
+
 /**
  * 默认的系统控制器，在应用中继承本类以扩展功能。
  */
@@ -12,6 +14,7 @@ public class DefaultSystemController
     /**
      * 系统环境。
      */
+    @Nonnull
     private SystemContext context;
 
     @Override

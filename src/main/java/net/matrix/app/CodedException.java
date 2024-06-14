@@ -4,6 +4,8 @@
  */
 package net.matrix.app;
 
+import javax.annotation.Nonnull;
+
 import net.matrix.app.message.CodedMessage;
 
 /**
@@ -15,6 +17,7 @@ public interface CodedException {
      * 
      * @return 默认消息编码。
      */
+    @Nonnull
     String getDefaultMessageCode();
 
     /**
@@ -22,5 +25,6 @@ public interface CodedException {
      * 
      * @return 编码消息。
      */
+    @Nonnull
     CodedMessage getCodedMessage();
 }

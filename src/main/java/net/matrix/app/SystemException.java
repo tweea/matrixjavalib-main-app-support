@@ -4,12 +4,17 @@
  */
 package net.matrix.app;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
 import net.matrix.app.message.CodedMessage;
 import net.matrix.app.message.CodedMessageMx;
 
 /**
  * 系统异常，包含编码消息。
  */
+@Immutable
 public class SystemException
     extends Exception
     implements CodedException {
@@ -18,6 +23,7 @@ public class SystemException
     /**
      * 消息。
      */
+    @Nonnull
     private final CodedMessage message;
 
     /**
@@ -33,7 +39,7 @@ public class SystemException
      * @param messageCode
      *     消息编码。
      */
-    public SystemException(String messageCode) {
+    public SystemException(@Nonnull String messageCode) {
         this.message = CodedMessageMx.error(messageCode);
     }
 
@@ -43,7 +49,7 @@ public class SystemException
      * @param message
      *     消息。
      */
-    public SystemException(CodedMessage message) {
+    public SystemException(@Nonnull CodedMessage message) {
         this.message = message;
     }
 
@@ -53,7 +59,7 @@ public class SystemException
      * @param cause
      *     原因异常（使用 {@link #getCause()} 方法获取）。可以使用 <code>null</code> 值，指原因异常不存在或未知。
      */
-    public SystemException(Throwable cause) {
+    public SystemException(@Nullable Throwable cause) {
         super(cause);
         this.message = CodedMessageMx.error(getDefaultMessageCode());
         initCauseMessage(cause);
@@ -68,7 +74,7 @@ public class SystemException
      * @param messageCode
      *     消息编码。
      */
-    public SystemException(Throwable cause, String messageCode) {
+    public SystemException(@Nullable Throwable cause, @Nonnull String messageCode) {
         super(cause);
         this.message = CodedMessageMx.error(messageCode);
         initCauseMessage(cause);
@@ -83,7 +89,7 @@ public class SystemException
      * @param message
      *     消息。
      */
-    public SystemException(Throwable cause, CodedMessage message) {
+    public SystemException(@Nullable Throwable cause, @Nonnull CodedMessage message) {
         super(cause);
         this.message = message;
         initCauseMessage(cause);

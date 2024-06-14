@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.apache.commons.configuration2.AbstractConfiguration;
 import org.apache.commons.configuration2.CombinedConfiguration;
 import org.apache.commons.configuration2.Configuration;
@@ -80,6 +82,7 @@ public class DefaultSystemContext
     /**
      * 已注册对象。
      */
+    @Nonnull
     protected final Map<String, Object> objects;
 
     /**
