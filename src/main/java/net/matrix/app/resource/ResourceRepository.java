@@ -6,6 +6,10 @@ package net.matrix.app.resource;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +20,7 @@ import net.matrix.text.ResourceBundleMessageFormatter;
 /**
  * 资源仓库，根据指定的根资源相对定位所有资源。
  */
+@Immutable
 public class ResourceRepository {
     /**
      * 日志记录器。
@@ -30,12 +35,13 @@ public class ResourceRepository {
     /**
      * 根资源。
      */
+    @Nonnull
     private final Resource root;
 
     /**
      * 构造器。
      */
-    public ResourceRepository(Resource root) {
+    public ResourceRepository(@Nonnull Resource root) {
         this.root = root;
     }
 
@@ -46,7 +52,8 @@ public class ResourceRepository {
      *     资源仓库选择。
      * @return 资源。
      */
-    public Resource getResource(ResourceSelection selection) {
+    @Nullable
+    public Resource getResource(@Nonnull ResourceSelection selection) {
         if (LOG.isTraceEnabled()) {
             LOG.trace(RBMF.get("开始定位资源 {}/{}"), root, selection);
         }

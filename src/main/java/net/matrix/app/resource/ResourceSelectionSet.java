@@ -7,6 +7,8 @@ package net.matrix.app.resource;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import net.matrix.java.util.CollectionMx;
 
 /**
@@ -16,6 +18,7 @@ public class ResourceSelectionSet {
     /**
      * 内部选择集合。
      */
+    @Nonnull
     private final Set<ResourceSelection> selections;
 
     /**
@@ -31,7 +34,7 @@ public class ResourceSelectionSet {
      * @param selection
      *     资源仓库选择。
      */
-    public void add(ResourceSelection selection) {
+    public void add(@Nonnull ResourceSelection selection) {
         selections.add(selection);
     }
 
@@ -42,7 +45,7 @@ public class ResourceSelectionSet {
      *     资源仓库选择。
      * @return 是否已包含指定资源仓库选择。
      */
-    public boolean contains(ResourceSelection selection) {
+    public boolean contains(@Nonnull ResourceSelection selection) {
         return selections.contains(selection);
     }
 
@@ -53,7 +56,7 @@ public class ResourceSelectionSet {
      *     资源仓库选择。
      * @return 是否已包含指定资源仓库选择。
      */
-    public boolean remove(ResourceSelection selection) {
+    public boolean remove(@Nonnull ResourceSelection selection) {
         return selections.remove(selection);
     }
 
@@ -62,6 +65,7 @@ public class ResourceSelectionSet {
      * 
      * @return 类别集合。
      */
+    @Nonnull
     public Set<String> getCatalogs() {
         return CollectionMx.buildSet(selections, ResourceSelection::getCatalog);
     }
@@ -73,7 +77,8 @@ public class ResourceSelectionSet {
      *     类别。
      * @return 名称集合。
      */
-    public Set<String> getNames(String catalog) {
+    @Nonnull
+    public Set<String> getNames(@Nonnull String catalog) {
         Set<String> names = new HashSet<>();
         for (ResourceSelection selection : selections) {
             if (selection.getCatalog().equals(catalog)) {
@@ -90,7 +95,8 @@ public class ResourceSelectionSet {
      *     类别。
      * @return 资源仓库选择集合。
      */
-    public Set<ResourceSelection> getSelections(String catalog) {
+    @Nonnull
+    public Set<ResourceSelection> getSelections(@Nonnull String catalog) {
         return getSelections(catalog, ResourceSelection.generateName(catalog));
     }
 
@@ -103,7 +109,8 @@ public class ResourceSelectionSet {
      *     名称。
      * @return 资源仓库选择集合。
      */
-    public Set<ResourceSelection> getSelections(String catalog, String name) {
+    @Nonnull
+    public Set<ResourceSelection> getSelections(@Nonnull String catalog, @Nonnull String name) {
         Set<ResourceSelection> result = new HashSet<>();
         for (ResourceSelection selection : selections) {
             if (selection.getCatalog().equals(catalog) && selection.getName().equals(name)) {
@@ -120,7 +127,8 @@ public class ResourceSelectionSet {
      *     另一集合。
      * @return 差异集合。
      */
-    public Set<ResourceSelection> checkDiff(ResourceSelectionSet target) {
+    @Nonnull
+    public Set<ResourceSelection> checkDiff(@Nonnull ResourceSelectionSet target) {
         Set<ResourceSelection> diffs = new HashSet<>();
         diffs.addAll(target.selections);
         diffs.removeAll(selections);

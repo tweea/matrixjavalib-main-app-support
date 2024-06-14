@@ -7,6 +7,9 @@ package net.matrix.app.resource;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -26,6 +29,7 @@ public class ResourceContextConfig
     /**
      * 资源仓库选择集合。
      */
+    @Nonnull
     private ResourceSelectionSet selectionSet;
 
     @Override
@@ -71,6 +75,7 @@ public class ResourceContextConfig
      * 
      * @return 类别集合。
      */
+    @Nonnull
     public Set<String> getCatalogs() {
         checkReload();
         return selectionSet.getCatalogs();
@@ -83,7 +88,8 @@ public class ResourceContextConfig
      *     类别。
      * @return 名称集合。
      */
-    public Set<String> getNames(String catalog) {
+    @Nonnull
+    public Set<String> getNames(@Nonnull String catalog) {
         checkReload();
         return selectionSet.getNames(catalog);
     }
@@ -95,7 +101,8 @@ public class ResourceContextConfig
      *     类别。
      * @return 资源仓库选择。
      */
-    public ResourceSelection getSelection(String catalog) {
+    @Nullable
+    public ResourceSelection getSelection(@Nonnull String catalog) {
         checkReload();
         Set<ResourceSelection> result = selectionSet.getSelections(catalog);
         return Iterables.getFirst(result, null);
@@ -110,7 +117,8 @@ public class ResourceContextConfig
      *     名称。
      * @return 资源仓库选择。
      */
-    public ResourceSelection getSelection(String catalog, String name) {
+    @Nullable
+    public ResourceSelection getSelection(@Nonnull String catalog, @Nonnull String name) {
         checkReload();
         Set<ResourceSelection> result = selectionSet.getSelections(catalog, name);
         return Iterables.getFirst(result, null);
@@ -123,7 +131,8 @@ public class ResourceContextConfig
      *     另一配置。
      * @return 差异集合。
      */
-    public Set<ResourceSelection> checkDiff(ResourceContextConfig target) {
+    @Nonnull
+    public Set<ResourceSelection> checkDiff(@Nonnull ResourceContextConfig target) {
         checkReload();
         return selectionSet.checkDiff(target.selectionSet);
     }

@@ -7,6 +7,9 @@ package net.matrix.app.message;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
+
 import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -24,6 +27,7 @@ import net.matrix.text.ResourceBundleMessageFormatter;
 /**
  * 编码消息定义加载工具。
  */
+@ThreadSafe
 public final class CodedMessageDefinitionLoader {
     /**
      * 日志记录器。
@@ -59,7 +63,8 @@ public final class CodedMessageDefinitionLoader {
      * @param filenamePrefix
      *     文件名前缀。
      */
-    public static void loadDefinitions(ResourcePatternResolver resourcePatternResolver, String locationPattern, String filenamePrefix) {
+    public static void loadDefinitions(@Nonnull ResourcePatternResolver resourcePatternResolver, @Nonnull String locationPattern,
+        @Nonnull String filenamePrefix) {
         Resource[] resources;
         try {
             resources = resourcePatternResolver.getResources(locationPattern);
@@ -88,7 +93,7 @@ public final class CodedMessageDefinitionLoader {
      * @param resource
      *     配置文件。
      */
-    public static void loadDefinitions(Locale locale, Resource resource) {
+    public static void loadDefinitions(@Nonnull Locale locale, @Nonnull Resource resource) {
         XMLConfiguration config = new XMLConfiguration();
         try {
             FileHandler fileHandler = new FileHandler(config);

@@ -9,6 +9,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.matrix.java.util.LocaleMx;
 
 /**
@@ -23,16 +26,19 @@ public class CodedMessageDefinition {
     /**
      * 编码。
      */
+    @Nonnull
     private final String code;
 
     /**
      * 区域。
      */
+    @Nonnull
     private final Locale locale;
 
     /**
      * 模板。
      */
+    @Nonnull
     private final String template;
 
     /**
@@ -42,7 +48,8 @@ public class CodedMessageDefinition {
      *     编码。
      * @return 编码消息定义。
      */
-    public static CodedMessageDefinition get(String code) {
+    @Nullable
+    public static CodedMessageDefinition get(@Nonnull String code) {
         Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.get(code);
         if (definitions == null) {
             return null;
@@ -61,7 +68,7 @@ public class CodedMessageDefinition {
      * @param definition
      *     编码消息定义。
      */
-    public static void add(CodedMessageDefinition definition) {
+    public static void add(@Nonnull CodedMessageDefinition definition) {
         String code = definition.getCode();
         Locale locale = definition.getLocale();
 
@@ -79,7 +86,7 @@ public class CodedMessageDefinition {
      * @param template
      *     模板。
      */
-    public CodedMessageDefinition(String code, Locale locale, String template) {
+    public CodedMessageDefinition(@Nonnull String code, @Nonnull Locale locale, @Nonnull String template) {
         this.code = code;
         this.locale = locale;
         this.template = template;
@@ -88,6 +95,7 @@ public class CodedMessageDefinition {
     /**
      * 获取编码。
      */
+    @Nonnull
     public String getCode() {
         return code;
     }
@@ -95,6 +103,7 @@ public class CodedMessageDefinition {
     /**
      * 获取区域。
      */
+    @Nonnull
     public Locale getLocale() {
         return locale;
     }
@@ -102,6 +111,7 @@ public class CodedMessageDefinition {
     /**
      * 获取模板。
      */
+    @Nonnull
     public String getTemplate() {
         return template;
     }

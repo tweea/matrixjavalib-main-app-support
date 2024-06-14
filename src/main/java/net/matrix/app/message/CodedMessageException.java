@@ -4,11 +4,16 @@
  */
 package net.matrix.app.message;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
 import net.matrix.app.SystemException;
 
 /**
  * 编码消息的系统异常。
  */
+@Immutable
 public class CodedMessageException
     extends SystemException {
     private static final long serialVersionUID = 1L;
@@ -26,7 +31,7 @@ public class CodedMessageException
      * @param messageCode
      *     消息编码。
      */
-    public CodedMessageException(String messageCode) {
+    public CodedMessageException(@Nonnull String messageCode) {
         super(messageCode);
     }
 
@@ -36,7 +41,7 @@ public class CodedMessageException
      * @param message
      *     消息。
      */
-    public CodedMessageException(CodedMessage message) {
+    public CodedMessageException(@Nonnull CodedMessage message) {
         super(message);
     }
 
@@ -46,7 +51,7 @@ public class CodedMessageException
      * @param cause
      *     原因异常（使用 {@link #getCause()} 方法获取）。可以使用 <code>null</code> 值，指原因异常不存在或未知。
      */
-    public CodedMessageException(Throwable cause) {
+    public CodedMessageException(@Nullable Throwable cause) {
         super(cause);
     }
 
@@ -59,7 +64,7 @@ public class CodedMessageException
      * @param messageCode
      *     消息编码。
      */
-    public CodedMessageException(Throwable cause, String messageCode) {
+    public CodedMessageException(@Nullable Throwable cause, @Nonnull String messageCode) {
         super(cause, messageCode);
     }
 
@@ -72,7 +77,7 @@ public class CodedMessageException
      * @param message
      *     消息。
      */
-    public CodedMessageException(Throwable cause, CodedMessage message) {
+    public CodedMessageException(@Nullable Throwable cause, @Nonnull CodedMessage message) {
         super(cause, message);
     }
 

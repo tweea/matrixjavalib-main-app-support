@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 
 import net.matrix.java.text.MessageFormatMx;
@@ -22,6 +25,7 @@ public class CodedMessage
     /**
      * 编码。
      */
+    @Nonnull
     private final String code;
 
     /**
@@ -32,21 +36,25 @@ public class CodedMessage
     /**
      * 级别。
      */
+    @Nonnull
     private final CodedMessageLevel level;
 
     /**
      * 参数列表。
      */
+    @Nonnull
     private final List<String> arguments;
 
     /**
      * 不参与格式化的参数列表。
      */
+    @Nonnull
     private final List<String> unformattedArguments;
 
     /**
      * 依附的消息列表。
      */
+    @Nonnull
     private final List<CodedMessage> messages;
 
     /**
@@ -59,7 +67,7 @@ public class CodedMessage
      * @param arguments
      *     参数列表。
      */
-    public CodedMessage(String code, CodedMessageLevel level, String... arguments) {
+    public CodedMessage(@Nonnull String code, @Nonnull CodedMessageLevel level, String... arguments) {
         this(code, System.currentTimeMillis(), level, arguments);
     }
 
@@ -75,7 +83,7 @@ public class CodedMessage
      * @param arguments
      *     参数列表。
      */
-    public CodedMessage(String code, long time, CodedMessageLevel level, String... arguments) {
+    public CodedMessage(@Nonnull String code, long time, @Nonnull CodedMessageLevel level, String... arguments) {
         this.code = code;
         this.time = time;
         this.level = level;
@@ -87,6 +95,7 @@ public class CodedMessage
     /**
      * 获取编码。
      */
+    @Nonnull
     public String getCode() {
         return code;
     }
@@ -101,6 +110,7 @@ public class CodedMessage
     /**
      * 获取级别。
      */
+    @Nonnull
     public CodedMessageLevel getLevel() {
         return level;
     }
@@ -108,6 +118,7 @@ public class CodedMessage
     /**
      * 获取参数列表。
      */
+    @Nonnull
     public List<String> getArguments() {
         return arguments;
     }
@@ -115,6 +126,7 @@ public class CodedMessage
     /**
      * 获取不参与格式化的参数列表。
      */
+    @Nonnull
     public List<String> getUnformattedArguments() {
         return unformattedArguments;
     }
@@ -122,6 +134,7 @@ public class CodedMessage
     /**
      * 获取依附的消息列表。
      */
+    @Nonnull
     public List<CodedMessage> getMessages() {
         return messages;
     }
@@ -132,7 +145,7 @@ public class CodedMessage
      * @param argument
      *     参数。
      */
-    public void addArgument(String argument) {
+    public void addArgument(@Nullable String argument) {
         arguments.add(argument);
     }
 
@@ -142,7 +155,7 @@ public class CodedMessage
      * @param argument
      *     参数。
      */
-    public void addUnformattedArgument(String argument) {
+    public void addUnformattedArgument(@Nullable String argument) {
         unformattedArguments.add(argument);
     }
 
@@ -152,7 +165,7 @@ public class CodedMessage
      * @param message
      *     消息。
      */
-    public void addMessage(CodedMessage message) {
+    public void addMessage(@Nonnull CodedMessage message) {
         messages.add(message);
     }
 
@@ -163,7 +176,7 @@ public class CodedMessage
      *     级别。
      * @return 是否包含指定级别的消息。
      */
-    public boolean hasLevel(CodedMessageLevel theLevel) {
+    public boolean hasLevel(@Nonnull CodedMessageLevel theLevel) {
         if (level == theLevel) {
             return true;
         }
@@ -180,6 +193,7 @@ public class CodedMessage
      * 
      * @return 消息的字符串形式。
      */
+    @Nonnull
     public String format() {
         StringBuilder sb = new StringBuilder();
         format(sb);
@@ -207,6 +221,7 @@ public class CodedMessage
      * 
      * @return 消息的字符串形式。
      */
+    @Nonnull
     public String formatAll() {
         StringBuilder sb = new StringBuilder();
         formatAll(sb, 0);

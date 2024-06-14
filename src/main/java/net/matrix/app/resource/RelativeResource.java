@@ -6,6 +6,7 @@ package net.matrix.app.resource;
 
 import java.util.Objects;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 /**
@@ -16,11 +17,13 @@ public class RelativeResource {
     /**
      * 根路径名。
      */
+    @Nonnull
     private final String rootName;
 
     /**
      * 相对路径。
      */
+    @Nonnull
     private final String relativePath;
 
     /**
@@ -31,7 +34,7 @@ public class RelativeResource {
      * @param relativePath
      *     相对路径。
      */
-    public RelativeResource(String rootName, String relativePath) {
+    public RelativeResource(@Nonnull String rootName, @Nonnull String relativePath) {
         this.rootName = rootName;
         this.relativePath = relativePath;
     }
@@ -44,7 +47,7 @@ public class RelativeResource {
      * @param relativePath
      *     相对路径。
      */
-    public RelativeResource(RelativeResource parent, String relativePath) {
+    public RelativeResource(@Nonnull RelativeResource parent, @Nonnull String relativePath) {
         this.rootName = parent.rootName;
         this.relativePath = parent.relativePath + '/' + relativePath;
     }
@@ -54,6 +57,7 @@ public class RelativeResource {
      * 
      * @return 根路径名。
      */
+    @Nonnull
     public String getRootName() {
         return rootName;
     }
@@ -63,6 +67,7 @@ public class RelativeResource {
      * 
      * @return 相对路径。
      */
+    @Nonnull
     public String getRelativePath() {
         return relativePath;
     }

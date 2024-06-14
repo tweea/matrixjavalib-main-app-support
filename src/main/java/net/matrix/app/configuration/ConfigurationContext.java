@@ -8,6 +8,9 @@ import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
+
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
@@ -25,6 +28,7 @@ import net.matrix.text.ResourceBundleMessageFormatter;
 /**
  * 配置仓库加载环境，加载和缓存配置信息。
  */
+@ThreadSafe
 public final class ConfigurationContext
     extends ResourceContext {
     /**
@@ -40,6 +44,7 @@ public final class ConfigurationContext
     /**
      * 缓存的配置信息。
      */
+    @Nonnull
     private Map<Resource, ReloadableConfigurationContainer> containerCache;
 
     /**
@@ -50,7 +55,7 @@ public final class ConfigurationContext
      * @param contextConfig
      *     资源仓库加载环境配置。
      */
-    public ConfigurationContext(ResourceRepository repository, ResourceContextConfig contextConfig) {
+    public ConfigurationContext(@Nonnull ResourceRepository repository, @Nonnull ResourceContextConfig contextConfig) {
         super(repository, contextConfig);
         this.containerCache = new ConcurrentHashMap<>();
     }
@@ -66,7 +71,8 @@ public final class ConfigurationContext
      * @throws ConfigurationException
      *     加载失败。
      */
-    public static ConfigurationContext load(ResourceRepository repository, ResourceSelection selection)
+    @Nonnull
+    public static ConfigurationContext load(@Nonnull ResourceRepository repository, @Nonnull ResourceSelection selection)
         throws ConfigurationException {
         Resource resource = repository.getResource(selection);
         if (resource == null) {
@@ -97,7 +103,8 @@ public final class ConfigurationContext
      * @throws ConfigurationException
      *     定位失败。
      */
-    public Resource getConfigurationResource(ResourceSelection selection)
+    @Nonnull
+    public Resource getConfigurationResource(@Nonnull ResourceSelection selection)
         throws ConfigurationException {
         Resource resource = getResource(selection);
         if (resource == null) {
@@ -117,7 +124,8 @@ public final class ConfigurationContext
      * @throws ConfigurationException
      *     加载失败。
      */
-    public <T extends ReloadableConfigurationContainer> T getConfiguration(Class<T> type, ResourceSelection selection)
+    @Nonnull
+    public <T extends ReloadableConfigurationContainer> T getConfiguration(@Nonnull Class<T> type, @Nonnull ResourceSelection selection)
         throws ConfigurationException {
         Resource resource = getConfigurationResource(selection);
         T container = (T) containerCache.get(resource);

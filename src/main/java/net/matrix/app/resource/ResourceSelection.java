@@ -6,6 +6,8 @@ package net.matrix.app.resource;
 
 import java.util.Objects;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -19,16 +21,19 @@ public class ResourceSelection {
     /**
      * 类别。
      */
+    @Nonnull
     private final String catalog;
 
     /**
      * 版本。
      */
+    @Nullable
     private final String version;
 
     /**
      * 名称。
      */
+    @Nonnull
     private final String name;
 
     /**
@@ -41,7 +46,7 @@ public class ResourceSelection {
      * @param name
      *     名称。
      */
-    public ResourceSelection(String catalog, String version, String name) {
+    public ResourceSelection(@Nonnull String catalog, @Nullable String version, @Nullable String name) {
         this.catalog = catalog;
         this.version = version;
         if (StringUtils.isBlank(name)) {
@@ -58,7 +63,8 @@ public class ResourceSelection {
      *     类别。
      * @return 名称。
      */
-    public static String generateName(String catalog) {
+    @Nonnull
+    public static String generateName(@Nonnull String catalog) {
         String[] catalogs = StringUtils.split(catalog, '/');
         return catalogs[catalogs.length - 1];
     }
@@ -66,6 +72,7 @@ public class ResourceSelection {
     /**
      * 获取类别。
      */
+    @Nonnull
     public String getCatalog() {
         return catalog;
     }
@@ -73,6 +80,7 @@ public class ResourceSelection {
     /**
      * 获取版本。
      */
+    @Nullable
     public String getVersion() {
         return version;
     }
@@ -80,6 +88,7 @@ public class ResourceSelection {
     /**
      * 获取名称。
      */
+    @Nonnull
     public String getName() {
         return name;
     }

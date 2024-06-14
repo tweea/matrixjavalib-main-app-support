@@ -11,6 +11,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,6 +36,7 @@ import org.w3c.dom.NodeList;
 /**
  * 编码消息工具。
  */
+@ThreadSafe
 public final class CodedMessageMx {
     private static final DocumentBuilderFactory DOCUMENT_BUILDER_FACTORY = DocumentBuilderFactory.newInstance();
 
@@ -54,7 +57,8 @@ public final class CodedMessageMx {
      *     参数列表。
      * @return 创建的消息。
      */
-    public static CodedMessage trace(String code, String... arguments) {
+    @Nonnull
+    public static CodedMessage trace(@Nonnull String code, String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.TRACE, arguments);
     }
 
@@ -67,7 +71,8 @@ public final class CodedMessageMx {
      *     参数列表。
      * @return 创建的消息。
      */
-    public static CodedMessage debug(String code, String... arguments) {
+    @Nonnull
+    public static CodedMessage debug(@Nonnull String code, String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.DEBUG, arguments);
     }
 
@@ -80,7 +85,8 @@ public final class CodedMessageMx {
      *     参数列表。
      * @return 创建的消息。
      */
-    public static CodedMessage info(String code, String... arguments) {
+    @Nonnull
+    public static CodedMessage info(@Nonnull String code, String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.INFO, arguments);
     }
 
@@ -93,7 +99,8 @@ public final class CodedMessageMx {
      *     参数列表。
      * @return 创建的消息。
      */
-    public static CodedMessage warn(String code, String... arguments) {
+    @Nonnull
+    public static CodedMessage warn(@Nonnull String code, String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.WARN, arguments);
     }
 
@@ -106,7 +113,8 @@ public final class CodedMessageMx {
      *     参数列表。
      * @return 创建的消息。
      */
-    public static CodedMessage error(String code, String... arguments) {
+    @Nonnull
+    public static CodedMessage error(@Nonnull String code, String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.ERROR, arguments);
     }
 
@@ -119,7 +127,8 @@ public final class CodedMessageMx {
      *     参数列表。
      * @return 创建的消息。
      */
-    public static CodedMessage fatal(String code, String... arguments) {
+    @Nonnull
+    public static CodedMessage fatal(@Nonnull String code, String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.FATAL, arguments);
     }
 
@@ -132,7 +141,8 @@ public final class CodedMessageMx {
      * @throws CodedMessageException
      *     加载失败。
      */
-    public static List<CodedMessage> load(InputStream reader)
+    @Nonnull
+    public static List<CodedMessage> load(@Nonnull InputStream reader)
         throws CodedMessageException {
         Document document = load(new StreamSource(reader));
         return load(document.getDocumentElement());
@@ -147,7 +157,8 @@ public final class CodedMessageMx {
      * @throws CodedMessageException
      *     加载失败。
      */
-    public static List<CodedMessage> load(Reader reader)
+    @Nonnull
+    public static List<CodedMessage> load(@Nonnull Reader reader)
         throws CodedMessageException {
         Document document = load(new StreamSource(reader));
         return load(document.getDocumentElement());
@@ -219,7 +230,7 @@ public final class CodedMessageMx {
      * @throws CodedMessageException
      *     保存失败。
      */
-    public static void save(List<CodedMessage> messageList, OutputStream writer)
+    public static void save(@Nonnull List<CodedMessage> messageList, @Nonnull OutputStream writer)
         throws CodedMessageException {
         Document document = save(messageList);
         save(document, new StreamResult(writer));
@@ -235,7 +246,7 @@ public final class CodedMessageMx {
      * @throws CodedMessageException
      *     保存失败。
      */
-    public static void save(List<CodedMessage> messageList, Writer writer)
+    public static void save(@Nonnull List<CodedMessage> messageList, @Nonnull Writer writer)
         throws CodedMessageException {
         Document document = save(messageList);
         save(document, new StreamResult(writer));

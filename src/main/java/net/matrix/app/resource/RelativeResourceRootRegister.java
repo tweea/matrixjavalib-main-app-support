@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.springframework.core.io.Resource;
 
 import net.matrix.text.ResourceBundleMessageFormatter;
@@ -25,6 +28,7 @@ public class RelativeResourceRootRegister {
     /**
      * 所有已注册的根资源。
      */
+    @Nonnull
     private final Map<String, Resource> roots;
 
     /**
@@ -42,7 +46,7 @@ public class RelativeResourceRootRegister {
      * @param root
      *     根资源。
      */
-    public void registerRoot(String name, Resource root) {
+    public void registerRoot(@Nonnull String name, @Nonnull Resource root) {
         roots.put(name, root);
     }
 
@@ -53,7 +57,8 @@ public class RelativeResourceRootRegister {
      *     根路径名。
      * @return 根资源。
      */
-    public Resource getRoot(String name) {
+    @Nullable
+    public Resource getRoot(@Nonnull String name) {
         return roots.get(name);
     }
 
@@ -68,7 +73,8 @@ public class RelativeResourceRootRegister {
      * @throws IllegalStateException
      *     根路径名未注册。
      */
-    public Resource getResource(RelativeResource relativeResource)
+    @Nonnull
+    public Resource getResource(@Nonnull RelativeResource relativeResource)
         throws IOException {
         String name = relativeResource.getRootName();
         Resource root = roots.get(name);
