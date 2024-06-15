@@ -4,24 +4,26 @@
  */
 package net.matrix.app.message;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import net.matrix.java.util.LocaleMx;
 
 /**
  * 编码消息定义。
  */
+@ThreadSafe
 public class CodedMessageDefinition {
     /**
      * 加载的编码消息定义。
      */
-    private static final Map<String, Map<Locale, CodedMessageDefinition>> DEFINITIONS = new HashMap<>();
+    private static final Map<String, Map<Locale, CodedMessageDefinition>> DEFINITIONS = new ConcurrentHashMap<>();
 
     /**
      * 编码。
@@ -72,7 +74,7 @@ public class CodedMessageDefinition {
         String code = definition.getCode();
         Locale locale = definition.getLocale();
 
-        Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.computeIfAbsent(code, key -> new HashMap<>());
+        Map<Locale, CodedMessageDefinition> definitions = DEFINITIONS.computeIfAbsent(code, key -> new ConcurrentHashMap<>());
         definitions.put(locale, definition);
     }
 
