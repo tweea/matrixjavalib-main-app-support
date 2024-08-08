@@ -58,7 +58,7 @@ public final class CodedMessageMx {
      * @return 创建的消息。
      */
     @Nonnull
-    public static CodedMessage trace(@Nonnull String code, String... arguments) {
+    public static CodedMessage trace(@Nonnull String code, @Nonnull String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.TRACE, arguments);
     }
 
@@ -72,7 +72,7 @@ public final class CodedMessageMx {
      * @return 创建的消息。
      */
     @Nonnull
-    public static CodedMessage debug(@Nonnull String code, String... arguments) {
+    public static CodedMessage debug(@Nonnull String code, @Nonnull String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.DEBUG, arguments);
     }
 
@@ -86,7 +86,7 @@ public final class CodedMessageMx {
      * @return 创建的消息。
      */
     @Nonnull
-    public static CodedMessage info(@Nonnull String code, String... arguments) {
+    public static CodedMessage info(@Nonnull String code, @Nonnull String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.INFO, arguments);
     }
 
@@ -100,7 +100,7 @@ public final class CodedMessageMx {
      * @return 创建的消息。
      */
     @Nonnull
-    public static CodedMessage warn(@Nonnull String code, String... arguments) {
+    public static CodedMessage warn(@Nonnull String code, @Nonnull String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.WARN, arguments);
     }
 
@@ -114,7 +114,7 @@ public final class CodedMessageMx {
      * @return 创建的消息。
      */
     @Nonnull
-    public static CodedMessage error(@Nonnull String code, String... arguments) {
+    public static CodedMessage error(@Nonnull String code, @Nonnull String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.ERROR, arguments);
     }
 
@@ -128,7 +128,7 @@ public final class CodedMessageMx {
      * @return 创建的消息。
      */
     @Nonnull
-    public static CodedMessage fatal(@Nonnull String code, String... arguments) {
+    public static CodedMessage fatal(@Nonnull String code, @Nonnull String... arguments) {
         return new CodedMessage(code, CodedMessageLevel.FATAL, arguments);
     }
 

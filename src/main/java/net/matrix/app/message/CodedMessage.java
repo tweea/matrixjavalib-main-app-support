@@ -67,7 +67,7 @@ public class CodedMessage
      * @param arguments
      *     参数列表。
      */
-    public CodedMessage(@Nonnull String code, @Nonnull CodedMessageLevel level, String... arguments) {
+    public CodedMessage(@Nonnull String code, @Nonnull CodedMessageLevel level, @Nonnull String... arguments) {
         this(code, System.currentTimeMillis(), level, arguments);
     }
 
@@ -83,7 +83,7 @@ public class CodedMessage
      * @param arguments
      *     参数列表。
      */
-    public CodedMessage(@Nonnull String code, long time, @Nonnull CodedMessageLevel level, String... arguments) {
+    public CodedMessage(@Nonnull String code, long time, @Nonnull CodedMessageLevel level, @Nonnull String... arguments) {
         this.code = code;
         this.time = time;
         this.level = level;
