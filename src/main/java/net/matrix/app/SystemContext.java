@@ -17,7 +17,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 public interface SystemContext {
     /**
      * 获取系统资源加载器。
-     * 
+     *
      * @return 资源加载器。
      */
     @Nonnull
@@ -25,7 +25,7 @@ public interface SystemContext {
 
     /**
      * 设置系统资源加载器。
-     * 
+     *
      * @param resourceLoader
      *     资源加载器。
      */
@@ -33,7 +33,7 @@ public interface SystemContext {
 
     /**
      * 获取系统资源扫描器。
-     * 
+     *
      * @return 资源扫描器。
      */
     @Nonnull
@@ -41,7 +41,7 @@ public interface SystemContext {
 
     /**
      * 设置系统资源扫描器。
-     * 
+     *
      * @param resourcePatternResolver
      *     资源扫描器。
      */
@@ -49,7 +49,7 @@ public interface SystemContext {
 
     /**
      * 获取系统配置。
-     * 
+     *
      * @return 配置。
      */
     @Nonnull
@@ -57,7 +57,7 @@ public interface SystemContext {
 
     /**
      * 设置系统配置。
-     * 
+     *
      * @param config
      *     配置。
      */
@@ -65,7 +65,7 @@ public interface SystemContext {
 
     /**
      * 按名称注册对象。
-     * 
+     *
      * @param name
      *     名称。
      * @param object
@@ -75,7 +75,7 @@ public interface SystemContext {
 
     /**
      * 按类型注册对象。
-     * 
+     *
      * @param type
      *     类型。
      * @param object
@@ -85,7 +85,7 @@ public interface SystemContext {
 
     /**
      * 按名称查找对象。
-     * 
+     *
      * @param name
      *     名称。
      * @return 对象。
@@ -95,7 +95,7 @@ public interface SystemContext {
 
     /**
      * 按名称和类型查找对象。
-     * 
+     *
      * @param name
      *     名称。
      * @param type
@@ -107,7 +107,7 @@ public interface SystemContext {
 
     /**
      * 按类型查找对象。
-     * 
+     *
      * @param type
      *     类型。
      * @return 对象。
@@ -117,7 +117,7 @@ public interface SystemContext {
 
     /**
      * 获取系统控制器。
-     * 
+     *
      * @return 系统控制器。
      */
     @Nonnull
@@ -125,7 +125,7 @@ public interface SystemContext {
 
     /**
      * 设置系统控制器。
-     * 
+     *
      * @param controller
      *     系统控制器。
      */

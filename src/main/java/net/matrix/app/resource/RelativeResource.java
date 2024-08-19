@@ -28,7 +28,7 @@ public class RelativeResource {
 
     /**
      * 构造器，使用基于根路径名的相对路径。
-     * 
+     *
      * @param rootName
      *     根路径名。
      * @param relativePath
@@ -41,7 +41,7 @@ public class RelativeResource {
 
     /**
      * 构造器，使用基于上级资源的相对路径。
-     * 
+     *
      * @param parent
      *     上级资源。
      * @param relativePath
@@ -54,7 +54,7 @@ public class RelativeResource {
 
     /**
      * 获取根路径名。
-     * 
+     *
      * @return 根路径名。
      */
     @Nonnull
@@ -64,7 +64,7 @@ public class RelativeResource {
 
     /**
      * 获取相对路径。
-     * 
+     *
      * @return 相对路径。
      */
     @Nonnull

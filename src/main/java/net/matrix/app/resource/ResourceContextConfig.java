@@ -72,7 +72,7 @@ public class ResourceContextConfig
 
     /**
      * 获取所有资源仓库选择的类别集合。
-     * 
+     *
      * @return 类别集合。
      */
     @Nonnull
@@ -83,7 +83,7 @@ public class ResourceContextConfig
 
     /**
      * 获取特定类别的资源仓库选择的名称集合。
-     * 
+     *
      * @param catalog
      *     类别。
      * @return 名称集合。
@@ -96,7 +96,7 @@ public class ResourceContextConfig
 
     /**
      * 选择指定类别的默认名称资源。
-     * 
+     *
      * @param catalog
      *     类别。
      * @return 资源仓库选择。
@@ -110,7 +110,7 @@ public class ResourceContextConfig
 
     /**
      * 选择指定类别的指定名称资源。
-     * 
+     *
      * @param catalog
      *     类别。
      * @param name
@@ -126,7 +126,7 @@ public class ResourceContextConfig
 
     /**
      * 检查本配置与另一配置包含资源仓库选择的差异。
-     * 
+     *
      * @param target
      *     另一配置。
      * @return 差异集合。

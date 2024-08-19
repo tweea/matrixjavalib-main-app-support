@@ -45,7 +45,7 @@ public class CodedMessageDefinition {
 
     /**
      * 获取编码消息定义。
-     * 
+     *
      * @param code
      *     编码。
      * @return 编码消息定义。
@@ -66,7 +66,7 @@ public class CodedMessageDefinition {
 
     /**
      * 增加编码消息定义。
-     * 
+     *
      * @param definition
      *     编码消息定义。
      */
@@ -80,7 +80,7 @@ public class CodedMessageDefinition {
 
     /**
      * 构造器。
-     * 
+     *
      * @param code
      *     编码。
      * @param locale

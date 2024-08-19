@@ -14,7 +14,7 @@ import net.matrix.app.message.CodedMessage;
 public interface CodedException {
     /**
      * 获取默认消息编码。
-     * 
+     *
      * @return 默认消息编码。
      */
     @Nonnull
@@ -22,7 +22,7 @@ public interface CodedException {
 
     /**
      * 获取编码消息。
-     * 
+     *
      * @return 编码消息。
      */
     @Nonnull

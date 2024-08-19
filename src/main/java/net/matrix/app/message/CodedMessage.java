@@ -59,7 +59,7 @@ public class CodedMessage
 
     /**
      * 构造器，设置时间为现在。
-     * 
+     *
      * @param code
      *     编码。
      * @param level
@@ -73,7 +73,7 @@ public class CodedMessage
 
     /**
      * 构造器。
-     * 
+     *
      * @param code
      *     编码。
      * @param time
@@ -141,7 +141,7 @@ public class CodedMessage
 
     /**
      * 在参数列表中增加一个参数。
-     * 
+     *
      * @param argument
      *     参数。
      */
@@ -151,7 +151,7 @@ public class CodedMessage
 
     /**
      * 在不参与格式化的参数列表中增加一个参数。
-     * 
+     *
      * @param argument
      *     参数。
      */
@@ -161,7 +161,7 @@ public class CodedMessage
 
     /**
      * 在依附的消息列表中增加一个消息。
-     * 
+     *
      * @param message
      *     消息。
      */
@@ -171,7 +171,7 @@ public class CodedMessage
 
     /**
      * 判断消息或依附的消息列表中是否包含指定级别的消息。
-     * 
+     *
      * @param theLevel
      *     级别。
      * @return 是否包含指定级别的消息。
@@ -190,7 +190,7 @@ public class CodedMessage
 
     /**
      * 将消息格式化为字符串形式。
-     * 
+     *
      * @return 消息的字符串形式。
      */
     @Nonnull
@@ -218,7 +218,7 @@ public class CodedMessage
 
     /**
      * 将消息和依附的消息列表格式化为字符串形式。
-     * 
+     *
      * @return 消息的字符串形式。
      */
     @Nonnull

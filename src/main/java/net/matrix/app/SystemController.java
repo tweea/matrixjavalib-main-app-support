@@ -15,7 +15,7 @@ public interface SystemController
     extends Resettable {
     /**
      * 获取系统环境。
-     * 
+     *
      * @return 系统环境。
      */
     @Nonnull
@@ -23,7 +23,7 @@ public interface SystemController
 
     /**
      * 设置系统环境。
-     * 
+     *
      * @param context
      *     系统环境。
      */

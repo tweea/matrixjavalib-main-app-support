@@ -47,7 +47,7 @@ public class ResourceRepository {
 
     /**
      * 定位资源。
-     * 
+     *
      * @param selection
      *     资源仓库选择。
      * @return 资源。

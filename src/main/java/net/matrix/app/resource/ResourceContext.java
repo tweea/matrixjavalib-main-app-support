@@ -27,7 +27,7 @@ public class ResourceContext {
 
     /**
      * 构造器。
-     * 
+     *
      * @param repository
      *     资源仓库。
      * @param contextConfig
@@ -63,7 +63,7 @@ public class ResourceContext {
 
     /**
      * 定位资源。
-     * 
+     *
      * @param catalog
      *     类别。
      * @return 资源。
@@ -80,7 +80,7 @@ public class ResourceContext {
 
     /**
      * 定位资源。
-     * 
+     *
      * @param catalog
      *     类别。
      * @param name
@@ -99,7 +99,7 @@ public class ResourceContext {
 
     /**
      * 定位资源。
-     * 
+     *
      * @param selection
      *     资源仓库选择。
      * @return 资源。

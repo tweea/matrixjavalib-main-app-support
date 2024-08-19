@@ -30,7 +30,7 @@ public class ResourceSelectionSet {
 
     /**
      * 增加一个资源仓库选择。
-     * 
+     *
      * @param selection
      *     资源仓库选择。
      */
@@ -40,7 +40,7 @@ public class ResourceSelectionSet {
 
     /**
      * 判断是否已包含指定资源仓库选择。
-     * 
+     *
      * @param selection
      *     资源仓库选择。
      * @return 是否已包含指定资源仓库选择。
@@ -51,7 +51,7 @@ public class ResourceSelectionSet {
 
     /**
      * 移除指定资源仓库选择。
-     * 
+     *
      * @param selection
      *     资源仓库选择。
      * @return 是否已包含指定资源仓库选择。
@@ -62,7 +62,7 @@ public class ResourceSelectionSet {
 
     /**
      * 获取所有资源仓库选择的类别集合。
-     * 
+     *
      * @return 类别集合。
      */
     @Nonnull
@@ -72,7 +72,7 @@ public class ResourceSelectionSet {
 
     /**
      * 获取特定类别的资源仓库选择的名称集合。
-     * 
+     *
      * @param catalog
      *     类别。
      * @return 名称集合。
@@ -90,7 +90,7 @@ public class ResourceSelectionSet {
 
     /**
      * 选择指定类别的默认名称资源。
-     * 
+     *
      * @param catalog
      *     类别。
      * @return 资源仓库选择集合。
@@ -102,7 +102,7 @@ public class ResourceSelectionSet {
 
     /**
      * 选择指定类别的指定名称资源。
-     * 
+     *
      * @param catalog
      *     类别。
      * @param name
@@ -122,7 +122,7 @@ public class ResourceSelectionSet {
 
     /**
      * 检查本集合与另一集合包含资源仓库选择的差异。
-     * 
+     *
      * @param target
      *     另一集合。
      * @return 差异集合。

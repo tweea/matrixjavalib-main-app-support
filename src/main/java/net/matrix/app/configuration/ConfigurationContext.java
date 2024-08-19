@@ -49,7 +49,7 @@ public final class ConfigurationContext
 
     /**
      * 构造器。
-     * 
+     *
      * @param repository
      *     资源仓库。
      * @param contextConfig
@@ -62,7 +62,7 @@ public final class ConfigurationContext
 
     /**
      * 从资源仓库的指定位置加载。
-     * 
+     *
      * @param repository
      *     资源仓库。
      * @param selection
@@ -96,7 +96,7 @@ public final class ConfigurationContext
 
     /**
      * 定位配置资源。
-     * 
+     *
      * @param selection
      *     资源仓库选择。
      * @return 配置资源。
@@ -115,7 +115,7 @@ public final class ConfigurationContext
 
     /**
      * 加载配置资源。
-     * 
+     *
      * @param type
      *     配置对象类型。
      * @param selection

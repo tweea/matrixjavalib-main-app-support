@@ -40,7 +40,7 @@ public class RelativeResourceRootRegister {
 
     /**
      * 注册根资源到根路径名。
-     * 
+     *
      * @param name
      *     根路径名。
      * @param root
@@ -52,7 +52,7 @@ public class RelativeResourceRootRegister {
 
     /**
      * 获取已注册的根资源。
-     * 
+     *
      * @param name
      *     根路径名。
      * @return 根资源。
@@ -64,7 +64,7 @@ public class RelativeResourceRootRegister {
 
     /**
      * 获取相对定位资源对应的实际资源。
-     * 
+     *
      * @param relativeResource
      *     相对定位资源。
      * @return 实际资源。

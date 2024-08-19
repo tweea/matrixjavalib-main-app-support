@@ -55,7 +55,7 @@ public enum CodedMessageLevel {
 
     /**
      * 编码转换为枚举值。
-     * 
+     *
      * @param code
      *     编码。
      * @return 枚举值。

@@ -38,7 +38,7 @@ public class ResourceSelection {
 
     /**
      * 构造器。如果未提供名称，则根据类别生成默认的名称。
-     * 
+     *
      * @param catalog
      *     类别。
      * @param version
@@ -58,7 +58,7 @@ public class ResourceSelection {
 
     /**
      * 根据类别生成默认的名称。
-     * 
+     *
      * @param catalog
      *     类别。
      * @return 名称。

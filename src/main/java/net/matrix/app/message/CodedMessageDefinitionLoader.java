@@ -55,7 +55,7 @@ public final class CodedMessageDefinitionLoader {
 
     /**
      * 加载所有名称符合特定匹配模式的配置文件。
-     * 
+     *
      * @param resourcePatternResolver
      *     资源扫描器。
      * @param locationPattern
@@ -87,7 +87,7 @@ public final class CodedMessageDefinitionLoader {
 
     /**
      * 加载配置文件。
-     * 
+     *
      * @param locale
      *     区域。
      * @param resource

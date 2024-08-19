@@ -50,7 +50,7 @@ public final class CodedMessageMx {
 
     /**
      * 创建跟踪级别的消息。
-     * 
+     *
      * @param code
      *     编码。
      * @param arguments
@@ -64,7 +64,7 @@ public final class CodedMessageMx {
 
     /**
      * 创建调试级别的消息。
-     * 
+     *
      * @param code
      *     编码。
      * @param arguments
@@ -78,7 +78,7 @@ public final class CodedMessageMx {
 
     /**
      * 创建信息级别的消息。
-     * 
+     *
      * @param code
      *     编码。
      * @param arguments
@@ -92,7 +92,7 @@ public final class CodedMessageMx {
 
     /**
      * 创建警告级别的消息。
-     * 
+     *
      * @param code
      *     编码。
      * @param arguments
@@ -106,7 +106,7 @@ public final class CodedMessageMx {
 
     /**
      * 创建错误级别的消息。
-     * 
+     *
      * @param code
      *     编码。
      * @param arguments
@@ -120,7 +120,7 @@ public final class CodedMessageMx {
 
     /**
      * 创建致命错误级别的消息。
-     * 
+     *
      * @param code
      *     编码。
      * @param arguments
@@ -134,7 +134,7 @@ public final class CodedMessageMx {
 
     /**
      * 从文件加载消息。
-     * 
+     *
      * @param reader
      *     输入流。
      * @return 消息列表。
@@ -150,7 +150,7 @@ public final class CodedMessageMx {
 
     /**
      * 从文件加载消息。
-     * 
+     *
      * @param reader
      *     输入流。
      * @return 消息列表。
@@ -222,7 +222,7 @@ public final class CodedMessageMx {
 
     /**
      * 保存消息到文件。
-     * 
+     *
      * @param messageList
      *     消息列表。
      * @param writer
@@ -238,7 +238,7 @@ public final class CodedMessageMx {
 
     /**
      * 保存消息到文件。
-     * 
+     *
      * @param messageList
      *     消息列表。
      * @param writer

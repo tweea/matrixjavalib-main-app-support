@@ -29,7 +29,7 @@ public final class GlobalSystemContext {
 
     /**
      * 获取系统环境的全局实例，使用缺省的唯一标识，如果不存在则建立默认的系统环境实例。
-     * 
+     *
      * @return 系统环境的全局实例。
      */
     @Nonnull
@@ -51,7 +51,7 @@ public final class GlobalSystemContext {
 
     /**
      * 设置系统环境的全局实例，使用缺省的唯一标识。
-     * 
+     *
      * @param context
      *     系统环境。
      */
@@ -61,7 +61,7 @@ public final class GlobalSystemContext {
 
     /**
      * 设置系统环境的全局实例，使用指定的唯一标识。
-     * 
+     *
      * @param id
      *     唯一标识。
      * @param context
