@@ -4,6 +4,7 @@
  */
 package net.matrix.app.resource;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
@@ -17,7 +18,10 @@ import org.apache.commons.lang3.StringUtils;
  * 资源仓库选择，指向资源仓库中的一项资源。
  */
 @Immutable
-public class ResourceSelection {
+public class ResourceSelection
+    implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * 类别。
      */

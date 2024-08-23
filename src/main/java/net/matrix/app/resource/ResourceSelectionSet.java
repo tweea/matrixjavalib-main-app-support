@@ -4,6 +4,7 @@
  */
 package net.matrix.app.resource;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,10 @@ import net.matrix.java.util.CollectionMx;
 /**
  * 资源仓库选择集合。
  */
-public class ResourceSelectionSet {
+public class ResourceSelectionSet
+    implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * 内部选择集合。
      */
