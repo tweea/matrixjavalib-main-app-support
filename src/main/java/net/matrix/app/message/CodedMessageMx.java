@@ -180,7 +180,7 @@ public final class CodedMessageMx {
         List<CodedMessage> messageList = new ArrayList<>();
 
         NodeList childNodeList = node.getChildNodes();
-        for (int i = 0; i < childNodeList.getLength(); i++) {
+        for (int i = 0, length = childNodeList.getLength(); i < length; ++i) {
             Node childNode = childNodeList.item(i);
 
             if (childNode.getNodeType() != Node.ELEMENT_NODE) {
@@ -202,7 +202,7 @@ public final class CodedMessageMx {
         CodedMessageLevel level = CodedMessageLevel.forCode(Integer.valueOf(nodeAttributes.getNamedItem("level").getNodeValue()));
         CodedMessage message = new CodedMessage(code, time, level);
         NodeList childNodeList = node.getChildNodes();
-        for (int i = 0; i < childNodeList.getLength(); i++) {
+        for (int i = 0, length = childNodeList.getLength(); i < length; ++i) {
             Node childNode = childNodeList.item(i);
 
             if (childNode.getNodeType() != Node.ELEMENT_NODE) {

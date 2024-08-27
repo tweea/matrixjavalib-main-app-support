@@ -110,11 +110,7 @@ public class ResourceContext {
         String version = selection.getVersion();
         String name = selection.getName();
         if (version == null) {
-            if (name == null) {
-                return getResource(catalog);
-            } else {
-                return getResource(catalog, name);
-            }
+            return getResource(catalog, name);
         } else {
             return repository.getResource(selection);
         }

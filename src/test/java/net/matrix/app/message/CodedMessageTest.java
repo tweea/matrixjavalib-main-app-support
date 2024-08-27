@@ -22,7 +22,7 @@ class CodedMessageTest {
     void testNew() {
         CodedMessage message = new CodedMessage("Message.Test1", CodedMessageLevel.INFO);
         assertThat(message.getCode()).isEqualTo("Message.Test1");
-        assertThat(message.getTime()).isGreaterThan(0);
+        assertThat(message.getTime()).isPositive();
         assertThat(message.getLevel()).isEqualTo(CodedMessageLevel.INFO);
         assertThat(message.getArguments()).isEmpty();
         assertThat(message.getUnformattedArguments()).isEmpty();

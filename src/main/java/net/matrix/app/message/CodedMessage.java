@@ -233,7 +233,7 @@ public class CodedMessage
      * 将消息和依附的消息列表格式化为字符串形式。
      */
     private void formatAll(StringBuilder sb, int depth) {
-        for (int i = 0; i < depth; i++) {
+        for (int i = 0; i < depth; ++i) {
             sb.append('\t');
         }
         format(sb);
