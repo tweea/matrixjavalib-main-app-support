@@ -83,7 +83,7 @@ class ResourceSelectionSetTest {
         set2.add(new ResourceSelection("test/orz", "1", "bar.xml"));
         set2.add(new ResourceSelection("test/virtual", "2", "foo.xml"));
 
-        Set<ResourceSelection> updateInfoList = set1.checkDiff(set2);
-        assertThat(updateInfoList).hasSize(5);
+        Set<ResourceSelection> updateInfoSet = set1.checkDiff(set2);
+        assertThat(updateInfoSet).hasSize(5);
     }
 }

@@ -55,7 +55,7 @@ class ResourceContextConfigTest {
 
     @Test
     void testCheckDiff() {
-        Set<ResourceSelection> updateInfoList = set1.checkDiff(set2);
-        assertThat(updateInfoList).hasSize(5);
+        Set<ResourceSelection> updateInfoSet = set1.checkDiff(set2);
+        assertThat(updateInfoSet).hasSize(5);
     }
 }
