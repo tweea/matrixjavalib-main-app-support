@@ -109,8 +109,7 @@ public class SystemException
      *     原因异常。
      */
     private void initCauseMessage(Throwable cause) {
-        if (cause instanceof CodedException) {
-            CodedException ce = (CodedException) cause;
+        if (cause instanceof CodedException ce) {
             this.message.addMessage(ce.getCodedMessage());
         } else if (cause != null) {
             this.message.addUnformattedArgument(cause.getMessage());
