@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- 基本属性 - 项目属性 -->
-    <artifactId>mxlib-app-support</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <artifactId>mxlib-app-support-java11</artifactId>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <!-- 基本属性 - 属性 -->
@@ -19,8 +19,8 @@
         <!-- compile -->
         <dependency>
             <groupId>net.sf.matrixjavalib</groupId>
-            <artifactId>mxlib-common</artifactId>
-            <version>3.0.0</version>
+            <artifactId>mxlib-common-java11</artifactId>
+            <version>3.0.2</version>
             <scope>compile</scope>
         </dependency>
         <!-- provided -->
